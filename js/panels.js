@@ -1,9 +1,24 @@
 $(document).ready(
     function() {
         $("#control1").click(function() {
-            $("#panel1").fadeIn();
+            $("#main").fadeIn();
 			$("#panel2").fadeOut();
-			$("#panel3").fadeOut();
-			$("#panel4").fadeOut();		
+			$("#panel3").fadeOut();	
+    });
+});
+$(document).ready(
+    function() {
+        $("#control2").click(function() {
+            $("#main").fadeOut();
+			$("#panel2").fadeIn();
+			$("#panel3").fadeOut();	
+    });
+});
+$(document).ready(
+    function() {
+        $("#control3").click(function() {
+            $("#main").fadeOut();
+			$("#panel2").fadeOut();
+			$("#panel3").fadeIn();	
     });
 });
