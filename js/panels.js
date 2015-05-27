@@ -1,5 +1,21 @@
 $(document).ready(
     function() {
+        $("#close").click(function() {
+           $("#sidepanel").fadeOut();
+            $("#open").fadeIn();
+            $("#close").fadeOut();
+    });
+});
+$(document).ready(
+    function() {
+        $("#open").click(function() {
+            $("#sidepanel").fadeIn();
+            $("#close").fadeIn();
+            $("#open").fadeOut();
+    });
+});
+$(document).ready(
+    function() {
         $("#control1").click(function() {
             $("#main").fadeIn();
 			$("#panel2").fadeOut();
