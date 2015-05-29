@@ -12,6 +12,7 @@ a {text-decoration: none; }
 	width: 90%;
 	height: 70%;
 	padding-right: 15px;
+	overflow:auto;
 	
 }
 #social{
