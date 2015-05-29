@@ -1,4 +1,7 @@
-
+#title{
+	text-align: center; 
+	font: 35px verdana, sans-serif;
+}
 a {text-decoration: none; }
 #main{
 	text-align: center; 
@@ -16,13 +19,15 @@ a {text-decoration: none; }
 	
 }
 #social{
-width: 200px;
-margin-right: auto;
-margin-left: auto;
+	width: 200px;
+	position: fixed;
+	top: 95%;
+	left: 50%;
+	transform: translate(-50%, -50%);
 }
 .media{
-height: 32px;
-width: 32px;
-padding: 10px; 
+	height: 32px;
+	width: 32px;
+	padding: 10px; 
 }
 
