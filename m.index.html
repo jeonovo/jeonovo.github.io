@@ -3,22 +3,43 @@
 	<title>Jonny Bland</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 	<SCRIPT language="javascript" type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></SCRIPT>
+	<!-- Include jQuery Mobile stylesheets -->
+
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+	<!-- Include the jQuery library -->
+	<script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+
+	<!-- Include the jQuery Mobile library -->
+	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 	<script type="text/javascript" src="js/panels.js"></script>
 	<link rel='stylesheet'  href='css/m.style.css'>
 </head>
 
 <body>
-<div id="title"> Jonny Bland </div>
-<div id="main"> 
-				Hello, my name is Jonny and I like maps 
-				<p>
-				Mobile site
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit. In bibendum ipsum nisi, sit amet tempor diam tristique ut. Nunc ac suscipit erat. Quisque eu suscipit orci, eget tempor massa. Aenean fringilla nunc libero, vitae facilisis dui rhoncus eu. Donec sed turpis sit amet erat accumsan posuere in in arcu. Proin cursus magna magna, et faucibus metus consectetur sit amet. Nulla tempus vehicula libero a lobortis. Praesent et est vitae felis dapibus placerat et a elit. Integer ac venenatis lacus. Nullam auctor nisi vehicula dolor efficitur, quis mattis nunc condimentum.
-</div>
-<div id="social">
-	<a href="https://github.com/jeonovo/"><img class= "media" src = 'icons/github.png'>
-	<a href="https://twitter.com/jjblnd"><img class= "media" src = 'icons/twitter.png'>
-	<a href="https://www.linkedin.com/in/jonnybland"><img class= "media" src = 'icons/li.png'>
-</div>
+<div data-role="page" id="pageone">
 
+  <div data-role="panel" id="myPanel"  data-display="reveal"> 
+    <h2>Peek-a-boo</h2>
+    <p>Stuff goes here</p>
+  </div> 
+
+  <div data-role="header">
+    <h1>Jonny Bland</h1>
+  </div>
+
+  <div data-role="main" class="ui-content">
+  <div id="text">
+    <p>Hello, my name is Jonny and I like maps</p>
+		</div>
+	<div id="openPanel">	
+	<a href="#myPanel"><img src="icons/opened.png"><p>
+</div>
+	<div id="social">
+		<a href="https://github.com/jeonovo/"><img class= "media" src = 'icons/github.png'>
+		<a href="https://twitter.com/jjblnd"><img class= "media" src = 'icons/twitter.png'>
+		<a href="https://www.linkedin.com/in/jonnybland"><img class= "media" src = 'icons/li.png'>
+	</div>
+  </div>
+
+</div> 
 </body>

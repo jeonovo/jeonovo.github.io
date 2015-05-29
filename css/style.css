@@ -11,13 +11,13 @@ a {text-decoration: none; }
 	transform: translate(-50%, -50%);
 }
 .media{
-height: 32px;
-width: 32px;
-padding: 15px; 
+	height: 32px;
+	width: 32px;
+	padding: 15px; 
 }
 #social{
 	position: fixed;
-	top: 60%;
+	bottom: 10%;
 	left: 50%;
 	transform: translate(-50%, -50%);
 }
@@ -30,34 +30,37 @@ padding: 15px;
 	cursor: pointer;
 }
 #close{
-display: none;
+	display: none;
 }
 #sidepanel{
-
 	display: none; 
 	width: 200px;
 	background-color: black; 
-	
 }
 #controls{
 	top: 60px; 
 	text-align: center;
 	position: fixed;
+	
+}
+.controls{
+	width: 100px;
+	height: 100px;
+	border-radius: 50px;
+	line-height: 100px;
+	font: 48px verdana, sans-serif;
+	background-color: rgba(0,0,0,0.9); 
+	color: white;
+	text-align: center;
 	cursor: pointer;
 }
-
-.controls{
-	padding-top:10px;
-	padding-bottom: 10px;
-	font: 25px verdana, sans-serif;
-	width: 100px;
-	background-color: black; 
-	color: white;
-	border-radius: 25px;
-	border-color: white;
-	border-style: solid;
-	border-width: 2px;
+#control2{
+background-color: rgba(0,0,0,0.8); 
 }
+#control3{
+background-color: rgba(0,0,0,0.7); 
+}
+
 
 #panel2, #panel3{
 	display: none; 
