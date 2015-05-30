@@ -32,9 +32,15 @@ a {text-decoration: none; }
 	padding: 10px; 
 }
 #myPanel{
-	background-color:pink;
+	background-color:white;
 }
-#openPanel{
-	position:absolute;
-	top:-10px;
+
+#arrow, #reverse{
+	width: 32px;
+	height: 32px;
+	position: absolute;
+	top: 6px;
+}
+#reverse{
+display: none;
 }

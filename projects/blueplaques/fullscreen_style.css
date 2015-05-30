@@ -1,0 +1,37 @@
+#topbar{
+		background-color: #6398d4;
+		color: #032149;
+		text-align: center;
+}
+
+/* Change all buttons styles  */ 
+input[type="button"], select[id="select"], select[id="route"] {
+	color: #032149;
+	border: #6F8197;
+	border-style: solid;
+	border-width: 2px;
+	border-radius: 5px;
+}
+/* Controlling the google map area style */ 
+
+html, body, #map_canvas{
+    height: 100%;
+    width: 100%;
+	padding: 0;
+	margin: 0;
+}
+
+.infowindow {  /* this controls the title in the info boxes in the google maps */ 
+	color: rgb(100,135,255);
+	font-family: Futura, sans-serif;
+	font-size: 14px;
+	text-align: left;
+}
+
+.infowindow p {/* this controls the text in the info boxes in the google maps */ 
+	color: black;
+	font-family: Futura, sans-serif;
+	font-size: 12px;
+	text-align: left;
+}
+

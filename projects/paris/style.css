@@ -1,0 +1,172 @@
+html{
+	background-color: #FFF5FB; /*pink*/
+}
+
+a{
+text-decoration: none; 
+}
+
+#title {
+	margin-top: -20px; 
+	font-size: 30px;
+	color: black; 
+	text-align: center; 
+	font-family: 'Parisienne', cursive;
+}
+
+#info{
+	margin-top: -30px; 
+}
+
+h2{
+	letter-spacing: 3px;
+	font-family: 'Parisienne', cursive;
+}
+
+#text, #info {
+	font-family: 'Ubuntu', sans-serif;
+	text-align: justify; 
+	padding: 5px; 
+	width: 60%;  
+	font-size: 1.2em; 
+	line-height: 30px; 
+	margin-left: auto;
+	margin-right: auto;
+	text-decoration: none; 
+}
+
+#mapContainer{
+	height: 510px;
+	padding-bottom: 5px; 
+	width: 100%; 
+	text-align: center; 
+	position: relative;
+	overflow:hidden; /*if brower resized too small the images will be hidden*/
+}
+
+#map {
+	height: 500px;
+	width: 60%; 
+	padding-bottom: 5px; 
+    display: inline-block;
+	border-color: #eee #ddd #bbb;
+	border-radius: 5px;
+	border-style: solid;
+	border-width: 1px;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.images{
+	position: relative;
+    display: inline-block;
+	height: 500px;
+	width: 200px;
+	overflow:scroll; /* Scrollbars look good on mac, not so much on windows */ 
+	overflow-x:hidden; /* turn off horizontal scrollbar*/ 
+}
+
+.images img{
+    width:160px;
+	height:120px; 	
+	border-color: #eee #ddd #bbb;
+	border-radius: 5px;
+	border-style: solid;
+	border-width: 1px;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+.icon-small {
+	color:white;
+	border-radius: 15px;
+	background-color: rgba(0,51,102, 0.8); /* blue */ 
+}
+
+.icon-medium {
+	color:rgb(0,51,102);
+	border-radius: 15px;
+	background-color: rgba(255, 255, 255, 0.8); /* white */ 
+}
+
+.icon-large {
+	color:white;
+	background-color: rgba(172,56,62, 0.8); /* red */ 
+	border-radius: 15px;
+}
+
+.circle{
+	font-size: 16px;
+	font-family: 'Parisienne', cursive;
+	line-height: 30px;
+	width: 30px;
+	height: 30px;
+	margin-left: 5px;
+	margin-top: 5px;
+	text-align: center;
+	font-weight: bold;
+}
+
+/* name of the map marker */
+#name{
+	text-align: center;
+	font-size: 18px;
+}
+
+.popup{
+	font-family: 'Ubuntu', sans-serif;
+	text-align: left;
+	font-size: 14px;
+	color: black;
+}
+
+ .leaflet-popup-content-wrapper, .leaflet-popup-tip {
+    background: rgba(245,255,255,0.9);
+    box-shadow: 0 3px 14px rgba(0,0,0,0.4);
+}
+
+#mapFunctions{
+	text-align: center;
+	padding-bottom: 5px; 
+}
+
+ label, select {
+	font-size: 1.1em;
+	font-family: 'Ubuntu', sans-serif;
+}
+
+label{
+padding-right: 15px; 
+padding-left: 15px; 
+}
+
+select {
+	background-color: rgb(255,255,255,0.85);
+	border: rgba(172,56,62, 0.4);
+	border-style: solid;
+	border-width: 2px;
+	border-radius: 5px;
+}
+
+#reseticon{
+	padding-left: 10px; 
+}
+
+#end {
+	padding-top: 5px;
+	padding-bottom: 5px;
+	font-size: 2em;
+	color: black; 
+	text-align: center; 
+	font-family: 'Parisienne', cursive;
+	font-weight: bold;
+	margin-left: auto;
+	margin-right: auto;	
+}
+
+#ref{
+	width: 60%;
+	font-size: 1em;
+	font-family: 'Ubuntu', sans-serif;
+	margin-left: auto;
+	margin-right: auto;	
+	text-align: left;
+}

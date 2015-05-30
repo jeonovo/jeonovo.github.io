@@ -38,3 +38,18 @@ $(document).ready(
 			$("#panel3").fadeIn();	
     });
 });
+$(document).ready(
+    function() {
+        $("#arrow").click(function() {
+            $("#arrow").fadeOut();	
+			$("#reverse").fadeIn();	
+    });
+});
+$(document).ready(
+    function() {
+        $("#myPanel").click(function() {
+            $("#arrow").fadeIn();	
+			$("#reverse").fadeOut();	
+    });
+});
+

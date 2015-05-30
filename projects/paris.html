@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<head>
+	<!-- Site tested on Chrome Version 41.0.2272.118 m, Safari v 8.0.4,  FireFox v 36.0.4 and IE v 10: Site is functional on all --> 
+	<title> Paris </title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<SCRIPT language="javascript" type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></SCRIPT>
+	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+	<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+	
+	<script type='text/javascript' src='paris/map.js'></script> 
+	<script type='text/javascript' src='paris/paris_arrons.js'></script> 
+	<script type='text/javascript' src='paris/data.js'></script> 
+	<!-- Leaver (2013) Marker Cluster downloaded from https://github.com/Leaflet/Leaflet.markercluster -->
+	<link rel="stylesheet" href="paris/markercluster/MarkerCluster.css" />
+	<script src = "paris/markercluster/leaflet.markercluster-src.js"></script>
+	
+	<link rel='stylesheet'  href='paris/style.css'>
+	
+	<!-- Font from http://www.google.com/fonts -->
+	<link href='http://fonts.googleapis.com/css?family=Parisienne' rel='stylesheet' type='text/css'>
+	<!-- Font from http://www.google.com/fonts -->
+	<link href='http://fonts.googleapis.com/css?family=Ubuntu:300,400' rel='stylesheet' type='text/css'>
+	<link rel="shortcut icon" href="paris/icons/coffee.ico"/>
+</head>
+<body onload = "fetchData()">
+
+	<div id = "title">
+		<h1> Paris, Coffee & Wifi </h1>  
+	
+	</div>
+	<div id = "info"> 
+	<p>
+	This is a map of cafés offering espressos for €1 and WiFi hotspots. 
+	
+	The hotspots are places where free Wifi is available for two hours.
+
+	You can click on the clusters to zoom into the map and browse the locations. 
+
+	The checkboxes allow you to control what is displayed. 
+
+	See what is nearby famous tourist attractions by clicking the respective images. 
+
+	You can also search by arrondissement, which will show just what is in that area. 
+
+	Grab a coffee and get online!
+	
+	</p>
+</div>
+
+<div id="mapContainer">
+	<!--  The map  -->
+  	<div id="map"></div>
+ 	<div class="images">
+	<!-- All images, unless stated otherwise are from http://pixabay.com/ under the License: CC0 Public Domain -->
+		<!-- Eiffel Tower image taken by Jonny Bland, 2014-->
+	 	<img src="paris/images/eiffel.png" alt="Tour Eiffel" title="Tour Eiffel" id="attractions" onclick="searchAttraction(alt)">
+ 		<img src="paris/images/arc.png" alt="Arc de Triomphe de l'Etoile"  title="Arc de Triomphe de l'Etoile" id="attractions" onclick="searchAttraction(alt)">
+ 	   	<img src="paris/images/notre_dame.png" alt="Notre Dame" title="Notre Dame"id="attractions" onclick="searchAttraction(alt)">
+		<img src="paris/images/sacre_coeur.png" alt="Sacre-Coeur" title="Sacre-oeur" id="attractions" onclick="searchAttraction(alt)">
+ 	   	<img src="paris/images/pompidou.png" alt="Centre Pompidou" title="Centre Pompidou" id="attractions" onclick="searchAttraction(alt)">
+		<!-- Catacombes image taken by Andy Delcambre, 2010 --> 
+		<img src="paris/images/catacombes.png" alt="Catacombes de Paris" title="Catacombes de Paris" id="attractions" onclick="searchAttraction(alt)">
+		<img src="paris/images/dorsay2.png" alt="Musee d'Orsay" title="Musee d'Orsay" id="attractions" onclick="searchAttraction(alt)">
+		<img src="paris/images/opera.png" alt="Palais Garnier" title="Palais Garnier" id="attractions" onclick="searchAttraction(alt)">
+		<img src="paris/images/luxembourg.png" alt="Jardin du Luxembourg" title="Jardin du Luxembourg" id="attractions" onclick="searchAttraction(alt)">
+		<img src="paris/images/louvres.png" alt="Musee du Louvre" title="Musee du Louvre" id="attractions" onclick="searchAttraction(alt)">
+	</div>
+</div>
+
+ <!-- map functions -->
+<div id="mapFunctions">
+   <select id="select" onChange="dropdownChoice()"><option value = "" >Select an Arrondissement</option></select>
+   <label><input name="café" id="Cafe" type="checkbox" checked="checked" onClick="checkboxCheck(id)"><img src="paris/icons/coffee1.png" alt="café icon" title="café"></label>
+   <label><input name="WiFi" id="Wifi" type="checkbox" checked="checked" onClick="checkboxCheck(id)"><img src="paris/icons/wireless-32.png" alt="wifi icon" title="Wifi"></label>
+   <label><input name="Layer" id="Layer" type="checkbox" onClick="layerCheckBox(id)"> <img src="paris/icons/layer.png" alt="layer icon" title="Layer"></img></label>
+   <img id = "reseticon" src="paris/icons/reset.png" alt="reset map icon" title="Reset Map" onclick="resetMap()"></img>
+	
+  </div> 
+
+  <div id="text"> 
+  <h2>L'histoire...</h2>
+  It all started with this tweet...
+<!-- Code produced from Twitter.com -->
+<blockquote class="twitter-tweet tw-align-center" data-cards="hidden" lang="en">
+	<p>Aidez-nous à trouver tous les <a href="https://twitter.com/hashtag/caf%C3%A9s?src=hash">#cafés</a> 
+	parisiens où on peut boire un expresso pour 1€ ou moins, nous en ferons un article 
+	<a href="http://t.co/lDZXaIaH">http://t.co/lDZXaIaH</a></p>&mdash; Paris (@Paris) 
+	<a href="https://twitter.com/Paris/status/210020831449985026">June 5, 2012</a></blockquote>
+	<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+  
+	<i>	"Help us find all the Parisian #cafés where you can drink an 
+		espresso for €1 or less, we will do an article." </i>
+	
+ 
+	<p>
+	The locations of coffee for €1 was completely crowd-sourced and you can suggest cafés using the form linked to in the tweet. 
+	</p>
+	The article referenced within the tweet can be found 
+	<a href="http://www.paris.fr/accueil/paris-mag/ou-boire-un-café-pour-1-a-paris/rub_9683_actu_116311_port_23863">here</a>.
+
+	There is an <a href="https://itunes.apple.com/us/app/café-a-1-euro/id572918505?mt=8">app</a> available to download so you can find €1 coffee on the go. 
+	<p>
+	The data for this website was acquired from <a href="http://opendata.paris.fr/explore/ ">ParisData</a>, the site of the Open Data policy of the City of Paris. 
+	
+	There you will find data sets published by the services of the City under a free license.
+	</p>
+	
+	A ShapeFile of the Paris Arrondissements downloaded from  
+  
+	<a href="http://opendata.arcgis.com/datasets/cdc8415f32b348298050c93999a41478_0">ESRI Open Data</a> 
+	
+	under the Open Database Licence was converted into geoJSON and is available to download 
+  
+	<a href="https://drive.google.com/file/d/0BwVeJZOBno4KR1ZUX1VlSDE4ZHc/view?usp=sharing">here</a>. 
+  
+	Data used to create this site can downloaded from 
+  
+	<a href="https://docs.google.com/spreadsheets/d/1vQiXouGLQVcVKHkx5BmINc0x6ni1PUBY_tSbcx96d1s/edit?usp=sharing">here</a>
+ </div>
+ 
+ <div id="end"> la belle vie à Paris </div>
+  
+ <div id="ref"> 
+  <p>
+	<i>Catacombes Image from Andy Delcambre, 2010 from <a href="https://www.flickr.com/photos/adelcambre/5048867925/in/photostream/">flickr</a> used under the Creative Commons Licence 2.0. 
+  <br>
+	Icons from <a href="http://www.visualpharm.com/">visualpharm.com</a> & <a href="http://www.iconsdb.com/">iconsdb.com</a>. 
+  </i>
+  </p>
+  </div>
+</body>

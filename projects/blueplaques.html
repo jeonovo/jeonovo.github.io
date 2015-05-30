@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Leeds: Blue Plaques</title>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places,drawing,geometry"></script>
+<!-- Marker Clusterer author Luke Mahe (2014),  developed by Google Inc. Marker Clusterer used in accordance with the Apache License  v2.0. Downloaded from https://github.com/googlemaps/js-marker-clusterer -->
+<script type='text/javascript' src='blueplaques\js-marker-clusterer-gh-pages\src\markerclusterer.js'></script>
+<!-- JSCoord v1.1.1 by Jonathan Stott (2006) made avaialable for use through the GNU General Public License (GPL). Code downloaded from http://www.jstott.me.uk/jscoord/ -->
+<script type='text/javascript' src='blueplaques/jscoord-1.1.1/jscoord-1.1.1.js'></script>
+<script type='text/javascript' src='blueplaques/BluePlaquesLocations.js'></script>
+<script type='text/javascript' src='blueplaques/plaquemapsetup.js'></script>
+<link rel='stylesheet' media='all' href='blueplaques/bp_mainpage_style.css' type='text/css'></link>
+<link href='http://fonts.googleapis.com/css?family=Ubuntu:300,400' rel='stylesheet' type='text/css'>
+
+</head>
+<body onload='initialize()'>
+
+	<div id="header">
+		Leeds Blue Plaques
+		
+		<!-- Image adapted from Peter Hughes (2012). Downloaded from https://www.flickr.com/photos/sgwarnog/8247324287/ -->
+		<img src = 'blueplaques/images/plaque_smaller.png'></img>
+		
+		<div id="twitter">
+		
+			<!--Twitter share button code available from https://about.twitter.com/resources/buttons -->
+			<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.personal.leeds.ac.uk/~gy13jjb/blueplaques.html" data-via="GeoJonnyB" data-hashtags="AnythingButBland">Tweet</a>
+			<script>!function(d,s,id)
+			{var js,fjs=d.getElementsByTagName(s)[0],
+			p=/^http:/.test(d.location)?'http':'https';
+			if(!d.getElementById(id)){js=d.createElement(s);
+			js.id=id;js.src=p+'://platform.twitter.com/widgets.js';
+			fjs.parentNode.insertBefore(js,fjs);}}
+			(document, 'script', 'twitter-wjs');
+			</script>
+			
+		</div>	
+		
+		<div id="facebook">
+		
+			<!-- Facebook share button code available from https://developers.facebook.com/docs/plugins/share-button  -->
+			<div id="fb-root"></div>
+			
+			<script>(function(d, s, id) {
+			var js, fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id)) return;
+			js = d.createElement(s); js.id = id;
+			js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&appId=651142711664001&version=v2.0";
+			fjs.parentNode.insertBefore(js, fjs);
+			}(document, 'script', 'facebook-jssdk'));</script>
+
+			<div class="fb-share-button" data-href="http://www.personal.leeds.ac.uk/~gy13jjb/blueplaques.html" data-layout="button_count"></div>
+		</div>
+	</div>
+
+	<div id = "subtitle"><h4>The Locations of Blue Plaques in Leeds</h4></div>
+		
+	<div class='gmap' id='map_canvas' ></div>
+		
+	<div id = "functions">
+
+		<select id='select' onChange='searchPlaque();'><option value = "">Select a Plaque</option></select>
+			
+		<input type='button' id='Location' onclick='getUserLocation();' value='Your Location' />
+		
+		<select id="route" onChange='calcRoute();'><option value = "">Route via</option></select>
+			
+		<a href="map_fullscreen.html"><input type='button' id='Fullscreen' onclick='map_fullscreen.html' value='View Fullscreen'/></a>
+
+	</div>
+		
+	<div id='info'>
+	<!-- Information from Leeds Civic Trust Website, accessed 9th March 2015 -->
+	<p> 
+	This map displays over 100 locations of Blue Plaques in and around Leeds. 
+	
+	You can search for a specific plaque using the drop down search menu. If you are in Leeds check out your location and you can get 
+	
+	a route to your chosen plaque. Clicking on a plaque location marker will bring up the information displayed on the plaque, if available.
+
+	The plaques are round, normally 18 inches in diameter, and made of cast aluminium. 	
+	</p>
+	
+	<p> 
+	
+	Leeds Civic Trust set up its Historic Plaques Scheme in 1987 to promote public awareness of the heritage of the city of Leeds.
+	
+	The Trust is a voluntary organisation and the scheme is financed by obtaining sponsorship for each plaque. 
+	
+	There are around 150 blue plaques erected by Leeds Civic Trust. 
+	
+	</p>
+	
+	They have more information about the plaques over on their <a href ="http://www.leedscivictrust.org.uk/?idno=1053" target="_blank">website</a>
+
+	and a full list of the blue plaques can be found <a href = "blueplaques\plaques\All blue plaques ever erected.pdf" target="_blank">here</a>.
+	
+	<p>
+	<!-- Link to Google Spreadsheet containing the data used to locate the blue plaques --> 
+	You can download the data used to create this map <a href ="https://docs.google.com/spreadsheets/d/1eceF8BbSP1dfNex-b-z6gtOqm3ITCjm8ADl_zkvNLSM/edit?usp=sharing" target="_blank">here</a>. 
+	</p>
+	
+	
+	</div>
+	
+</body>
+</html>

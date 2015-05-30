@@ -1,0 +1,109 @@
+/* Background for the page is a light blue/grey, text colour is a dark blue */
+html{
+background-color:#e2ecf0;
+color: #032149;
+}
+
+a { /* no decoration (underline) on all links */
+	text-decoration: none;
+}
+
+#header {
+	
+	background-color: #6398d4;
+	font-size: 42px; 
+    color:white;
+	font-family: 'Ubuntu', sans-serif;
+    text-align:center;
+    padding:5px;
+	margin-left: -10px;
+	margin-right: -10px;
+	margin: -10px; 
+	padding-bottom: 15px;
+	
+}
+
+#header img {
+	position: absolute;
+    top: 1px;
+    left: 5px;
+	height: 64px;
+	width: 64px;
+
+}
+
+#subtitle{
+	text-align: center; 
+	font-family: 'Ubuntu', sans-serif;
+	font-size: 18px;
+	padding-top: 15px;
+	padding-bottom: 5px;
+}
+
+#functions {
+	z-index: 10px; 
+	text-align: center; 
+	margin-left: auto;
+	margin-right: auto;
+	padding-top: 15px;
+	padding-bottom: 15px;
+}
+
+/* Change all buttons styles  */ 
+input[type="button"], select[id="select"], select[id="route"] {
+	color: #032149;
+	border: #6F8197;
+	border-style: solid;
+	border-width: 2px;
+	border-radius: 5px;
+}
+/* Information on blue plaques */ 
+#info{
+	font-family: 'Ubuntu', sans-serif;
+	font-size: 18px;
+	text-align: left;
+	width: 800px; 
+	margin-left: auto;
+	margin-right: auto;
+	line-height:30px;
+}
+
+#twitter{
+	position: absolute;
+    top: 20px;
+    right: -15px;
+} 
+
+#facebook{
+
+	position: absolute;
+    top: -10px;
+    right: 7px;
+} 
+
+.gmap { 
+	margin-left: auto;
+	margin-right: auto;
+	height: 500px; 
+	width: 1000px;
+	border: thin solid grey; 
+	float: center;  
+}
+
+ /* Controls the title in the info boxes in the Google maps */ 
+.infowindow { 
+	color: rgb(100,135,255);
+	font-family: 'Ubuntu', sans-serif;
+	font-size: 14px;
+	text-align: left;
+}
+
+/* Controls the text in the info boxes in the Google maps */ 
+.infowindow p {
+	color: black;
+	font-family: 'Ubuntu', sans-serif;
+	font-size: 12px;
+	text-align: left;
+}
+
+

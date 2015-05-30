@@ -38,14 +38,14 @@ a {text-decoration: none; }
 	background-color: black; 
 }
 #controls{
+	padding-left: 11px;
 	top: 60px; 
 	text-align: center;
 	position: fixed;
-	
 }
 .controls{
-	width: 100px;
-	height: 100px;
+	width: 75px;
+	height: 75px;
 	border-radius: 50px;
 	line-height: 100px;
 	font: 48px verdana, sans-serif;
