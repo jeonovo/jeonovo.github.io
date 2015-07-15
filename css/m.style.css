@@ -42,3 +42,14 @@ a {text-decoration: none; }
 	top: 6px;
 	right:10px;
 }
+
+#map_projects{
+	
+	display:none;
+}
+
+#maptext{
+	text-align: center; 
+	font: 35px verdana, sans-serif;
+	
+}

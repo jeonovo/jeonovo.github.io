@@ -11,7 +11,7 @@
 
 	<!-- Include the jQuery Mobile library -->
 	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-	<script type="text/javascript" src="js/panels.js"></script>
+	<script type="text/javascript" src="js/m.panels.js"></script>
 	<link rel='stylesheet'  href='css/m.style.css'>
 </head>
 
@@ -20,9 +20,9 @@
 
   <div data-role="panel" id="myPanel"  data-display="reveal" data-position="right"> 
     <h2>Contents</h2>
-    <p>About</p>
-    <p>Map Projects</p>
-    <p>Other</p>
+    <div id='about'><p>About</p></div>
+    <div id='projects'><p>Map Projects</p></div>
+    <div id='other'><p>Other</p></div>
   </div> 
 
   <div data-role="header">
@@ -30,17 +30,34 @@
   </div>
 
   <div data-role="main" class="ui-content">
-  <div id="text">
-    <p>Hello, my name is Jonny and I like maps</p>
-		</div>
-	<div id="openPanel">	
-	<a href="#myPanel"><img id="menu" src="icons/menu.png"><p>
-</div>
+	  	<div id="openPanel">	
+	  	<a href="#myPanel"><img id="menu" src="icons/menu.png"></a><p>
+	  </div>
+<div id='aboutme'>
+	  <div id="text">
+	    <p>Hello, my name is Jonny and I like maps</p>
+	  </div>
+
 	<div id="social">
-		<a href="https://github.com/jeonovo/"><img class= "media" src = 'icons/github.png'>
-		<a href="https://twitter.com/jjblnd"><img class= "media" src = 'icons/twitter.png'>
-		<a href="https://www.linkedin.com/in/jonnybland"><img class= "media" src = 'icons/li.png'>
+		<a href="https://github.com/jeonovo/"><img class= "media" src = 'icons/github.png'></a>
+		<a href="https://twitter.com/jjblnd"><img class= "media" src = 'icons/twitter.png'></a>
+		<a href="https://www.linkedin.com/in/jonnybland"><img class= "media" src = 'icons/li.png'></a>
 	</div>
+</div>
+	
+    <div id='map_projects'>
+  	  <div id = "maptext">
+  	<h1>Map Projects</h1> <br>
+
+  	<a href="projects/paris.html">Paris </a><br>
+
+  	<a href="projects/newcastle.html">Newcastle</a> <br>
+
+  	<a href="projects/blueplaques.html">Blue Plaques</a> <br>
+	  
+  </div>
+    </div>
+	
  </div>
 
 </div> 
