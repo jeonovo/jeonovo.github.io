@@ -35,12 +35,10 @@ a {text-decoration: none; }
 	background-color:white;
 }
 
-#arrow, #reverse{
+#menu {
 	width: 32px;
 	height: 32px;
 	position: absolute;
 	top: 6px;
-}
-#reverse{
-display: none;
+	right:10px;
 }
