@@ -19,7 +19,7 @@ function initialize() {
 	// layers from https://github.com/leaflet-extras/leaflet-providers
 	
 	var map = L.map('map', {
-		center: [53.4252237,-2.3204499],
+		center: [53.4252237,-2.0016499],
     zoom: 7,
 		layers: base,
 		maxZoom:18,
