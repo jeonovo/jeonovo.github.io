@@ -25,8 +25,8 @@ a {text-decoration: none; }
 	position: fixed;
     top: 5px;
     left: 25px;
-	height: 64px;
-	width: 64px;
+	height: 60px;
+	width: 60px;
 	cursor: pointer;
 }
 #close{
@@ -46,21 +46,13 @@ a {text-decoration: none; }
 .controls{
 	width: 75px;
 	height: 75px;
-	border-radius: 50px;
+	border-radius: 25px;
 	line-height: 100px;
-	font: 48px verdana, sans-serif;
-	background-color: rgba(0,0,0,0.9); 
-	color: white;
+	font: 40px verdana, sans-serif;
+	color:black;
 	text-align: center;
 	cursor: pointer;
 }
-#control2{
-background-color: rgba(0,0,0,0.8); 
-}
-#control3{
-background-color: rgba(0,0,0,0.7); 
-}
-
 
 #panel2, #panel3{
 	display: none; 
