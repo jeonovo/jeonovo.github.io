@@ -53,7 +53,7 @@ function initialize() {
           weight: 5,
           color: '#666',
           dashArray: '',
-          fillOpacity: 0.7
+          fillOpacity: 0.5
       });
 
       if (!L.Browser.ie && !L.Browser.opera) {
@@ -79,7 +79,6 @@ function initialize() {
       });
   }
   
-  
   var info = L.control();
 
   info.onAdd = function (map) {
@@ -97,18 +96,13 @@ function initialize() {
   };
 
   info.addTo(map);
-  
 
-  
-  
   geojson = L.geoJson(labour, {style: getStyle,  onEachFeature: onEachFeature}).addTo(map);
   
-
 	// Add the geoJSON layer to the map. 
 	map.addLayer(geojson);
 
   getCounts();
-  checkCounts();
   makeChart(); 
 
 }
@@ -120,7 +114,7 @@ function getCounts(){
   burnham = 0; 
   dnv = 0;
 
-    // Loop through the geoJson layer variable created from the paris_arrons geoJSON data. 
+    // Loop through the geoJson layer variable created from the geoJSON data. 
   for (id in geojson._layers){
 
     candidate = geojson._layers[id].feature.properties.nom
@@ -139,44 +133,36 @@ function getCounts(){
     }
   }
 }
-  function checkCounts(){
 
-      console.log("Corbyn: " + corbyn);
-      console.log("Kendall: " + kendall);
-      console.log("Cooper: " + cooper);
-      console.log("Burnham: " + burnham);
-      console.log(dnv + " did not nominate");
 
-  }
+function makeChart(){
 
-  function makeChart(){
+  var data = {
+      labels: ["Corbyn", "Cooper", "Kendall", "Burnham"],
+      datasets: [
+          {
+              label: "Labour Candidates",
+              // fillColor: "rgba(22,220,220,0.5)",
+              // strokeColor: "rgba(220,220,220,0.8)",
+              // highlightFill: "rgba(220,220,220,0.75)",
+              // highlightStroke: "rgba(220,220,220,1)",
+              data: [corbyn,cooper,kendall,burnham]
+          }
+      ]
+  };
 
-var data = {
-    labels: ["Corbyn", "Cooper", "Kendall", "Burnham"],
-    datasets: [
-        {
-            label: "Labour Candidates",
-            // fillColor: "rgba(22,220,220,0.5)",
-            // strokeColor: "rgba(220,220,220,0.8)",
-            // highlightFill: "rgba(220,220,220,0.75)",
-            // highlightStroke: "rgba(220,220,220,1)",
-            data: [36,58,41,68]
-        }
-    ]
-};
+  var ctx = document.getElementById("chart").getContext("2d");
 
-var ctx = document.getElementById("myChart").getContext("2d");
+  var myBarChart = new Chart(ctx).Bar(data);
 
-var myBarChart = new Chart(ctx).Bar(data);
+  myBarChart.datasets[0].bars[0].fillColor = "rgba(253,214,111,0.5)";
+  myBarChart.datasets[0].bars[1].fillColor = "rgba(51,160,44,0.5)";
+  myBarChart.datasets[0].bars[2].fillColor = "rgba(18,108,255,0.5)";
+  myBarChart.datasets[0].bars[3].fillColor = "rgba(231,54,29,0.5)";
+  myBarChart.datasets[0].bars[0].highlightFill = "rgba(253,214,111,1)";
+  myBarChart.datasets[0].bars[1].highlightFill = "rgba(51,160,44,1)";
+  myBarChart.datasets[0].bars[2].highlightFill = "rgba(18,108,255,1)";
+  myBarChart.datasets[0].bars[3].highlightFill = "rgba(231,54,29,1)";
+  myBarChart.update();
 
-myBarChart.datasets[0].bars[0].fillColor = "rgba(253,214,111,0.5)";
-myBarChart.datasets[0].bars[1].fillColor = "rgba(51,160,44,0.5)";
-myBarChart.datasets[0].bars[2].fillColor = "rgba(18,108,255,0.5)";
-myBarChart.datasets[0].bars[3].fillColor = "rgba(231,54,29,0.5)";
-myBarChart.datasets[0].bars[0].highlightFill = "rgba(253,214,111,1)";
-myBarChart.datasets[0].bars[1].highlightFill = "rgba(51,160,44,1)";
-myBarChart.datasets[0].bars[2].highlightFill = "rgba(18,108,255,1)";
-myBarChart.datasets[0].bars[3].highlightFill = "rgba(231,54,29,1)";
-myBarChart.update();
-
-  }
+}

@@ -6,9 +6,16 @@ a {text-decoration: none; }
 	text-align: center; 
 	font: 25px verdana, sans-serif;
 	position: fixed;
+	height: 100%;
+	width: 90%;
 	top: 50%;
 	left: 50%;
-	transform: translate(-50%, -50%);
+	color: rgba(0,0,0,1);
+	-webkit-transform:translate(-50%,-50%);
+	-moz-transform:translate(-50%,-50%);
+}
+#main{
+
 }
 .media{
 	height: 32px;
@@ -17,9 +24,10 @@ a {text-decoration: none; }
 }
 #social{
 	position: fixed;
-	bottom: 10%;
 	left: 50%;
-	transform: translate(-50%, -50%);
+	-webkit-transform:translate(-50%,50%);
+	-moz-transform:translate(-50%,50%);
+
 }
 #open, #close{
 	position: fixed;
@@ -28,6 +36,7 @@ a {text-decoration: none; }
 	height: 60px;
 	width: 60px;
 	cursor: pointer;
+	z-index: 1;
 }
 #close{
 	display: none;
@@ -42,6 +51,7 @@ a {text-decoration: none; }
 	top: 60px; 
 	text-align: center;
 	position: fixed;
+	z-index: 1;
 }
 .controls{
 	width: 75px;
@@ -52,8 +62,32 @@ a {text-decoration: none; }
 	color:black;
 	text-align: center;
 	cursor: pointer;
+	z-index: 1;
 }
 
 #panel2, #panel3{
 	display: none; 
+	overflow-y: scroll;
+	padding-right:20px;
+}
+
+.title{
+	color:black;
+}
+
+::-webkit-scrollbar
+{
+  width: 12px;  /* for vertical scrollbars */
+}
+
+::-webkit-scrollbar-track
+{
+  background: rgba(0, 0, 0, 0);
+   border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb
+{
+	 border-radius: 10px;
+  background: rgba(0, 0, 0, 0.3);
 }

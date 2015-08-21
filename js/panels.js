@@ -4,6 +4,7 @@ $(document).ready(
            $("#sidepanel").hide();
             $("#open").show();
             $("#close").hide();
+            $("#main,#panel2,#panel3").css("color","rgba(0,0,0,1)");
     });
 });
 $(document).ready(
@@ -12,6 +13,7 @@ $(document).ready(
             $("#sidepanel").fadeIn();
             $("#close").show();
             $("#open").hide();
+            $("#main,#panel2,#panel3").css("color","rgba(0,0,0,0.2)");
     });
 });
 $(document).ready(
@@ -23,6 +25,7 @@ $(document).ready(
 			$("#sidepanel").hide();
             $("#close").hide();
             $("#open").show();
+            $("#main,#panel2,#panel3").css("color","rgba(0,0,0,1)");
     });
 });
 $(document).ready(
@@ -34,6 +37,7 @@ $(document).ready(
 			$("#sidepanel").hide();
             $("#close").hide();
             $("#open").show();
+            $("#main,#panel2,#panel3").css("color","rgba(0,0,0,1)");
     });
 });
 $(document).ready(
@@ -45,6 +49,7 @@ $(document).ready(
 			$("#sidepanel").hide();
             $("#close").hide();
             $("#open").show();
+            $("#main,#panel2,#panel3").css("color","rgba(0,0,0,1)");
     });
 });
 

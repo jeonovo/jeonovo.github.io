@@ -7,7 +7,9 @@ html, body , #map {
 	position: relative;
 	z-index: 0;
 }
-#myChart{
+#chart{
+	width: 250px;
+	height: 250px;
 	top: 21vh;
 	right: 15px;
 	position:absolute;
@@ -15,7 +17,7 @@ html, body , #map {
 }
 .info{
 	padding: 6px 8px;
-	background: rgba(221, 54, 29, 0.8);
+	background: rgba(237, 54, 29, 0.7);
 	border-color: #eee #ddd #bbb;
 	border-radius: 15px;
 	border-style: solid;
