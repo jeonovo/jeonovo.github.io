@@ -1,10 +1,17 @@
 body, html {
-  height: 90%;
+width: 80%; 
 }
-a {text-decoration: none; }
+a {
+	text-decoration: none; 
+	color: black;
+}
+a:hover {
+    color: #FF00FF;
+}
 #main, #panel2, #panel3{
 	text-align: center; 
-	font: 25px verdana, sans-serif;
+	font-family: 'Maven Pro', sans-serif;
+	font-size: 25px;
 	position: fixed;
 	height: 100%;
 	width: 90%;
@@ -15,7 +22,7 @@ a {text-decoration: none; }
 	-moz-transform:translate(-50%,-50%);
 }
 #main{
-
+padding-top:50%;
 }
 .media{
 	height: 32px;
@@ -58,12 +65,17 @@ a {text-decoration: none; }
 	height: 75px;
 	border-radius: 25px;
 	line-height: 100px;
-	font: 40px verdana, sans-serif;
+	font-family: 'Bubblegum Sans', cursive;
+	font-size: 50px;
 	color:black;
 	text-align: center;
 	cursor: pointer;
-	z-index: 1;
+	z-index: 2;
 }
+.controls:hover{
+    color: #FF00FF;
+}
+
 
 #panel2, #panel3{
 	display: none; 
