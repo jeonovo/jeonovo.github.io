@@ -92,18 +92,20 @@ border-radius:30px;
 background-color: #F0F8FF;
 }
 
-.tab:hover +.content,
-.tab:focus + .content{
-display:block; 
+.tab:hover+ .content{
+	display:block; 
+}
+.tab:focus .content{
+display:block;
 }
 .tab{
 font-size: 40px; 
 padding-bottom:10px;
 }
-.content:hover,
-.content:focus{
+.content:hover{
 display: block; 
 }
+
 .title{
 	color:black;
 }
