@@ -37,10 +37,9 @@ function fetchData() {
 	// Assigning the geoJSON layer to a variable to be called when needed. 
 	geoJsonLayer = L.geoJson(paris_arrons, {style: geojsonStyle}); 
 
-	var base = L.tileLayer('http://{s}.tiles.mapbox.com/v3/examples.map-i875mjb7/{z}/{x}/{y}.png', {
-	    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>' 
-	});
-
+	var base = L.tileLayer('http://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png', {
+	attribution: 'Tiles courtesy of <a href="http://openstreetmap.se/" target="_blank">OpenStreetMap Sweden</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+});
 	// Setting up the map object options. 
 	map = L.map('map', {
 		center: [48.8610189, 2.3453862],
