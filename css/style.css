@@ -78,13 +78,32 @@ a:hover {
     color: #007ACC;
 }
 
-
 #panel2, #panel3{
 	display: none; 
+}
+.panel{
 	overflow-y: scroll;
-	padding-right:20px;
+	padding-right: 20px;
+}
+.content{
+display:none;
+height: 20%;
+border-radius:30px; 
+background-color: #F0F8FF;
 }
 
+.tab:hover +.content,
+.tab:focus + .content{
+display:block; 
+}
+.tab{
+font-size: 40px; 
+padding-bottom:10px;
+}
+.content:hover,
+.content:focus{
+display: block; 
+}
 .title{
 	color:black;
 }
@@ -103,5 +122,5 @@ a:hover {
 ::-webkit-scrollbar-thumb
 {
 	 border-radius: 10px;
-  background: rgba(0, 0, 0, 0.3);
+	background: rgba(0, 0, 0, 0.3);
 }
