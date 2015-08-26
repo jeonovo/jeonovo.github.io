@@ -6,7 +6,7 @@ a {
 	color: black;
 }
 a:hover {
-    color: #FF00FF;
+    color: #007ACC;
 }
 #main, #panel2, #panel3{
 	text-align: center; 
@@ -73,7 +73,7 @@ padding-top:20%;
 	z-index: 2;
 }
 .controls:hover{
-    color: #FF00FF;
+    color: #007ACC;
 }
 
 
