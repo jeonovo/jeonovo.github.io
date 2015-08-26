@@ -32,7 +32,7 @@ a:hover {
 }
 #social{
 	padding-top: 10px;
-	position: fixed;
+	position: relative;
 	left: 50%;
 	-webkit-transform:translate(-50%,60%);
 	-moz-transform:translate(-50%,60%);
