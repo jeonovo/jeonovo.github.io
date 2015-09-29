@@ -8,7 +8,7 @@
 
   <body>
   	<div class="text">
-    	<h1>What is your name?</h1>
+    	<h1>Is your name a prime number?</h1>
    <form onsubmit="return false">
   <input type="text" name="prime" id="usersname"/>
   <input type="submit" name="enter" id="submit_button" onclick="get_name()"/>
@@ -17,7 +17,10 @@
 	<br>
 	<div class='text' id='result'>
 		
-	</div>      
+	</div>   
+	<div class="image">
+		<a href="https://en.wikipedia.org/wiki/The_Curious_Incident_of_the_Dog_in_the_Night-Time"><img id = "dog" src = 'dog.png'></img></a>
+	</div>   
       <script language="javascript">
 		
 		function get_name(){
@@ -31,11 +34,13 @@
 	      	var bla = document.getElementById('usersname').value;
 
 	      	get_value(bla); 
+	      	
 
 	    }
 
 	    function get_value(userName){
-	    	word = userName.toLowerCase(); 
+
+	    	var word = userName.toLowerCase(); 
 	    	word = word.replace(/ /g,''); 
 
 	    	value = 0; 
@@ -44,9 +49,27 @@
 			}
 
 			var info = "The result is "; 
+			var result; 
 
-		    	document.getElementById('result').innerHTML = info + value + "<br>" + is_it_prime(value); 
-		    }
+			if (isNaN(value)){
+
+				info = "Uh Oh..."
+				value = ""
+				result = "Please enter a different name!"
+
+			} else if (value == 0){
+
+				info = "Uh Oh..."
+				value = ""
+				result = "Please enter a name!"
+
+			} else {
+
+				result = is_it_prime(value); 
+			}
+			
+			document.getElementById('result').innerHTML = info + value + "<br>" + result; 
+		}
 	    
 
 	    function is_it_prime(value){
@@ -55,13 +78,13 @@
 
 	    	var root = Math.floor(Math.sqrt(value)); 
 
-	    	console.log("root: " + root);
+	    	if (isNaN(value)){
+	    		return "Please enter a different name!"
+	    	}
 
 	    	if (value < 2) return "Your name is not prime"; 
 
 	    	for (i = 2; i <= root; i++){
-
-	    		console.log( i + ": " + value % i)
 
 	    		if (value % i == 0){
 
