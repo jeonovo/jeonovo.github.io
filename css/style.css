@@ -25,6 +25,11 @@ a:hover {
 	padding-top:20%;
 }
 
+#name{
+	height:40%; 
+	width:75%;
+}
+
 .media{
 	height: 32px;
 	width: 32px;
@@ -77,52 +82,38 @@ a:hover {
 .controls:hover{
     color: #007ACC;
 }
-
 #panel2, #panel3{
 	display: none; 
 }
-.panel{
-	overflow-y: scroll;
+.mapLinks{
+	overflow: auto;
+	height:75%;
+	width: 100%;
 	padding-right: 20px;
+	padding-left: 20px; 
 }
 .content{
-	display:none;
-	height: 20%;
-	border-radius:30px; 
-	background-color: #F0F8FF;
+	text-align: left;
+	border-radius:30px;
 	cursor: help;
 }
-
-.tab:hover+ .content{
-	display:block; 
-	cursor:pointer;
-}
-.tab:focus .content{
-display:block;
-}
 .tab{
-font-size: 40px; 
-padding-bottom:10px;
+	font-size: 40px; 
+	padding-bottom:10px;
+	color: #007ACC;
 }
-.content:hover{
-display: block; 
-}
-
 .title{
 	color:black;
 }
-
 ::-webkit-scrollbar
 {
   width: 12px;  /* for vertical scrollbars */
 }
-
 ::-webkit-scrollbar-track
 {
   background: rgba(0, 0, 0, 0);
    border-radius: 10px;
 }
-
 ::-webkit-scrollbar-thumb
 {
 	 border-radius: 10px;
