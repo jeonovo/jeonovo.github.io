@@ -1,0 +1,24 @@
+.text{
+	margin-right: auto;
+	margin-left: auto;
+	width: 60%;
+	text-align: center;
+	font-family: 'Patrick Hand', cursive;
+	font-size: 34px;
+}
+/* Rounded Corner */
+#usersname {
+	padding-left: 10px;
+	font-size: 34px;
+	border:2px solid #456879;
+	font-family: 'Patrick Hand', cursive;
+	border-radius:10px;
+	height: 50px;
+	width: 230px;
+}
+#submit_button{
+	height: 60px;
+	font-size: 34px;
+	border:2px solid #456879;
+	border-radius:10px;
+}

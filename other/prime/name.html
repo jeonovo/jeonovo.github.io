@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel='stylesheet'  href='style.css'>
+	<link href='https://fonts.googleapis.com/css?family=Patrick+Hand' rel='stylesheet' type='text/css'>
+  <title>Prime Name</title>
+  </head>
+
+  <body>
+  	<div class="text">
+    	<h1>What is your name?</h1>
+   <form onsubmit="return false">
+  <input type="text" name="prime" id="usersname"/>
+  <input type="submit" name="enter" id="submit_button" onclick="get_name()"/>
+</form>
+	</div>
+	<br>
+	<div class='text' id='result'>
+		
+	</div>      
+      <script language="javascript">
+		
+		function get_name(){
+
+			letters = {"a": 1, "b": 2, "c": 3, "d": 4, "e": 5, "f": 6,
+         "g": 7, "h": 8, "i": 9, "j": 10, "k": 11, "l": 12,
+         "m": 13, "n": 14, "o": 15, "p": 16, "q": 17, "r": 18,
+         "s": 19, "t": 20, "u": 21, "v": 22, "w": 23, "x": 24,
+         "y": 25, "z": 26}
+
+	      	var bla = document.getElementById('usersname').value;
+
+	      	get_value(bla); 
+
+	    }
+
+	    function get_value(userName){
+	    	word = userName.toLowerCase(); 
+	    	word = word.replace(/ /g,''); 
+
+	    	value = 0; 
+	    	for (var i = 0, len = word.length; i < len; i++) {
+	    		value += letters[word.charAt(i)]; 
+			}
+
+			var info = "The result is "; 
+
+		    	document.getElementById('result').innerHTML = info + value + "<br>" + is_it_prime(value); 
+		    }
+	    
+
+	    function is_it_prime(value){
+
+	    	var prime = ''; 
+
+	    	var root = Math.floor(Math.sqrt(value)); 
+
+	    	console.log("root: " + root);
+
+	    	if (value < 2) return "Your name is not prime"; 
+
+	    	for (i = 2; i <= root; i++){
+
+	    		console.log( i + ": " + value % i)
+
+	    		if (value % i == 0){
+
+	    			return "Your name is not prime"
+	    			// get the factors of the value
+
+				}
+			}
+				
+			return "Your name is prime, huzzah!"
+	  
+		}
+
+      </script>
+
+    </body>
+
+ </html>
