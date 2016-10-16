@@ -18,8 +18,10 @@ a:hover {
 	top: 50%;
 	left: 50%;
 	color: rgba(0,0,0,1);
+	-ms-transform:translate(-50%,-50%);
 	-webkit-transform:translate(-50%,-50%);
 	-moz-transform:translate(-50%,-50%);
+	
 }
 #main{
 	padding-top:20%;
@@ -39,8 +41,10 @@ a:hover {
 	padding-top: 10px;
 	position: relative;
 	left: 50%;
+	-ms-transform:translate(-50%,60%);
 	-webkit-transform:translate(-50%,60%);
 	-moz-transform:translate(-50%,60%);
+	
 
 }
 #open, #close{

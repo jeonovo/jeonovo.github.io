@@ -48,7 +48,12 @@ a {text-decoration: none; }
 	display:none;
 }
 
-#maptext{
+#other_projects{
+	
+	display:none;
+}
+
+#maptext, #othertext{
 	text-align: center; 
 	font: 35px verdana, sans-serif;
 	
