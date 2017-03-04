@@ -1,0 +1,45 @@
+body{
+	background: #191919;
+}
+.the_text{
+	color: white;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 24px;
+	font-weight: bold;
+	line-height: 25px;
+	text-align: center; 
+}
+#the_title{
+	padding: 25px;
+	font-size:40px;
+}
+#info{
+	width: 75%;
+	margin: auto;
+}
+#mapContainer{
+	padding-top: 0px; 	
+}
+
+#chartContainer{
+	background: white;
+	width: 500px;
+	height: 250px;
+	margin: auto;
+}
+#goalChart{
+	background: #191919;
+	font-weight: bold;
+}
+#graph_title, #info{
+	padding-bottom: 30px;
+}
+
+#mapid{
+	width: 950px; 
+	height: 650px;
+	}
+.leaflet-container {
+    background: #191919;
+}
+

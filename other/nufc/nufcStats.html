@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<title>NUFC</title>
+	<meta charset="utf-8" />
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
+	<link rel="stylesheet" href="css/style.css" />
+	<script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.js"></script>
+	<script type='text/javascript' src='js/kickOff.js'></script> 
+	<script type='text/javascript' src='js/nufcChart.js'></script> 
+	<script type='text/javascript' src='js/nufc_data.js'></script> 
+
+</head>
+<body onload='kickOff()'>
+<div class="the_text" id="the_title">
+	NEWCASTLE UNITED
+</div>
+<div class="the_text" id="info">
+	The graphics below show the position a goal was scored from and the time periods goals have been scored in. 
+</div>
+<div class="the_text" id="map_title">
+	Goals Scored Position
+</div>
+
+<div id="mapContainer">
+	<center><div id="mapid"></div></center>
+</div>
+
+<div class="the_text" id="graph_title">
+	Goals Scored In Period
+</div>
+
+<div id="chartContainer">
+	<canvas id="goalChart"></canvas>
+</div>
+
+</body>
+</html>
