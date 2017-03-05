@@ -18,7 +18,7 @@ body{
 	margin: auto;
 }
 #mapContainer{
-	padding-top: 0px; 	
+	
 }
 
 #chartContainer{
@@ -36,10 +36,12 @@ body{
 }
 
 #mapid{
-	width: 950px; 
-	height: 650px;
+	width: 950px;
+	height: 650px; 
 	}
 .leaflet-container {
     background: #191919;
 }
-
+.leaflet-control{
+text-align: left;
+}

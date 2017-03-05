@@ -29,7 +29,7 @@ function makeChart(){
 		} else if (nufc_data[id].minute < 76){
 			
 			period5 = period5 + 1; 
-		} else if (nufc_data[id].minute < 91){
+		} else if (nufc_data[id].minute < 100){
 			
 			period6 = period6 + 1; 
 		} 
