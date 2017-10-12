@@ -1,5 +1,5 @@
 var map;
-var code = "1iu4HALT16VaYxQp200oDE8mA6yal_Yf4GsMN9bW7-Z8"
+var code = "https://docs.google.com/spreadsheets/d/1iu4HALT16VaYxQp200oDE8mA6yal_Yf4GsMN9bW7-Z8"
 
 function initMap(){
 
@@ -15,20 +15,24 @@ function initMap(){
 		maxZoom: 17
 	});
 
-  // loop through spreadsheet with Tabletop
-      Tabletop.init({
-      key: code,
-      callback: function(sheet, tabletop){
+  var ds = new Miso.Dataset({
+  importer : Miso.Dataset.Importers.GoogleSpreadsheet,
+  parser : Miso.Dataset.Parsers.GoogleSpreadsheet,
+  key : "1iu4HALT16VaYxQp200oDE8mA6yal_Yf4GsMN9bW7-Z8",
+  worksheet : "1"
+});
 
-        for (var i in sheet){
-          var data = sheet[i];
-            L.marker([data.lng, data.lat])
-            .addTo(map)
-            .bindPopup(data.pubName).openPopup();
-        }
-      },
-      simpleSheet: true
-    })
+ds.fetch({
+  success : function() {
+    console.log(ds.columnNames());
+  },
+  error : function() {
+    console.log("Are you sure you are connected to the internet?");
+  }
+});
+
+
+
 
 
 }
