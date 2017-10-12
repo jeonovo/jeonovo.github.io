@@ -1,6 +1,5 @@
-var map, boatRide, pointLayer, photoLayer, groupedOverlays;
-
-// will comment later
+var map;
+var code = "1iu4HALT16VaYxQp200oDE8mA6yal_Yf4GsMN9bW7-Z8"
 
 function initMap(){
 
@@ -15,4 +14,21 @@ function initMap(){
 		layers: base,
 		maxZoom: 17
 	});
+
+  // loop through spreadsheet with Tabletop
+      Tabletop.init({
+      key: code,
+      callback: function(sheet, tabletop){
+
+        for (var i in sheet){
+          var data = sheet[i];
+            L.marker([data.lng, data.lat])
+            .addTo(map)
+            .bindPopup(data.pubName).openPopup();
+        }
+      },
+      simpleSheet: true
+    })
+
+
 }
