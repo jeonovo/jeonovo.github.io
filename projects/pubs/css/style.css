@@ -1,7 +1,25 @@
 body {
     padding: 0;
     margin: 0;
+
 }
-html, body, #map {
+html, body, #container {
     height: 100%;
+}
+
+#container{
+    position: relative;
+}
+
+#map{
+    height: 100%;
+    z-index: 1;
+    position: relative;
+}
+
+#slidecontainer {
+    bottom: 5%;
+    z-index: 10;
+    position: absolute;
+    width: 100%; /* Width of the outside container */
 }
