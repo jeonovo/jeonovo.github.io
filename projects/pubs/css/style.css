@@ -23,3 +23,7 @@ html, body, #container {
     position: absolute;
     width: 100%; /* Width of the outside container */
 }
+
+.rangeslider {
+  max-width: 50%;
+}
