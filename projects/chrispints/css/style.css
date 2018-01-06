@@ -1,0 +1,39 @@
+body {
+    padding: 0;
+    margin: 0;
+
+}
+html, body, #container {
+    height: 100%;
+}
+
+#container{
+    position: relative;
+}
+
+#map{
+    height: 100%;
+    z-index: 1;
+    position: relative;
+}
+
+#slidecontainer {
+    bottom: 5%;
+    z-index: 10;
+    position: absolute;
+    width: 100%; /* Width of the outside container */
+}
+
+.rangeslider {
+  max-width: 50%;
+}
+
+.info{
+    font-weight: bold;
+    border-style: solid;
+    text-align: center;
+   border-width: 2px;
+	padding: 6px 8px;
+	background: rgba(40, 105, 211,0.9);
+	border-radius: 15px;
+}
