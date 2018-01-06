@@ -27,3 +27,13 @@ html, body, #container {
 .rangeslider {
   max-width: 50%;
 }
+
+.info{
+    font-weight: bold;
+    border-style: solid;
+    text-align: center;
+   border-width: 2px;
+	padding: 6px 8px;
+	background: rgba(236, 16, 34,0.9);
+	border-radius: 15px;
+}

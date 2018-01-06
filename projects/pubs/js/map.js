@@ -1,15 +1,17 @@
-var map, data, gj;
+var map, data, gj, info, sliderValue;
 var code = "1iu4HALT16VaYxQp200oDE8mA6yal_Yf4GsMN9bW7-Z8"
 
 function initMap(){
 
   var base = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.{ext}', {
-	attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+	attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">'+
+    'CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
 	subdomains: 'abcd',
 	minZoom: 0,
 	maxZoom: 20,
 	ext: 'png'
 });
+
 
   map = L.map('map', {
 		zoom: 15,
@@ -20,6 +22,31 @@ function initMap(){
     setSlider();
     getData(0);
 
+    info = L.control();
+
+    info.onAdd = function (map) {
+        this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
+        this.update();
+        return this._div;
+    };
+
+    // method that we will use to update the control based on feature properties passed
+    info.update = function () {
+        ar =Math.round(getAverageRating()*100)/100
+        totalPubs = getCount();
+        if (typeof(sliderValue) == 'undefined'){
+            sv = 0;
+        } else {
+            sv = sliderValue;
+        }
+        this._div.innerHTML = "Slider Rating: " + sv +
+        "<br>" + "Total Pubs: " + totalPubs+
+        "<br>" + "Average Rating: " + ar;
+    };
+
+    info.addTo(map);
+
+
     function getData(value){
         data = [];
         // loop through spreadsheet with Tabletop
@@ -29,11 +56,12 @@ function initMap(){
 
                 for (var i in sheet){
                     var rating = Number(sheet[i].pubRating);
-                    if (rating > value){
+                    if (rating >= value){
                         var lng = Number(sheet[i].lng);
                         var lat = Number(sheet[i].lat);
                         var pub = sheet[i].pubName;
-                        var marker = turf.point([lng,lat], {"title": pub, "rating":rating});
+                        var note = sheet[i].notes
+                        var marker = turf.point([lng,lat], {"title": pub, "rating":rating, "notes": note});
                         data.push(marker);
                     //make them all a turf point
                   //data.addLayer(L.marker([sheet[i].lat, sheet[i].lng]).bindPopup(sheet[i].pubName))
@@ -53,24 +81,26 @@ function initMap(){
             layer.bindTooltip(feature.properties.title + ": " + feature.properties.rating)
         }
 
-    var geoStyle = {
-        radius: 8,
-        fillColor: "#ec1022",
-        color: "#000",
-        weight: 1,
-        opacity: 1,
-        fillOpacity:0.8
-    }
-    if (typeof gj != "undefined"){
-        map.removeLayer(gj);
-    }
+        info.update();
 
-    gj = L.geoJson(t, {
-        onEachFeature: onEachFeature,
-        pointToLayer: function(feature, latlng){
-        return L.circleMarker(latlng, geoStyle);
+        var geoStyle = {
+            radius: 8,
+            fillColor: "#ec1022",
+            color: "#000",
+            weight: 1,
+            opacity: 1,
+            fillOpacity:0.8
         }
-    }).addTo(map);
+        if (typeof gj != "undefined"){
+            map.removeLayer(gj);
+        }
+
+        gj = L.geoJson(t, {
+            onEachFeature: onEachFeature,
+            pointToLayer: function(feature, latlng){
+            return L.circleMarker(latlng, geoStyle);
+            }
+        }).addTo(map);
 
     //map.fitBounds(gj.getBounds());
 
@@ -78,6 +108,7 @@ function initMap(){
         e.layer.closeTooltip()
         var selected = e.layer.feature.properties.title
         var rating = e.layer.feature.properties.rating;
+        var notes = e.layer.feature.properties.notes
         var lng = e.latlng.lng;
         var lat = e.latlng.lat;
         var targetPoint = turf.point([lng, lat]);
@@ -93,7 +124,14 @@ function initMap(){
         var nearest = turf.nearest(targetPoint, searchCollection);
         var nearestPub = nearest.properties.title;
         var nearestPubRating = nearest.properties.rating;
-        e.layer.setPopupContent(selected + ": " + rating + "<br>Closet is " + nearestPub + ": " + nearestPubRating);
+
+        var content = selected + ": " + rating + "<br>";
+        if (notes != ""){
+            content += "Note: " + notes;
+        }
+        content += "<p><i>Closest is " + nearestPub + ": " + nearestPubRating + "</i>";
+
+        e.layer.setPopupContent(content);
     });
 
 }
@@ -106,25 +144,53 @@ function setSlider(){
         // the native <input type="range"> element.
         polyfill: false,
         // Default CSS classes
-    rangeClass: 'rangeslider',
-    disabledClass: 'rangeslider--disabled',
-    horizontalClass: 'rangeslider--horizontal',
-    fillClass: 'rangeslider__fill',
-    handleClass: 'rangeslider__handle',
+        rangeClass: 'rangeslider',
+        disabledClass: 'rangeslider--disabled',
+        horizontalClass: 'rangeslider--horizontal',
+        fillClass: 'rangeslider__fill',
+        handleClass: 'rangeslider__handle',
 
         // Callback function
-        onInit: function() {},
+        onInit: function(position, value) {
+            setSliderValue(value);
+        },
 
         // Callback function
         onSlide: function(position, value) {},
 
         // Callback function
         onSlideEnd: function(position, value) {
-
-            console.log(value);
             getData(value);
+            setSliderValue(value);
         }
     });
+}
+function setInfo(){
+
+
+}
+
+
+function getCount(){
+    return data.length;
+}
+
+function getAverageRating(){
+
+    if (data.length == 0){return "";}
+    else{
+        var total = 0;
+        for (var i in data){
+            total = total + data[i].properties.rating;
+        }
+        var avg = total/data.length;
+        return avg;
     }
+}
+
+function setSliderValue(value){
+    sliderValue = value;
+
+}
 
 }
