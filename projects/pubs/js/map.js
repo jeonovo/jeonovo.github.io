@@ -3,10 +3,13 @@ var code = "1iu4HALT16VaYxQp200oDE8mA6yal_Yf4GsMN9bW7-Z8"
 
 function initMap(){
 
-  var base = L.tileLayer('http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png', {
-	     maxZoom: 18,
-	   attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-    });
+  var base = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.{ext}', {
+	attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+	subdomains: 'abcd',
+	minZoom: 0,
+	maxZoom: 20,
+	ext: 'png'
+});
 
   map = L.map('map', {
 		zoom: 15,
@@ -47,7 +50,9 @@ function initMap(){
         var t = turf.featureCollection(dataArray);
         function onEachFeature(feature, layer) {
             layer.bindPopup(feature.properties.title + ": " + feature.properties.rating)
+            layer.bindTooltip(feature.properties.title + ": " + feature.properties.rating)
         }
+
     var geoStyle = {
         radius: 8,
         fillColor: "#ec1022",
@@ -70,25 +75,25 @@ function initMap(){
     //map.fitBounds(gj.getBounds());
 
     gj.on('click', function(e){
-        console.log(e.layer.feature.properties.title)
+        e.layer.closeTooltip()
         var selected = e.layer.feature.properties.title
+        var rating = e.layer.feature.properties.rating;
         var lng = e.latlng.lng;
         var lat = e.latlng.lat;
         var targetPoint = turf.point([lng, lat]);
         var searchArray = [];
         for (var i in t.features){
             if (t.features[i].properties.title != selected){
-                var marker = turf.point([t.features[i].geometry.coordinates[0],t.features[i].geometry.coordinates[1]],{"title":t.features[i].properties.title});
+                var marker = turf.point([t.features[i].geometry.coordinates[0],t.features[i].geometry.coordinates[1]],
+                  {"title":t.features[i].properties.title, "rating":t.features[i].properties.rating});
                 searchArray.push(marker)
             }
-
         }
         searchCollection = turf.featureCollection(searchArray);
         var nearest = turf.nearest(targetPoint, searchCollection);
-        console.log(nearest.properties.title);
-
-
-
+        var nearestPub = nearest.properties.title;
+        var nearestPubRating = nearest.properties.rating;
+        e.layer.setPopupContent(selected + ": " + rating + "<br>Closet is " + nearestPub + ": " + nearestPubRating);
     });
 
 }
