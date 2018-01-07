@@ -3,6 +3,8 @@ var code = "1iu4HALT16VaYxQp200oDE8mA6yal_Yf4GsMN9bW7-Z8"
 
 function initMap(){
 
+    console.log("Hello"); 
+
   var toner = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.{ext}', {
 	     attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">'+
         'CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
@@ -71,7 +73,7 @@ function initMap(){
 
     function getData(value){
         data = [];
-        console.log("3");
+        console.log("get data");
         // loop through spreadsheet with Tabletop
             Tabletop.init({
                 key: code,
