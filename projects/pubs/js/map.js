@@ -3,21 +3,43 @@ var code = "1iu4HALT16VaYxQp200oDE8mA6yal_Yf4GsMN9bW7-Z8"
 
 function initMap(){
 
-  var base = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.{ext}', {
-	attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">'+
-    'CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-	subdomains: 'abcd',
-	minZoom: 0,
-	maxZoom: 20,
-	ext: 'png'
-});
+  var toner = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.{ext}', {
+	     attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">'+
+        'CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+	   subdomains: 'abcd',
+	   minZoom: 0,
+	   maxZoom: 20,
+	   ext: 'png'
+    });
+
+    var colour = L.tileLayer('https://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png', {
+    	maxZoom: 18,
+    	attribution: 'Tiles courtesy of <a href="http://openstreetmap.se/" target="_blank">OpenStreetMap Sweden</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    });
+
+    var Thunderforest_Pioneer = L.tileLayer('https://{s}.tile.thunderforest.com/pioneer/{z}/{x}/{y}.png?apikey={apikey}', {
+	       attribution: '&copy; <a href="http://www.thunderforest.com/">Thunderforest</a>, &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+	   apikey: 'a18b589d244e4b968a05cd7c141c190b',
+	   maxZoom: 22
+    });
+
+    var baseMaps = {
+    "Toner": toner,
+    "Colour": colour,
+    "Pioneer": Thunderforest_Pioneer
+    };
+
+
 
 
   map = L.map('map', {
 		zoom: 15,
         center: [53.4014, -2.9806],
-		layers: base
+		layers: toner
 	});
+
+    LayerControl = L.control.layers(baseMaps,null,{position: 'topleft'});
+    LayerControl.addTo(map);
 
     setSlider();
     getData(0);
