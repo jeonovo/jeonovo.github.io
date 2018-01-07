@@ -70,13 +70,16 @@ function initMap(){
 
 
     function getData(value){
-
         data = [];
+        console.log("3");
         // loop through spreadsheet with Tabletop
             Tabletop.init({
                 key: code,
                 callback: function(sheet, tabletop){
-
+                data = [];
+                if (typeof gj != "undefined"){
+                    map.removeLayer(gj);
+                }
                 for (var i in sheet){
                     var rating = Number(sheet[i].pubRating);
                     if (rating >= value){
@@ -180,14 +183,8 @@ function setSlider(){
 
         // Callback function
         onSlideEnd: function(position, value) {
-            setTimeout(function(){
-                if (typeof gj != "undefined"){
-                    map.removeLayer(gj);
-                }
                 setSliderValue(value);
                 getData(value);
-            }, 3000);
-
         }
     });
 }
