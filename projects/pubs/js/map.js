@@ -70,9 +70,7 @@ function initMap(){
 
 
     function getData(value){
-        if (typeof gj != "undefined"){
-            map.removeLayer(gj);
-        }
+
         data = [];
         // loop through spreadsheet with Tabletop
             Tabletop.init({
@@ -183,6 +181,9 @@ function setSlider(){
         // Callback function
         onSlideEnd: function(position, value) {
             setTimeout(function(){
+                if (typeof gj != "undefined"){
+                    map.removeLayer(gj);
+                }
                 setSliderValue(value);
                 getData(value);
             }, 3000);
