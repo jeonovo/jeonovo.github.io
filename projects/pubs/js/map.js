@@ -70,6 +70,9 @@ function initMap(){
 
 
     function getData(value){
+        if (typeof gj != "undefined"){
+            map.removeLayer(gj);
+        }
         data = [];
         // loop through spreadsheet with Tabletop
             Tabletop.init({
@@ -112,9 +115,6 @@ function initMap(){
             weight: 1,
             opacity: 1,
             fillOpacity:0.8
-        }
-        if (typeof gj != "undefined"){
-            map.removeLayer(gj);
         }
 
         gj = L.geoJson(t, {
@@ -182,14 +182,13 @@ function setSlider(){
 
         // Callback function
         onSlideEnd: function(position, value) {
-            getData(value);
-            setSliderValue(value);
+            setTimeout(function(){
+                setSliderValue(value);
+                getData(value);
+            }, 3000);
+
         }
     });
-}
-function setInfo(){
-
-
 }
 
 
