@@ -1,23 +1,46 @@
 var map, data, gj, info, sliderValue;
-var code = "1vfoNfLRO4rvzEfgbRjtxXBwDACQ8p-TA1qS-fpwjPzk"
+var code = "1DxGkgJYALoHrDVdj6YIuQscJ29_eRX6Dq3yQDuH3Yng"
 // CHRIS IS A MELT
 function initMap(){
 
-  var base = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.{ext}', {
-	attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">'+
-    'CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-	subdomains: 'abcd',
-	minZoom: 0,
-	maxZoom: 20,
-	ext: 'png'
-});
+
+  var toner = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.{ext}', {
+	     attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">'+
+        'CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+	   subdomains: 'abcd',
+	   minZoom: 0,
+	   maxZoom: 20,
+	   ext: 'png'
+    });
+
+    var colour = L.tileLayer('https://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png', {
+    	maxZoom: 18,
+    	attribution: 'Tiles courtesy of <a href="http://openstreetmap.se/" target="_blank">OpenStreetMap Sweden</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    });
+
+    var Thunderforest_Pioneer = L.tileLayer('https://{s}.tile.thunderforest.com/pioneer/{z}/{x}/{y}.png?apikey={apikey}', {
+	       attribution: '&copy; <a href="http://www.thunderforest.com/">Thunderforest</a>, &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+	   apikey: 'a18b589d244e4b968a05cd7c141c190b',
+	   maxZoom: 22
+    });
+
+    var baseMaps = {
+    "Toner": toner,
+    "Colour": colour,
+    "Pioneer": Thunderforest_Pioneer
+    };
+
+
 
 
   map = L.map('map', {
-		zoom: 14,
-        center: [53.4018, -2.9806],
-		layers: base
+		zoom: 15,
+        center: [53.4014, -2.9806],
+		layers: toner
 	});
+
+    LayerControl = L.control.layers(baseMaps,null,{position: 'topleft'});
+    LayerControl.addTo(map);
 
     setSlider();
     getData(0);
@@ -46,13 +69,18 @@ function initMap(){
 
     info.addTo(map);
 
+
     function getData(value){
         data = [];
+        console.log("get data");
         // loop through spreadsheet with Tabletop
             Tabletop.init({
                 key: code,
                 callback: function(sheet, tabletop){
-
+                data = [];
+                if (typeof gj != "undefined"){
+                    map.removeLayer(gj);
+                }
                 for (var i in sheet){
                     var rating = Number(sheet[i].pubRating);
                     if (rating >= value){
@@ -89,9 +117,6 @@ function initMap(){
             weight: 1,
             opacity: 1,
             fillOpacity:0.8
-        }
-        if (typeof gj != "undefined"){
-            map.removeLayer(gj);
         }
 
         gj = L.geoJson(t, {
@@ -159,14 +184,10 @@ function setSlider(){
 
         // Callback function
         onSlideEnd: function(position, value) {
-            getData(value);
-            setSliderValue(value);
+                setSliderValue(value);
+                getData(value);
         }
     });
-}
-function setInfo(){
-
-
 }
 
 
