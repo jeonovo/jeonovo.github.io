@@ -1,4 +1,8 @@
 #chartArea{
-    width: 400px;
-    height: 400px;
+    float: left;
+    display: inline-block;
+}
+#ratingArea{
+    float: left;
+    display: inline-block;
 }
