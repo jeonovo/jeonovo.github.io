@@ -71,7 +71,7 @@ function initGraphs(){
     }
 
     function setRatingsData(object){
-        console.log(labels.length);
+       
         var ratingsValues = [1,2,3,4,5,6,7,8,9,10];
         regionData = []; // need to rethink the whole thing
         var currentRating = 0;
@@ -83,16 +83,14 @@ function initGraphs(){
                 the_rating.push(0);
             }
             currentRating+=1;
-            console.log("RESTART");
+         
             var count = 0;
             for (j in labels){
                 currentRegion = labels[j];
-                console.log(currentRating + ": " + currentRegion);
+                
 
                 for (k in object){
                     if (object[k].region == currentRegion && Math.ceil(object[k].rating)==currentRating){
-                        console.log("MATCH::" + object[k].region + ": " + Math.ceil(object[k].rating));
-                        console.log(i)
                         the_rating[j]+=1;
                     }
                 }
@@ -182,7 +180,7 @@ var myChart = new Chart(ctx, {
     }
 
     function makeRatingChart(){
-      console.log(regionData);
+      
         var ctx = document.getElementById("myRatingChart").getContext('2d');
 var myChart = new Chart(ctx, {
     type: 'horizontalBar',
@@ -257,10 +255,11 @@ var myChart = new Chart(ctx, {
            text: 'Ratings of Pubs per Region'
        },
        legend:{
+           display: true,
            labels: {
-               boxWidth: 10
+               boxWidth: 10,
+               fontSize: 8
            },
-         fontSize: 8
        },
         scales: {
             yAxes: [{
