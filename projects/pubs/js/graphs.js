@@ -257,6 +257,9 @@ var myChart = new Chart(ctx, {
            text: 'Ratings of Pubs per Region'
        },
        legend:{
+           labels: {
+               boxWidth: 10
+           },
          fontSize: 8
        },
         scales: {
