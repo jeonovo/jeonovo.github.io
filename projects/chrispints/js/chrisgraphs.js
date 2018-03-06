@@ -1,43 +1,55 @@
-var data, total, info, labels, values, ratings;
 var code = "1vfoNfLRO4rvzEfgbRjtxXBwDACQ8p-TA1qS-fpwjPzk"
+var data, total, info, labels, values, dataObject, regionData, countData;
 
 function initGraphs(){
 
     getData();
 
   function getData(value){
-        console.log("get data");
+
         // loop through spreadsheet with Tabletop
             Tabletop.init({
                 key: code,
                 callback: function(sheet, tabletop){
                     data = [];
+                    dataObject = [];
                     for (var i in sheet){
-                        var rating = Number(sheet[i].pubRating);
-                        var region = sheet[i].region;
+                        var the_rating = Number(sheet[i].pubRating);
+                        var the_region = sheet[i].region;
                         var pub = sheet[i].pubName;
-                        data.push(region);
+                        data.push(the_region);
+                        dataObject.push({region: the_region, pubName  : pub, rating: the_rating});
                     }
-                    setLabels(data);
+                    setLabels(dataObject);
                     setValues(data);
                     setStats();
                     makeChart();
+
+                    setRatingsData(dataObject);
+                    makeRatingChart();
+
+                    setCountData(dataObject);
+                    makeCountChart();
+
                 },
                 simpleSheet: true,
             });
 
     }
 
-    function setLabels(data){
+    function setLabels(dataObject){
+        data = [];
         labels =[];
-
+        for (i in dataObject){
+            data.push(dataObject[i].region);
+        }
         for (i in data){
             if (labels.indexOf(data[i]) < 0){
                 labels.push(data[i])
             }
-
-}
+        }
     }
+
 
     function setValues(data){
         values = [];
@@ -52,8 +64,37 @@ function initGraphs(){
             }
             values.push(count);
         }
+    }
 
-        console.log(values);
+    function setCountData(data){
+        countData =[];
+        ratingsValues = [1,2,3,4,5,6,7,8,9,10];
+        //counter = 0;
+
+        for (i in ratingsValues){
+
+            counter = 0;
+
+            for (k in data){
+
+                //console.log("k: " + Math.ceil(data[k].rating));
+
+                currentRating = Math.ceil(data[k].rating);
+
+                if (currentRating == ratingsValues[i]){
+
+                    counter+=1;
+                }
+            }
+
+
+            countData.push(counter);
+
+        }
+
+
+        }
+
     }
 
     function setStats(){
@@ -63,10 +104,44 @@ function initGraphs(){
 
     }
 
+    function setRatingsData(object){
+
+        var ratingsValues = [1,2,3,4,5,6,7,8,9,10];
+        regionData = [];
+        var currentRating = 0;
+        // loop through labels
+        // need an array for each rating - with each value being the regions count of that rating
+        for (var i in ratingsValues){
+            var the_rating = [];
+            for (var index in labels){
+                the_rating.push(0);
+            }
+            currentRating+=1;
+
+            var count = 0;
+            for (j in labels){
+                currentRegion = labels[j];
+
+
+                for (k in object){
+                    if (object[k].region == currentRegion && Math.ceil(object[k].rating)==currentRating){
+
+                        the_rating[j]+=1;
+                    }
+                }
+
+
+
+
+            }
+
+          // loop through ratings then the regions
+
+          regionData.push(the_rating);
+        }
+    }
+
     function makeChart(){
-
-        console.log(labels);
-
         var ctx = document.getElementById("myChart").getContext('2d');
 var myChart = new Chart(ctx, {
     type: 'horizontalBar',
@@ -82,6 +157,10 @@ var myChart = new Chart(ctx, {
         }]
     },
     options: {
+        title: {
+           display: true,
+           text: 'Count of Pubs per Region'
+       },
         scales: {
             yAxes: [{
                 ticks: {
@@ -93,4 +172,171 @@ var myChart = new Chart(ctx, {
 });
 
     }
-}
+
+    function getColour(value){
+
+      switch (value) {
+        case 1:
+          return 'rgba(165,0,38,0.9)'
+          break;
+        case 2:
+          return 'rgba(215,48,39,0.9)'
+          break;
+        case 3:
+          return 'rgba(244,109,67,0.9)'
+          break;
+        case 4:
+          return 'rgba(253,174,97,0.9)'
+          break;
+        case 5:
+          return 'rgba(254,224,139,0.9)'
+          break;
+        case 6:
+         return 'rgba(217,239,139,0.9)'
+          break;
+        case 7:
+          return 'rgba(166,217,106,0.9)'
+          break;
+        case 8:
+          return 'rgba(102,189,99,0.9)'
+          break;
+        case 9:
+         return 'rgba(26,152,80,0.9)'
+          break;
+        case 10:
+          return 'rgba(0,104,55,0.9)'
+          break;
+        default:
+          break;
+
+      }
+
+
+    }
+
+    function makeRatingChart(){
+        var ctx = document.getElementById("myRatingChart").getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'horizontalBar',
+    data: {
+        labels: labels,
+        datasets: [{
+            label: '1',
+            data: regionData[0],
+            backgroundColor: getColour(1),
+            borderColor: 'black',
+            borderWidth: 0.5
+        },{
+            label: '2',
+            data: regionData[1],
+            backgroundColor: getColour(2),
+            borderColor: 'black',
+            borderWidth: 0.5
+        },{
+              label: '3',
+              data: regionData[2],
+              backgroundColor: getColour(3),
+              borderColor: 'black',
+              borderWidth: 0.5
+        },{
+              label: '4',
+              data: regionData[3],
+              backgroundColor: getColour(4),
+              borderColor: 'black',
+              borderWidth: 0.5
+        },{
+              label: '5',
+              data: regionData[4],
+              backgroundColor: getColour(5),
+              borderColor: 'black',
+              borderWidth: 0.5
+        },{
+              label: '6',
+              data: regionData[5],
+              backgroundColor: getColour(6),
+              borderColor: 'black',
+              borderWidth: 0.5
+        },{
+              label: '7',
+              data: regionData[6],
+              backgroundColor: getColour(7),
+              borderColor: 'black',
+              borderWidth: 0.5
+        },{
+              label: '8',
+              data: regionData[7],
+              backgroundColor: getColour(8),
+              borderColor: 'black',
+              borderWidth: 0.5
+        },{
+              label: '9',
+              data: regionData[8],
+              backgroundColor: getColour(9),
+              borderColor: 'black',
+              borderWidth: 0.5
+        },{
+              label: '10',
+              data: regionData[9],
+              backgroundColor: getColour(10),
+              borderColor: 'black',
+              borderWidth: 0.5
+      }
+    ]
+    },
+    options: {
+        title: {
+           display: true,
+           text: 'Ratings of Pubs per Region'
+       },
+       legend:{
+         fontSize: 8
+       },
+        scales: {
+            yAxes: [{
+                stacked: true,
+                ticks: {
+                    beginAtZero:true
+                }
+            }],
+            xAxes:[{stacked: true}]
+        }
+    }
+});
+
+    }
+
+    function makeCountChart(){
+        var ctx = document.getElementById("myCountChart").getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ["1","2","3","4","5","6","7","8","9","10"],
+        datasets: [{
+            label: '# of Ratings',
+            data: countData,
+            backgroundColor: [getColour(1), getColour(2), getColour(3), getColour(4), getColour(5), getColour(6), getColour(7), getColour(8), getColour(9), getColour(10)],
+            borderColor: 'black',
+            borderWidth: 1
+        }]
+    },
+    options: {
+        title: {
+           display: true,
+           text: 'Count of Ratings'
+       },
+       legend:{
+         fontSize: 8
+       },
+        scales: {
+            yAxes: [{
+                stacked: true,
+                ticks: {
+                    beginAtZero:true
+                }
+            }],
+            xAxes:[{stacked: true}]
+        }
+    }
+});
+
+    }

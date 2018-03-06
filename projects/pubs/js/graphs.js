@@ -314,7 +314,7 @@ var myChart = new Chart(ctx, {
             label: '# of Ratings',
             data: countData,
             backgroundColor: [getColour(1), getColour(2), getColour(3), getColour(4), getColour(5), getColour(6), getColour(7), getColour(8), getColour(9), getColour(10)],
-            borderColor: [getColour(1), getColour(2), getColour(3), getColour(4), getColour(5), getColour(6), getColour(7), getColour(8), getColour(9), getColour(10)],
+            borderColor: 'black',
             borderWidth: 1
         }]
     },
