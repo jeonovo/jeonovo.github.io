@@ -1,11 +1,11 @@
-var data, total, info, labels, values, dataObject, regionData;
+var data, total, info, labels, values, dataObject, regionData, countData;
 var code = "1iu4HALT16VaYxQp200oDE8mA6yal_Yf4GsMN9bW7-Z8"
 function initGraphs(){
 
     getData();
 
   function getData(value){
-        console.log("get data");
+
         // loop through spreadsheet with Tabletop
             Tabletop.init({
                 key: code,
@@ -26,6 +26,10 @@ function initGraphs(){
 
                     setRatingsData(dataObject);
                     makeRatingChart();
+
+                    setCountData(dataObject);
+                    makeCountChart();
+
                 },
                 simpleSheet: true,
             });
@@ -59,7 +63,36 @@ function initGraphs(){
             }
             values.push(count);
         }
+    }
 
+    function setCountData(data){
+        countData =[];
+        ratingsValues = [1,2,3,4,5,6,7,8,9,10];
+        //counter = 0;
+
+        for (i in ratingsValues){
+
+            counter = 0;
+
+            for (k in data){
+
+                //console.log("k: " + Math.ceil(data[k].rating));
+
+                currentRating = Math.ceil(data[k].rating);
+
+                if (currentRating == ratingsValues[i]){
+
+                    counter+=1;
+                }
+            }
+
+            console.log(ratingsValues[i] + ": " + counter);
+            countData.push(counter);
+
+        }
+
+
+        }
 
     }
 
@@ -71,9 +104,9 @@ function initGraphs(){
     }
 
     function setRatingsData(object){
-       
+
         var ratingsValues = [1,2,3,4,5,6,7,8,9,10];
-        regionData = []; // need to rethink the whole thing
+        regionData = [];
         var currentRating = 0;
         // loop through labels
         // need an array for each rating - with each value being the regions count of that rating
@@ -83,14 +116,15 @@ function initGraphs(){
                 the_rating.push(0);
             }
             currentRating+=1;
-         
+
             var count = 0;
             for (j in labels){
                 currentRegion = labels[j];
-                
+
 
                 for (k in object){
                     if (object[k].region == currentRegion && Math.ceil(object[k].rating)==currentRating){
+
                         the_rating[j]+=1;
                     }
                 }
@@ -180,7 +214,6 @@ var myChart = new Chart(ctx, {
     }
 
     function makeRatingChart(){
-      
         var ctx = document.getElementById("myRatingChart").getContext('2d');
 var myChart = new Chart(ctx, {
     type: 'horizontalBar',
@@ -255,11 +288,7 @@ var myChart = new Chart(ctx, {
            text: 'Ratings of Pubs per Region'
        },
        legend:{
-           display: true,
-           labels: {
-               boxWidth: 10,
-               fontSize: 8
-           },
+         fontSize: 8
        },
         scales: {
             yAxes: [{
@@ -274,4 +303,39 @@ var myChart = new Chart(ctx, {
 });
 
     }
-}
+
+    function makeCountChart(){
+        var ctx = document.getElementById("myCountChart").getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ["1","2","3","4","5","6","7","8","9","10"],
+        datasets: [{
+            label: '# of Ratings',
+            data: countData,
+            backgroundColor: [getColour(1), getColour(2), getColour(3), getColour(4), getColour(5), getColour(6), getColour(7), getColour(8), getColour(9), getColour(10)],
+            borderColor: [getColour(1), getColour(2), getColour(3), getColour(4), getColour(5), getColour(6), getColour(7), getColour(8), getColour(9), getColour(10)],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        title: {
+           display: true,
+           text: 'Count of Ratings'
+       },
+       legend:{
+         fontSize: 8
+       },
+        scales: {
+            yAxes: [{
+                stacked: true,
+                ticks: {
+                    beginAtZero:true
+                }
+            }],
+            xAxes:[{stacked: true}]
+        }
+    }
+});
+
+    }
