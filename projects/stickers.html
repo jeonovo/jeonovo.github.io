@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>STICKERS</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<script
+  src="https://code.jquery.com/jquery-3.2.1.js"
+  integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+  crossorigin="anonymous"></script>
+
+ 	<script src ='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.js'></script>
+	<link rel="stylesheet" href="stickers/css/style.css" />
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/tabletop.js/1.5.1/tabletop.min.js'></script>
+	<script type='text/javascript' src='stickers/js/stickers.js'></script>
+
+
+</head>
+<body onload='initGraphs()'>
+	<div id='statsArea'>
+	
+	</div>
+		<div id="chartArea">
+		<canvas id="myChart" width="500px" height="500px"></canvas>
+	</div>
+	<div id="ratingArea">
+			<canvas id="myRatingChart" width="500px" height="500px"></canvas>
+	</div>
+	<div id="countArea">
+			<canvas id="myCountChart" width="500px" height="500px"></canvas>
+	</div>
+</body>
+</html>

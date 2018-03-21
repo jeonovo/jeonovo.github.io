@@ -1,0 +1,12 @@
+#chartArea{
+    float: left;
+    display: inline-block;
+}
+#ratingArea{
+    float: left;
+    display: inline-block;
+}
+#countArea{
+    float: left;
+    display: inline-block;
+}
