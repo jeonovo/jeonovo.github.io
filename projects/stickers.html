@@ -18,16 +18,36 @@
 </head>
 <body onload='initGraphs()'>
 	<div id='statsArea'>
-	
+		<table id="myTable">
+			<td></td>
+			<td><b>Count</td>
+			<td><b>Dupes</td>
+		</tr>
+		<tr>
+			<td>Jonny</td>
+			<td class ='table' id ="jbc"></td>
+			<td class ='table' id ="jbd"></td>
+		</tr>
+		<tr>
+			<td>Jonathon</td>
+			<td class ='table' id ="jdc"></td>
+			<td class ='table' id ="jdd"></td>
+		</tr>
+		<tr>
+			<td>Chris</td>
+			<td class ='table' id ="cgc"></td>
+			<td class ='table' id ="cgd"></td>
+		</tr>
+		<tr>
+			<td>Collective</td>
+			<td class ='table' id ="clc"></td>
+			<td class ='table' id ="cld"></td>
+		</tr>
+</table>
+
 	</div>
 		<div id="chartArea">
-		<canvas id="myChart" width="500px" height="500px"></canvas>
-	</div>
-	<div id="ratingArea">
-			<canvas id="myRatingChart" width="500px" height="500px"></canvas>
-	</div>
-	<div id="countArea">
-			<canvas id="myCountChart" width="500px" height="500px"></canvas>
+		<canvas id="myChart" width="400px" height="400px"></canvas>
 	</div>
 </body>
 </html>
