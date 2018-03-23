@@ -2,11 +2,16 @@
     float: left;
     display: inline-block;
 }
-#ratingArea{
+#ratioArea{
     float: left;
     display: inline-block;
 }
-#countArea{
-    float: left;
-    display: inline-block;
+#jbArea{
+  color:red;
+}
+#jdArea{
+  color:#ffbb00;
+}
+#cgArea{
+  color:blue;
 }
