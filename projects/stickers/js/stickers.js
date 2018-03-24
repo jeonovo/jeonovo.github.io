@@ -67,7 +67,7 @@ function initGraphs(){
           }
 
             updateStats(jonny, jonathon, chris, collective, jonnyDupe, jdDupe, chrisDupe, collectiveDupe);
-				    makeChart(jonny, jonathon, chris);
+            makeChart(jonny, jonathon, chris);
             makeRatioChart(jonny, jonathon, chris, jonnyDupe, jdDupe, chrisDupe);
 				  },
                 simpleSheet: true,
