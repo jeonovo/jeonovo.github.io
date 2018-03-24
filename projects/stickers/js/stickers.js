@@ -123,7 +123,8 @@ var myChart = new Chart(ctx, {
         scales: {
             xAxes: [{
                 ticks: {
-                    beginAtZero:true
+                    beginAtZero:true,
+					max: 100
                 }
             }]
         }
@@ -176,11 +177,12 @@ var myChart = new Chart(ctx, {
                  text: 'Got / Swap Ratio'
              },
               scales: {
-                yAxes:[{stacked: true}],
+                yAxes:[{stacked: true, max: 100}],
                   xAxes: [{
                     stacked: true,
                       ticks: {
-                          beginAtZero:true
+                          beginAtZero:true,
+						  max: 100
                       }
                   }]
               }

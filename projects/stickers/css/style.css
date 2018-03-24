@@ -1,3 +1,6 @@
+#body{
+    background-color: grey;
+}
 #chartArea{
     float: left;
     display: inline-block;
@@ -6,12 +9,25 @@
     float: left;
     display: inline-block;
 }
+#jbArea, #jdArea, #cgArea,  #statsArea, #swapsArea{
+    font-size: 1vw;
+    font-family: "Lucida Console", monospace;
+}
 #jbArea{
   color:red;
+  float: left;
+  display: inline-block;
+  padding: 10px 10px 10px 10px;
 }
 #jdArea{
   color:#ffbb00;
+  float: left;
+  display: inline-block;
+  padding: 10px 10px 10px 10px;
 }
 #cgArea{
   color:blue;
+  float: left;
+  display: inline-block;
+  padding: 10px 10px 10px 10px;
 }

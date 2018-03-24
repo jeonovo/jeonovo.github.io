@@ -98,7 +98,7 @@ function initGraphs(){
 	function updateSwaps(jb, jd, cg, jbn, jdn, cgn){
 
   /** JB SWAPS **/
-  var jbContent ="<b>Jonny Swaps:<br>";
+  var jbContent ="<b>Jonny Swaps:</b><br>";
 
 
   // JB Swaps
@@ -139,7 +139,7 @@ function initGraphs(){
     /***********************/
 
   /** JD SWAPS **/
-  var jdContent ="<b>JD Swaps:<br>";
+  var jdContent ="<b>JD Swaps:</b><br>";
 
   // JD Swaps
   for (i in jd){
@@ -177,7 +177,7 @@ function initGraphs(){
 /***********************/
 
 /** CG Swaps  **/
-  var cgContent ="<b>Chris Swaps:<br>";
+  var cgContent ="<b>Chris Swaps:</b><br>";
 
   for (i in cg){
 
