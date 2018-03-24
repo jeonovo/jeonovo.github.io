@@ -22,7 +22,7 @@ function initGraphs(){
 		  chrisDupe =0;
 		  collectiveDupe =0;
                     for (var i in sheet){
-						var got = Number(sheet[i].pubRating);
+
 
 						if (Number(sheet[i].JB > 0)){
 
@@ -65,9 +65,10 @@ function initGraphs(){
 
 
           }
-              
+
             updateStats(jonny, jonathon, chris, collective, jonnyDupe, jdDupe, chrisDupe, collectiveDupe);
 				    makeChart(jonny, jonathon, chris);
+            makeRatioChart(jonny, jonathon, chris, jonnyDupe, jdDupe, chrisDupe);
 				  },
                 simpleSheet: true,
             });
@@ -77,12 +78,12 @@ function initGraphs(){
 	function updateStats(value1, value2, value3, value4, value5, value6, value7, value8){
 
 
-        document.getElementById('jbc').innerHTML = value1;
+    document.getElementById('jbc').innerHTML = value1;
 		document.getElementById('jbd').innerHTML = value5;
-		
+
 		document.getElementById('jdc').innerHTML = value2;
 		document.getElementById('jdd').innerHTML = value6;
-		
+
 		document.getElementById('cgc').innerHTML = value3;
 		document.getElementById('cgd').innerHTML = value7;
 
@@ -130,6 +131,65 @@ var myChart = new Chart(ctx, {
 });
 
     }
+
+    //jb jd cg jbd jdd cgd
+  function makeRatioChart(v1, v2, v3, v4, v5, v6){
+
+    var jbTotal = v1 + v4;
+    var jdTotal = v2 + v5;
+    var cgTotal = v3 + v6;
+
+    var jb1 = Math.round((v1/jbTotal*100) * 100) / 100;
+    var jd1 = Math.round((v2/jdTotal*100) * 100) / 100;
+    var cg1 = Math.round((v3/cgTotal*100) * 100) / 100;
+
+    var jb2 = Math.round((v4/jbTotal*100) * 100) / 100;
+    var jd2 = Math.round((v5/jdTotal*100) * 100) / 100;
+    var cg2 = Math.round((v6/cgTotal*100) * 100) / 100;
+
+    var ctx = document.getElementById("ratioChart").getContext('2d');
+      var myChart = new Chart(ctx, {
+          type: 'horizontalBar',
+          data: {
+              labels: ["Jonny", "Jonathon", "Chris"],
+              datasets: [{
+                label: 'Got',
+                data: [jb1, jd1, cg1],
+                backgroundColor: "green",
+              borderColor: 'black',
+              borderWidth: 1
+
+              },{
+                label: 'Swap',
+                data: [jb2, jd2, cg2],
+                backgroundColor: "red",
+              borderColor: 'black',
+              borderWidth: 1
+
+          }]},
+          options: {
+      		legend: {
+      			display: false
+      		},
+              title: {
+                 display: true,
+                 text: 'Got / Swap Ratio'
+             },
+              scales: {
+                yAxes:[{stacked: true}],
+                  xAxes: [{
+                    stacked: true,
+                      ticks: {
+                          beginAtZero:true
+                      }
+                  }]
+              }
+          }
+      });
+
+          }
+
+
 
 
 }
