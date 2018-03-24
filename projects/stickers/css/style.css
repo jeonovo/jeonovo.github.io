@@ -1,0 +1,17 @@
+#chartArea{
+    float: left;
+    display: inline-block;
+}
+#ratioArea{
+    float: left;
+    display: inline-block;
+}
+#jbArea{
+  color:red;
+}
+#jdArea{
+  color:#ffbb00;
+}
+#cgArea{
+  color:blue;
+}
