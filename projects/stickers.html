@@ -17,6 +17,7 @@
 
 </head>
 <body onload='initGraphs()'>
+	<div id="container">
 	<div id='statsArea'>
 		<table id="myTable">
 			<td></td>
@@ -44,13 +45,23 @@
 			<td class ='table' id ="cld"></td>
 		</tr>
 </table>
-
-	</div>
+</div>
+	<div id="collectorArea">
 		<div id="chartArea">
 		<canvas id="myChart" width="400px" height="400px"></canvas>
 	</div>
 	<div id="ratioArea">
 	<canvas id="ratioChart" width="400px" height="400px"></canvas>
+</div>
+</div>
+<div id="participantArea">
+<div id="groupArea">
+<canvas id="groupChart" width="400px" height="600px"></canvas>
+</div>
+<div id="teamArea">
+<canvas id="teamChart" width="400px" height="600px"></canvas>
+</div>
+</div>
 </div>
 </body>
 </html>

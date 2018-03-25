@@ -1,15 +1,33 @@
+
+#collectorArea{
+    float: left;
+    display: inline-block;
+}
+#participantArea{
+    float: left;
+    display: inline-block;
+}
 #chartArea{
     float: left;
     display: inline-block;
 }
 #ratioArea{
+    margin: auto;
+    float: left;
+    display: inline-block;
+}
+#groupArea{
+    float: left;
+    display: inline-block;
+}
+#teamArea{
     float: left;
     display: inline-block;
 }
 
-
 #jbArea, #jdArea, #cgArea,  #statsArea, #swapsArea{
     font-family: "Lucida Console", monospace;
+    text-align: left;
 }
 
 /* If the screen size is 601px wide or more, set the font-size of <div> to 80px */

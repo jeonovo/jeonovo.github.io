@@ -128,7 +128,7 @@ function initGraphs(){
       } else if(jdnValue == 1){
         whoNeed = " - JD"
       } else {
-        whoNeed = " - Dupe Central"
+        whoNeed = " - Dupe"
       }
 
 
@@ -168,7 +168,7 @@ function initGraphs(){
       } else if(cgnValue == 1){
         whoNeed = " - Chris"
       } else {
-        whoNeed = " - Dupe Central"
+        whoNeed = " - Dupe"
       }
 
       jdContent += jdGot + whoNeed + "<br>";
@@ -205,7 +205,7 @@ function initGraphs(){
       } else if(jdnValue == 1){
         whoNeed = " - JD"
       } else {
-        whoNeed = " - Dupe Central"
+        whoNeed = " - Dupe"
       }
 
       cgContent += cgGot + whoNeed + "<br>";

@@ -1,6 +1,9 @@
 var code = "1cktGbzgK-rYFBWpWKAN8PL-VMBDLLuZBDmMtZvB9mbU"
-var stickerData, jonny, jonathon, chris;
+var stickerData, jonny, jonathon, chris, dataObject;
 var totalStickers = 682;
+var jonnyColour = "rgba(255, 99, 132, 0.5)";
+var jonathonColour = "rgba(255, 254, 0, 0.5)";
+var chrisColour = "rgba(31, 87, 220, 0.5)"
 
 function initGraphs(){
 
@@ -12,56 +15,83 @@ function initGraphs(){
             Tabletop.init({
                 key: code,
                 callback: function(sheet, tabletop){
+
+                    dataObject = [];
                     stickerData = [];
 					jonny = 0;
 					jonathon = 0;
 					chris = 0;
-          collective = 0;
-          jonnyDupe = 0;
-		  jdDupe=0;
-		  chrisDupe =0;
-		  collectiveDupe =0;
+                    collective = 0;
+                    jonnyDupe = 0;
+            		jdDupe=0;
+            		chrisDupe =0;
+            		collectiveDupe =0;
                     for (var i in sheet){
 
+                        var jb_count = 0;
+                        var jd_count = 0;
+                        var cg_count = 0;
+                        var col_count = 0;
 
 						if (Number(sheet[i].JB > 0)){
-
 							jonny +=1;
+                            jb_count =1;
+                            //
 						}
-
 						if (Number(sheet[i].JD > 0)){
-
 							jonathon +=1;
+                            jd_count=1;
 						}
 
 						if (Number(sheet[i].CG > 0)){
-
 							chris +=1;
+                            cg_count =1;
 						}
+                        if (Number(sheet[i].Collective > 0)){
+                          collective  +=1;
+                          col_count = 1;
+                      }
+                        if (Number(sheet[i].JB) > 1){
+                          jonnyDupe +=1;
+                        }
+            			if (Number(sheet[i].JD) > 1){
+                          jdDupe +=1;
+                        }
+            			if (Number(sheet[i].CG) > 1){
+                          chrisDupe +=1;
+                        }
+            			if (Number(sheet[i].Collective) > 1){
+                          collectiveDupe +=1;
+                        }
 
-            if (Number(sheet[i].Collective > 0)){
+                        var the_name = sheet[i].Name;
+                        var the_team = sheet[i].Team;
 
-              collective  +=1;
 
-            }
+                        if (the_team == "Russia" || the_team == "Saudi Arabia" || the_team == "Egypt" || the_team == "Uruguay"){
+                            the_group = "Group A";
+                        } else if (the_team == "Portugal" || the_team == "Spain" || the_team == "Morocco" || the_team == "Iran"){
+                            the_group = "Group B";
+                        } else if (the_team == "France" || the_team == "Australia" || the_team == "Peru" || the_team == "Denmark"){
+                            the_group = "Group C";
+                        } else if (the_team == "Argentina" || the_team == "Iceland" || the_team == "Croatia" || the_team == "Nigeria"){
+                            the_group = "Group D";
+                        } else if (the_team == "Brazil" || the_team == "Switzerland" || the_team == "Costa Rica" || the_team == "Serbia"){
+                            the_group = "Group E";
+                        } else if (the_team == "Germany" || the_team == "Mexico" || the_team == "Sweden" || the_team == "Korea Republic"){
+                            the_group = "Group F";
+                        } else if (the_team == "Belgium" || the_team == "England" || the_team == "Panama" || the_team == "Tunisia"){
+                            the_group = "Group G";
+                        } else if (the_team == "Poland" || the_team == "Senegal" || the_team == "Colombia" || the_team == "Japan"){
+                            the_group = "Group H";
+                        } else {
+                            the_group = "Non Team"
+                        }
 
-            if (Number(sheet[i].JB) > 1){
-              jonnyDupe +=1;
 
-            }
-			if (Number(sheet[i].JD) > 1){
-              jdDupe +=1;
 
-            }
-			if (Number(sheet[i].CG) > 1){
-              chrisDupe +=1;
 
-            }
-			if (Number(sheet[i].Collective) > 1){
-              collectiveDupe +=1;
-
-            }
-
+                        dataObject.push({"name": the_name, "team":the_team, "group": the_group, "jb": jb_count, "jd": jd_count, "cg": cg_count,"cl": col_count});
 
 
           }
@@ -69,6 +99,9 @@ function initGraphs(){
             updateStats(jonny, jonathon, chris, collective, jonnyDupe, jdDupe, chrisDupe, collectiveDupe);
             makeChart(jonny, jonathon, chris);
             makeRatioChart(jonny, jonathon, chris, jonnyDupe, jdDupe, chrisDupe);
+            makeGroupChart(dataObject);
+            makeTeamChart(dataObject);
+
 				  },
                 simpleSheet: true,
             });
@@ -107,7 +140,7 @@ var myChart = new Chart(ctx, {
             label: '% Got Got Need',
             data: [jb,jd,cg],
             backgroundColor:
-                ['rgba(255, 99, 132, 0.5)','rgba(255, 254, 0, 0.5)','rgba(31, 87, 220, 0.5)'],
+                [jonnyColour,jonathonColour,chrisColour],
             borderColor: 'black',
             borderWidth: 1
         }]
@@ -191,6 +224,213 @@ var myChart = new Chart(ctx, {
 
           }
 
+
+          function getTeams(){
+
+
+          }
+
+          function makeTeamChart(team_data){
+
+              /** Chart labels set up **/
+              labels = [];
+              data = [];
+              for (i in team_data){
+                  if (team_data[i].team != "World Cup" && team_data[i].team != "Stadium" && team_data[i].team != "Legend"){
+                  data.push(team_data[i].team);
+                }
+            }
+              for (i in data){
+                  if (labels.indexOf(data[i]) < 0){
+                      labels.push(data[i])
+                  }
+              }
+
+              jbTeamData = [];
+              jdTeamData = [];
+              cgTeamData = [];
+              clTeamData = [];
+
+
+
+              for (i in labels){
+                  currentTeam = labels[i];
+                  jbTeamCount = 0;
+                  jdTeamCount = 0;
+                  cgTeamCount = 0;
+                  clTeamCount = 0;
+                  for (k in team_data){
+                      if (team_data[k].team == currentTeam){
+                          if (team_data[k].jb > 0){
+                              jbTeamCount += 1;
+                          }
+                          if (team_data[k].jd > 0){
+                              jdTeamCount += 1;
+                          }
+                          if (team_data[k].cg > 0){
+                              cgTeamCount += 1;
+                          }
+                          if (team_data[k].cl > 0){
+                              clTeamCount += 1;
+                          }
+
+                      }
+
+
+                  }
+                  jbTeamData.push(Math.round((jbTeamCount/20*100) * 100) / 100);
+                  jdTeamData.push(Math.round((jdTeamCount/20*100) * 100) / 100);
+                  cgTeamData.push(Math.round((cgTeamCount/20*100) * 100) / 100);
+                  clTeamData.push(Math.round((clTeamCount/20*100) * 100) / 100);
+              }
+
+
+
+
+
+              var ctx = document.getElementById("teamChart").getContext('2d');
+      var myChart = new Chart(ctx, {
+          type: 'horizontalBar',
+          data: {
+              labels: labels,
+              datasets:  [{
+                label: 'Jonny',
+                data: jbTeamData,
+                backgroundColor: jonnyColour,
+              borderColor: 'black',
+              borderWidth: 0.1
+              },{
+                label: 'Jonathon',
+                data: jdTeamData,
+                backgroundColor: jonathonColour,
+              borderColor: 'black',
+              borderWidth: 0.1
+
+          },{
+            label: 'Chris',
+            data: cgTeamData,
+            backgroundColor: chrisColour,
+          borderColor: 'black',
+          borderWidth: 0.1
+          },{
+            label: 'Collective',
+            data: clTeamData,
+            backgroundColor: 'rgba(125,125,125,0.5)',
+          borderColor: 'black',
+          borderWidth: 0.1,
+          hidden: true
+
+      }
+      ]},
+          options: {
+            legend: {
+                display: true
+            },
+              title: {
+                 display: true,
+                 text: 'Team Completion'
+             },
+              scales: {
+                  xAxes: [{
+                      ticks: {
+                          beginAtZero:true,
+                        max: 100
+                      }
+                  }]
+              }
+          }
+      });
+          }
+
+          function makeGroupChart(dataObject){
+              jbGroupData = [];
+              jdGroupData = [];
+              cgGroupData = [];
+              clGroupData = [];
+
+              labels = ["Group A", "Group B", "Group C", "Group D", "Group E", "Group F", "Group G", "Group H"];
+              for (i in labels){
+                  jbGroupCount = 0;
+                  jdGroupCount = 0;
+                  cgGroupCount = 0;
+                  clGroupCount = 0;
+                  for (k in dataObject){
+                      if (dataObject[k].group == labels[i]){
+                          if (dataObject[k].jb > 0){
+                              jbGroupCount += 1;
+                          }
+                          if (dataObject[k].jd > 0){
+                              jdGroupCount += 1;
+                          }
+                          if (dataObject[k].cg > 0){
+                              cgGroupCount += 1;
+                          }
+                          if (dataObject[k].cl > 0){
+                              clGroupCount += 1;
+                          }
+
+                      }
+                  }
+                  jbGroupData.push(Math.round((jbGroupCount/80*100) * 100) / 100);
+                  jdGroupData.push(Math.round((jdGroupCount/80*100) * 100) / 100);
+                  cgGroupData.push(Math.round((cgGroupCount/80*100) * 100) / 100);
+                  clGroupData.push(Math.round((clGroupCount/80*100) * 100) / 100);
+              }
+
+
+
+
+              var ctx = document.getElementById("groupChart").getContext('2d');
+      var myChart = new Chart(ctx, {
+          type: 'horizontalBar',
+          data: {
+              labels:labels,
+              datasets:  [{
+                label: 'Jonny',
+                data: jbGroupData,
+                backgroundColor: jonnyColour,
+              borderColor: 'black',
+              borderWidth: 1
+              },{
+                label: 'Jonathon',
+                data: jdGroupData,
+                backgroundColor: jonathonColour,
+              borderColor: 'black',
+              borderWidth: 1
+          },{
+                label: 'Chris',
+                data: cgGroupData,
+                backgroundColor: chrisColour,
+              borderColor: 'black',
+              borderWidth: 1
+              },{
+                label: 'Collective',
+                data: clGroupData,
+                backgroundColor: 'rgba(125,125,125,0.5)',
+              borderColor: 'black',
+              borderWidth: 1,
+              hidden: true
+          }
+      ]},
+          options: {
+            legend: {
+                display: true
+            },
+              title: {
+                 display: true,
+                 text: 'Group Completion'
+             },
+              scales: {
+                  xAxes: [{
+                      ticks: {
+                          beginAtZero:true,
+                        max: 100
+                      }
+                  }]
+              }
+          }
+      });
+          }
 
 
 
