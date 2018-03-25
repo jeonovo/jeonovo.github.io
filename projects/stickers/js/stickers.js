@@ -15,53 +15,65 @@ function initGraphs(){
             Tabletop.init({
                 key: code,
                 callback: function(sheet, tabletop){
+                  dataObject = [];
+                  stickerData = [];
+                  jonny = 0;
+                  jonathon = 0;
+                  chris = 0;
+                  collective = 0;
+                  jonnyDupe = 0;
+                  jdDupe=0;
+                  chrisDupe =0;
+                  collectiveDupe =0;
+                  jbSum = 0;
+                  jdSum = 0;
+                  cgSum = 0;
+                  colSum = 0;
+                  for (var i in sheet){
+                    var jb_count = 0;
+                    var jd_count = 0;
+                    var cg_count = 0;
+                    var col_count = 0;
 
-                    dataObject = [];
-                    stickerData = [];
-					jonny = 0;
-					jonathon = 0;
-					chris = 0;
-                    collective = 0;
-                    jonnyDupe = 0;
-            		jdDupe=0;
-            		chrisDupe =0;
-            		collectiveDupe =0;
-                    for (var i in sheet){
+      						if (sheet[i].JB > 0){
+                      jonny +=1;
+                      jb_count =1;
+                      jbSum = jbSum + Number(sheet[i].JB);
+                  }
 
-                        var jb_count = 0;
-                        var jd_count = 0;
-                        var cg_count = 0;
-                        var col_count = 0;
+                  if (Number(sheet[i].JD > 0)){
+  							       jonathon +=1;
+                       jd_count=1;
+                       jdSum = jdSum + Number(sheet[i].JD);
+                   }
 
-						if (Number(sheet[i].JB > 0)){
-							jonny +=1;
-                            jb_count =1;
-                            //
-						}
-						if (Number(sheet[i].JD > 0)){
-							jonathon +=1;
-                            jd_count=1;
-						}
+                   if (Number(sheet[i].CG > 0)){
+                       chris +=1;
+                       cg_count =1;
+                       cgSum = cgSum + Number(sheet[i].CG);
+                   }
 
-						if (Number(sheet[i].CG > 0)){
-							chris +=1;
-                            cg_count =1;
-						}
-                        if (Number(sheet[i].Collective > 0)){
+                   if (Number(sheet[i].Collective > 0)){
                           collective  +=1;
                           col_count = 1;
+                          colSum = colSum + Number(sheet[i].Collective);
                       }
-                        if (Number(sheet[i].JB) > 1){
+
+                  if (Number(sheet[i].JB) > 1){
                           jonnyDupe +=1;
+                          //jbSum = jbSum + Number(sheet[i].JB);
                         }
             			if (Number(sheet[i].JD) > 1){
                           jdDupe +=1;
+                      //    jdSum = jdSum + Number(sheet[i].JD);
                         }
             			if (Number(sheet[i].CG) > 1){
                           chrisDupe +=1;
+                        //  cgSum = cgSum + Number(sheet[i].CG);
                         }
             			if (Number(sheet[i].Collective) > 1){
                           collectiveDupe +=1;
+                        //  colSum = colSum + Number(sheet[i].Collective);
                         }
 
                         var the_name = sheet[i].Name;
@@ -96,7 +108,7 @@ function initGraphs(){
 
           }
 
-            updateStats(jonny, jonathon, chris, collective, jonnyDupe, jdDupe, chrisDupe, collectiveDupe);
+            updateStats(jonny, jonathon, chris, collective, jonnyDupe, jdDupe, chrisDupe, collectiveDupe, jbSum, jdSum, cgSum, colSum);
             makeChart(jonny, jonathon, chris);
             makeRatioChart(jonny, jonathon, chris, jonnyDupe, jdDupe, chrisDupe);
             makeGroupChart(dataObject);
@@ -108,20 +120,24 @@ function initGraphs(){
 
     }
 	// jonny, jonathon, chris, collective, jonnyDupe, jdDupe, chrisDupe, collectiveDupe
-	function updateStats(value1, value2, value3, value4, value5, value6, value7, value8){
+	function updateStats(v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12){
 
 
-    document.getElementById('jbc').innerHTML = value1;
-		document.getElementById('jbd').innerHTML = value5;
+    document.getElementById('jbc').innerHTML = v1;
+		document.getElementById('jbd').innerHTML = v5;
+    document.getElementById('jbs').innerHTML = v9;
 
-		document.getElementById('jdc').innerHTML = value2;
-		document.getElementById('jdd').innerHTML = value6;
+		document.getElementById('jdc').innerHTML = v2;
+		document.getElementById('jdd').innerHTML = v6;
+    document.getElementById('jds').innerHTML = v10;
 
-		document.getElementById('cgc').innerHTML = value3;
-		document.getElementById('cgd').innerHTML = value7;
+		document.getElementById('cgc').innerHTML = v3;
+		document.getElementById('cgd').innerHTML = v7;
+    document.getElementById('cgs').innerHTML = v11;
 
-		document.getElementById('clc').innerHTML = value4;
-		document.getElementById('cld').innerHTML = value8;
+		document.getElementById('clc').innerHTML = v4;
+		document.getElementById('cld').innerHTML = v8;
+    document.getElementById('cls').innerHTML = v12;
 
 	}
 
@@ -155,9 +171,10 @@ var myChart = new Chart(ctx, {
        },
         scales: {
             xAxes: [{
+                gridLines:{ display: false},
                 ticks: {
                     beginAtZero:true,
-					max: 100
+					          max: 100
                 }
             }]
         }
@@ -212,6 +229,7 @@ var myChart = new Chart(ctx, {
               scales: {
                 yAxes:[{stacked: true, max: 100}],
                   xAxes: [{
+                      gridLines:{ display: false},
                     stacked: true,
                       ticks: {
                           beginAtZero:true,
@@ -331,7 +349,9 @@ var myChart = new Chart(ctx, {
                  text: 'Team Completion'
              },
               scales: {
+
                   xAxes: [{
+                    gridLines:{ display: false},
                       ticks: {
                           beginAtZero:true,
                         max: 100
@@ -422,6 +442,7 @@ var myChart = new Chart(ctx, {
              },
               scales: {
                   xAxes: [{
+                    gridLines:{ display: false},
                       ticks: {
                           beginAtZero:true,
                         max: 100

@@ -1,28 +1,36 @@
+a{
+  text-decoration:none
+}
+body {
+    background: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)),url("bg.jpg");
+}
 
-#collectorArea{
-    float: left;
+#collectorArea, #participantArea{
+    width: 100%;
     display: inline-block;
-}
-#participantArea{
     float: left;
-    display: inline-block;
+
 }
-#chartArea{
-    float: left;
-    display: inline-block;
-}
-#ratioArea{
-    margin: auto;
-    float: left;
-    display: inline-block;
-}
-#groupArea{
-    float: left;
-    display: inline-block;
-}
+#chartArea, #ratioArea,
+#groupArea,
 #teamArea{
     float: left;
     display: inline-block;
+}
+
+#jbc,
+#jbd,
+#jbs,
+#jdc,
+#jdd,
+#jds,
+#cgc,
+#cgd,
+#cgs,
+#clc,
+#cld,
+#cls{
+  text-align: right;
 }
 
 #jbArea, #jdArea, #cgArea,  #statsArea, #swapsArea{
@@ -33,15 +41,26 @@
 /* If the screen size is 601px wide or more, set the font-size of <div> to 80px */
 @media screen and (min-width: 601px) {
   #jbArea, #jdArea, #cgArea {
-    font-size: 1vw;
+    font-size: 1.1vw;
+  }
+   #statsArea, #swapsArea{
+       padding-top: 10px;
+   }
+  #ratioArea,
+  #teamArea,
+  #statsArea, #swapsArea, #chartArea,
+  #groupArea{
+    padding-left: 20px;
   }
 }
 
 /* If the screen size is 600px wide or less, set the font-size of <div> to 30px */
 @media screen and (max-width: 600px) {
  #jbArea, #jdArea, #cgArea {
-    font-size: 12px;
+    font-size: 14px;
   }
+
+
 }
 #jbArea{
   color:red;

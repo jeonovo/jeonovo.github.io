@@ -2,11 +2,8 @@ var code = "1cktGbzgK-rYFBWpWKAN8PL-VMBDLLuZBDmMtZvB9mbU"
 var stickerData, jonny, jonathon, chris, jonnyNeed;
 var totalStickers = 682;
 
-//  probability of dupe in next pack
-// completed by country
-// completed by group
+// probability of dupe in next pack
 // sum total spent
-//
 
 function initGraphs(){
 

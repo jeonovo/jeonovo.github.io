@@ -17,51 +17,56 @@
 
 </head>
 <body onload='initGraphs()'>
-	<div id="container">
+<div id="container">
 	<div id='statsArea'>
 		<table id="myTable">
 			<td></td>
-			<td><b>Count</td>
-				<td><b><a href="swaps.html">Swaps</a></td>
+			<td title ="count of gots"><b>&nbsp Got</td>
+			<td><b><a href="swaps.html" TITLE = "Unique players only">&nbsp Swap</a></td>
+			<td title = "times by 0.16 to see how much money you've wasted"><b>&nbsp Sum</td>
 		</tr>
 		<tr>
-			<td>Jonny</td>
+			<td>Jonny </td>
 			<td class ='table' id ="jbc"></td>
 			<td class ='table' id ="jbd"></td>
+			<td class ='table' id ="jbs"></td>
 		</tr>
 		<tr>
-			<td>Jonathon</td>
+			<td>Jonathon </td>
 			<td class ='table' id ="jdc"></td>
 			<td class ='table' id ="jdd"></td>
+			<td class ='table' id ="jds"></td>
 		</tr>
 		<tr>
-			<td>Chris</td>
+			<td>Chris </td>
 			<td class ='table' id ="cgc"></td>
 			<td class ='table' id ="cgd"></td>
+			<td class ='table' id ="cgs"></td>
 		</tr>
 		<tr>
 			<td>Collective </td>
 			<td class ='table' id ="clc"></td>
 			<td class ='table' id ="cld"></td>
+			<td class ='table' id ="cls"></td>
 		</tr>
-</table>
-</div>
+		</table>
+	</div>
 	<div id="collectorArea">
 		<div id="chartArea">
-		<canvas id="myChart" width="400px" height="400px"></canvas>
+			<canvas id="myChart" width="400px" height="400px"></canvas>
+		</div>
+		<div id="ratioArea">
+			<canvas id="ratioChart" width="400px" height="400px"></canvas>
+		</div>
 	</div>
-	<div id="ratioArea">
-	<canvas id="ratioChart" width="400px" height="400px"></canvas>
-</div>
-</div>
-<div id="participantArea">
-<div id="groupArea">
-<canvas id="groupChart" width="400px" height="600px"></canvas>
-</div>
-<div id="teamArea">
-<canvas id="teamChart" width="400px" height="600px"></canvas>
-</div>
-</div>
+	<div id="participantArea">
+		<div id="groupArea">
+			<canvas id="groupChart" width="400px" height="600px"></canvas>
+		</div>
+		<div id="teamArea">
+			<canvas id="teamChart" width="400px" height="600px"></canvas>
+		</div>
+	</div>
 </div>
 </body>
 </html>
