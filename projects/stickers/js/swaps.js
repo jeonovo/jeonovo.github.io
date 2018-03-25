@@ -96,7 +96,9 @@ function initGraphs(){
 
   /** JB SWAPS **/
   var jbContent ="<b>Jonny Swaps:</b><br>";
-
+  var jbjd =0;
+  var jbcg =0;
+  var jbjb = 0;
 
   // JB Swaps
   for (i in jb){
@@ -109,34 +111,44 @@ function initGraphs(){
       for (i in cgn){
           if (cgn[i] == jbGot){
             cgnValue = 1;
+            jbcg+=1;
           }
       }
 
       for (i in jdn){
         if (jdn[i] == jbGot){
           jdnValue = 1;
+          jbjd+=1;
         }
       }
 
       if (cgnValue && jdnValue == 1){
         whoNeed = " - Both";
+
       } else if(cgnValue == 1) {
         whoNeed = " - Chris";
       } else if(jdnValue == 1){
         whoNeed = " - JD"
       } else {
         whoNeed = " - Dupe"
+        jbjb +=1;
       }
 
 
       jbContent += jbGot + whoNeed + "<br>";
 
     }
+    document.getElementById('jbjb').innerHTML = jbjb;
+    document.getElementById('jbjd').innerHTML = jbjd;
+    document.getElementById('jbcg').innerHTML = jbcg;
     document.getElementById('jbArea').innerHTML = jbContent;
     /***********************/
 
   /** JD SWAPS **/
   var jdContent ="<b>JD Swaps:</b><br>";
+  var jdjb =0;
+  var jdcg =0;
+  var jdjd = 0;
 
   // JD Swaps
   for (i in jd){
@@ -149,12 +161,14 @@ function initGraphs(){
       for (i in jbn){
           if (jbn[i] == jdGot){
             jbnValue = 1;
+            jdjb+=1;
           }
       }
 
       for (i in cgn){
         if (cgn[i] == jdGot){
           cgnValue = 1;
+          jdcg+=1;
         }
       }
 
@@ -166,15 +180,22 @@ function initGraphs(){
         whoNeed = " - Chris"
       } else {
         whoNeed = " - Dupe"
+        jdjd+=1;
       }
 
       jdContent += jdGot + whoNeed + "<br>";
     }
+    document.getElementById('jdjb').innerHTML = jdjb;
+    document.getElementById('jdcg').innerHTML = jdcg;
+    document.getElementById('jdjd').innerHTML = jdjd;
     document.getElementById('jdArea').innerHTML = jdContent;
 /***********************/
 
 /** CG Swaps  **/
   var cgContent ="<b>Chris Swaps:</b><br>";
+  var cgjb = 0; 
+  var cgjd = 0; 
+  var cgcg = 0; 
 
   for (i in cg){
 
@@ -186,12 +207,14 @@ function initGraphs(){
       for (i in jbn){
           if (jbn[i] == cgGot){
             jbnValue = 1;
+            cgjb +=1;
           }
       }
 
       for (i in jdn){
         if (jdn[i] == cgGot){
           jdnValue = 1;
+          cgjd +=1;
         }
       }
 
@@ -203,11 +226,15 @@ function initGraphs(){
         whoNeed = " - JD"
       } else {
         whoNeed = " - Dupe"
+        cgcg +=1;
       }
 
       cgContent += cgGot + whoNeed + "<br>";
 
     }
+    document.getElementById('cgjb').innerHTML = cgjb;
+    document.getElementById('cgjd').innerHTML = cgjd;
+    document.getElementById('cgcg').innerHTML = cgcg;
     document.getElementById('cgArea').innerHTML = cgContent;
     /***********************/
   }

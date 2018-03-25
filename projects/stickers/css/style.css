@@ -18,19 +18,18 @@ body {
     display: inline-block;
 }
 
-#jbc,
-#jbd,
-#jbs,
-#jdc,
-#jdd,
-#jds,
-#cgc,
-#cgd,
-#cgs,
-#clc,
-#cld,
-#cls{
+#jbc,#jbd,#jbs,
+#jdc,#jdd,#jds,
+#cgc,#cgd,#cgs,
+#clc,#cld,#cls,
+#jbjb, #jbjd, #jbcg,
+#jdjb, #jdcg, #jdjd,
+#cgjb, #cgjd, #cgcg{
   text-align: right;
+}
+
+#jbjb, #jdjd, #cgcg{
+  color: #8e8d8d
 }
 
 #jbArea, #jdArea, #cgArea,  #statsArea, #swapsArea{
