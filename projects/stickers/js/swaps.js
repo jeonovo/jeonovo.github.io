@@ -124,18 +124,21 @@ function initGraphs(){
 
       if (cgnValue && jdnValue == 1){
         whoNeed = " - Both";
+        jbContent += jbGot + whoNeed + "<br>";
 
       } else if(cgnValue == 1) {
         whoNeed = " - Chris";
+        jbContent += jbGot + whoNeed + "<br>";
       } else if(jdnValue == 1){
         whoNeed = " - JD"
+        jbContent += jbGot + whoNeed + "<br>";
       } else {
         whoNeed = " - Dupe"
         jbjb +=1;
       }
 
 
-      jbContent += jbGot + whoNeed + "<br>";
+
 
     }
     document.getElementById('jbjb').innerHTML = jbjb;
@@ -174,16 +177,19 @@ function initGraphs(){
 
       if (cgnValue && jbnValue == 1){
         whoNeed = " - Both";
+        jdContent += jdGot + whoNeed + "<br>";
       } else if(jbnValue == 1) {
         whoNeed = " - Jonny";
+        jdContent += jdGot + whoNeed + "<br>";
       } else if(cgnValue == 1){
         whoNeed = " - Chris"
+        jdContent += jdGot + whoNeed + "<br>";
       } else {
         whoNeed = " - Dupe"
         jdjd+=1;
       }
 
-      jdContent += jdGot + whoNeed + "<br>";
+
     }
     document.getElementById('jdjb').innerHTML = jdjb;
     document.getElementById('jdcg').innerHTML = jdcg;
@@ -193,9 +199,9 @@ function initGraphs(){
 
 /** CG Swaps  **/
   var cgContent ="<b>Chris Swaps:</b><br>";
-  var cgjb = 0; 
-  var cgjd = 0; 
-  var cgcg = 0; 
+  var cgjb = 0;
+  var cgjd = 0;
+  var cgcg = 0;
 
   for (i in cg){
 
@@ -220,16 +226,19 @@ function initGraphs(){
 
       if (jbnValue && jdnValue == 1){
         whoNeed = " - Both";
+        cgContent += cgGot + whoNeed + "<br>";
       } else if(jbnValue == 1) {
         whoNeed = " - Jonny";
+        cgContent += cgGot + whoNeed + "<br>";
       } else if(jdnValue == 1){
-        whoNeed = " - JD"
+        whoNeed = " - JD";
+        cgContent += cgGot + whoNeed + "<br>";
       } else {
         whoNeed = " - Dupe"
         cgcg +=1;
       }
 
-      cgContent += cgGot + whoNeed + "<br>";
+
 
     }
     document.getElementById('cgjb').innerHTML = cgjb;
