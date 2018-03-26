@@ -60,7 +60,7 @@ function initGraphs(){
                    if (Number(sheet[i].RB > 0)){
                        brint +=1;
                        rb_count =1;
-                       rbSum = rbSum + Number(sheet[i].CG);
+                       rbSum = rbSum + Number(sheet[i].RB);
                    }
 
                    if (Number(sheet[i].Collective > 0)){
@@ -134,24 +134,32 @@ function initGraphs(){
 
     }
 	// jonny, jonathon, chris, collective, jonnyDupe, jdDupe, chrisDupe, collectiveDupe
-	function updateStats(v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12){
+	function updateStats(v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14,v15){
 
+        // jonny
+        document.getElementById('jbc').innerHTML = v1;
+    	document.getElementById('jbd').innerHTML = v5;
+        document.getElementById('jbs').innerHTML = v9;
 
-    document.getElementById('jbc').innerHTML = v1;
-		document.getElementById('jbd').innerHTML = v5;
-    document.getElementById('jbs').innerHTML = v9;
+        // JD
+    	document.getElementById('jdc').innerHTML = v2;
+    	document.getElementById('jdd').innerHTML = v6;
+        document.getElementById('jds').innerHTML = v10;
 
-		document.getElementById('jdc').innerHTML = v2;
-		document.getElementById('jdd').innerHTML = v6;
-    document.getElementById('jds').innerHTML = v10;
+        // Chris
+    	document.getElementById('cgc').innerHTML = v3;
+    	document.getElementById('cgd').innerHTML = v7;
+        document.getElementById('cgs').innerHTML = v11;
 
-		document.getElementById('cgc').innerHTML = v3;
-		document.getElementById('cgd').innerHTML = v7;
-    document.getElementById('cgs').innerHTML = v11;
+        // Richard
+        document.getElementById('rbc').innerHTML = v13;
+        document.getElementById('rbd').innerHTML = v14;
+        document.getElementById('rbs').innerHTML = v15;
 
-		document.getElementById('clc').innerHTML = v4;
-		document.getElementById('cld').innerHTML = v8;
-    document.getElementById('cls').innerHTML = v12;
+        // Collective
+    	document.getElementById('clc').innerHTML = v4;
+    	document.getElementById('cld').innerHTML = v8;
+        document.getElementById('cls').innerHTML = v12;
 
 	}
 
@@ -425,11 +433,8 @@ function initGraphs(){
                   clGroupData.push(Math.round((clGroupCount/80*100) * 100) / 100);
               }
 
-
-
-
-              var ctx = document.getElementById("groupChart").getContext('2d');
-      var myChart = new Chart(ctx, {
+    var ctx = document.getElementById("groupChart").getContext('2d');
+    var myChart = new Chart(ctx, {
           type: 'horizontalBar',
           data: {
               labels:labels,
