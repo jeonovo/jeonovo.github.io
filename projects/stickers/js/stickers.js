@@ -4,6 +4,7 @@ var totalStickers = 682;
 var jonnyColour = "rgba(255, 99, 132, 0.5)";
 var jonathonColour = "rgba(255, 254, 0, 0.5)";
 var chrisColour = "rgba(31, 87, 220, 0.5)"
+var brintColour = "rgba(169, 69, 169, 0.5)"
 
 function initGraphs(){
 
@@ -20,22 +21,26 @@ function initGraphs(){
                   jonny = 0;
                   jonathon = 0;
                   chris = 0;
+                  brint = 0;
                   collective = 0;
                   jonnyDupe = 0;
                   jdDupe=0;
                   chrisDupe =0;
+                  brintDupe =0;
                   collectiveDupe =0;
                   jbSum = 0;
                   jdSum = 0;
                   cgSum = 0;
+                  rbSum =0;
                   colSum = 0;
                   for (var i in sheet){
                     var jb_count = 0;
                     var jd_count = 0;
                     var cg_count = 0;
+                    var rb_count = 0;
                     var col_count = 0;
 
-      						if (sheet[i].JB > 0){
+      						if (Number(sheet[i].JB > 0)){
                       jonny +=1;
                       jb_count =1;
                       jbSum = jbSum + Number(sheet[i].JB);
@@ -51,6 +56,11 @@ function initGraphs(){
                        chris +=1;
                        cg_count =1;
                        cgSum = cgSum + Number(sheet[i].CG);
+                   }
+                   if (Number(sheet[i].RB > 0)){
+                       brint +=1;
+                       rb_count =1;
+                       rbSum = rbSum + Number(sheet[i].CG);
                    }
 
                    if (Number(sheet[i].Collective > 0)){
@@ -69,6 +79,10 @@ function initGraphs(){
                         }
             			if (Number(sheet[i].CG) > 1){
                           chrisDupe +=1;
+                        //  cgSum = cgSum + Number(sheet[i].CG);
+                        }
+                        if (Number(sheet[i].RB) > 1){
+                          brintDupe +=1;
                         //  cgSum = cgSum + Number(sheet[i].CG);
                         }
             			if (Number(sheet[i].Collective) > 1){
@@ -103,14 +117,14 @@ function initGraphs(){
 
 
 
-                        dataObject.push({"name": the_name, "team":the_team, "group": the_group, "jb": jb_count, "jd": jd_count, "cg": cg_count,"cl": col_count});
+                        dataObject.push({"name": the_name, "team":the_team, "group": the_group, "jb": jb_count, "jd": jd_count, "cg": cg_count,"rb":rb_count,"cl": col_count});
 
 
           }
 
-            updateStats(jonny, jonathon, chris, collective, jonnyDupe, jdDupe, chrisDupe, collectiveDupe, jbSum, jdSum, cgSum, colSum);
-            makeChart(jonny, jonathon, chris);
-            makeRatioChart(jonny, jonathon, chris, jonnyDupe, jdDupe, chrisDupe);
+            updateStats(jonny, jonathon, chris, collective, jonnyDupe, jdDupe, chrisDupe, collectiveDupe, jbSum, jdSum, cgSum, colSum, brint, brintDupe, rbSum);
+            makeChart(jonny, jonathon, chris, brint);
+            makeRatioChart(jonny, jonathon, chris, jonnyDupe, jdDupe, chrisDupe, brint, brintDupe);
             makeGroupChart(dataObject);
             makeTeamChart(dataObject);
 
@@ -141,22 +155,23 @@ function initGraphs(){
 
 	}
 
-	    function makeChart(v1,v2,v3){
+	    function makeChart(v1,v2,v3,v4){
 
 			var jb = Math.round((v1/totalStickers*100) * 100) / 100;
 			var jd = Math.round((v2/totalStickers*100) * 100) / 100;
 			var cg = Math.round((v3/totalStickers*100) * 100) / 100;
+            var rb = Math.round((v4/totalStickers*100) * 100) / 100;
 
         var ctx = document.getElementById("myChart").getContext('2d');
-var myChart = new Chart(ctx, {
+        var myChart = new Chart(ctx, {
     type: 'horizontalBar',
     data: {
-        labels: ["Jonny", "Jonathon", "Chris"],
+        labels: ["Jonny", "Jonathon", "Chris", "Richard"],
         datasets: [{
             label: '% Got Got Need',
-            data: [jb,jd,cg],
+            data: [jb,jd,cg,rb],
             backgroundColor:
-                [jonnyColour,jonathonColour,chrisColour],
+                [jonnyColour,jonathonColour,chrisColour, brintColour],
             borderColor: 'black',
             borderWidth: 1
         }]
@@ -184,36 +199,39 @@ var myChart = new Chart(ctx, {
     }
 
     //jb jd cg jbd jdd cgd
-  function makeRatioChart(v1, v2, v3, v4, v5, v6){
+  function makeRatioChart(v1, v2, v3, v4, v5, v6, v7, v8){
 
     var jbTotal = v1 + v4;
     var jdTotal = v2 + v5;
     var cgTotal = v3 + v6;
+    var rbTotal = v7 + v8;
 
     var jb1 = Math.round((v1/jbTotal*100) * 100) / 100;
     var jd1 = Math.round((v2/jdTotal*100) * 100) / 100;
     var cg1 = Math.round((v3/cgTotal*100) * 100) / 100;
+    var rb1 = Math.round((v7/rbTotal*100) * 100) / 100;
 
     var jb2 = Math.round((v4/jbTotal*100) * 100) / 100;
     var jd2 = Math.round((v5/jdTotal*100) * 100) / 100;
     var cg2 = Math.round((v6/cgTotal*100) * 100) / 100;
+    var rb2 = Math.round((v8/rbTotal*100) * 100) / 100;
 
     var ctx = document.getElementById("ratioChart").getContext('2d');
       var myChart = new Chart(ctx, {
           type: 'horizontalBar',
           data: {
-              labels: ["Jonny", "Jonathon", "Chris"],
+              labels: ["Jonny", "Jonathon", "Chris", "Richard"],
               datasets: [{
                 label: 'Got',
-                data: [jb1, jd1, cg1],
-                backgroundColor: "green",
+                data: [jb1, jd1, cg1, rb1],
+                backgroundColor: "#1a5fb2",
               borderColor: 'black',
               borderWidth: 1
 
               },{
                 label: 'Swap',
-                data: [jb2, jd2, cg2],
-                backgroundColor: "red",
+                data: [jb2, jd2, cg2, rb2],
+                backgroundColor: "#f46b3d",
               borderColor: 'black',
               borderWidth: 1
 
@@ -243,11 +261,6 @@ var myChart = new Chart(ctx, {
           }
 
 
-          function getTeams(){
-
-
-          }
-
           function makeTeamChart(team_data){
 
               /** Chart labels set up **/
@@ -267,6 +280,7 @@ var myChart = new Chart(ctx, {
               jbTeamData = [];
               jdTeamData = [];
               cgTeamData = [];
+              rbTeamData = [];
               clTeamData = [];
 
 
@@ -276,6 +290,7 @@ var myChart = new Chart(ctx, {
                   jbTeamCount = 0;
                   jdTeamCount = 0;
                   cgTeamCount = 0;
+                  rbTeamCount = 0;
                   clTeamCount = 0;
                   for (k in team_data){
                       if (team_data[k].team == currentTeam){
@@ -288,6 +303,9 @@ var myChart = new Chart(ctx, {
                           if (team_data[k].cg > 0){
                               cgTeamCount += 1;
                           }
+                          if (team_data[k].rb > 0){
+                              rbTeamCount += 1;
+                          }
                           if (team_data[k].cl > 0){
                               clTeamCount += 1;
                           }
@@ -299,11 +317,9 @@ var myChart = new Chart(ctx, {
                   jbTeamData.push(Math.round((jbTeamCount/20*100) * 100) / 100);
                   jdTeamData.push(Math.round((jdTeamCount/20*100) * 100) / 100);
                   cgTeamData.push(Math.round((cgTeamCount/20*100) * 100) / 100);
+                  rbTeamData.push(Math.round((rbTeamCount/20*100) * 100) / 100);
                   clTeamData.push(Math.round((clTeamCount/20*100) * 100) / 100);
               }
-
-
-
 
 
               var ctx = document.getElementById("teamChart").getContext('2d');
@@ -331,6 +347,12 @@ var myChart = new Chart(ctx, {
           borderColor: 'black',
           borderWidth: 0.1
           },{
+            label: 'Richard',
+            data: rbTeamData,
+            backgroundColor: brintColour,
+          borderColor: 'black',
+          borderWidth: 0.1
+      }, {
             label: 'Collective',
             data: clTeamData,
             backgroundColor: 'rgba(125,125,125,0.5)',
@@ -366,6 +388,7 @@ var myChart = new Chart(ctx, {
               jbGroupData = [];
               jdGroupData = [];
               cgGroupData = [];
+              rbGroupData = [];
               clGroupData = [];
 
               labels = ["Group A", "Group B", "Group C", "Group D", "Group E", "Group F", "Group G", "Group H"];
@@ -373,6 +396,7 @@ var myChart = new Chart(ctx, {
                   jbGroupCount = 0;
                   jdGroupCount = 0;
                   cgGroupCount = 0;
+                  rbGroupCount = 0;
                   clGroupCount = 0;
                   for (k in dataObject){
                       if (dataObject[k].group == labels[i]){
@@ -385,6 +409,9 @@ var myChart = new Chart(ctx, {
                           if (dataObject[k].cg > 0){
                               cgGroupCount += 1;
                           }
+                          if (dataObject[k].rb > 0){
+                               rbGroupCount += 1;
+                           }
                           if (dataObject[k].cl > 0){
                               clGroupCount += 1;
                           }
@@ -394,6 +421,7 @@ var myChart = new Chart(ctx, {
                   jbGroupData.push(Math.round((jbGroupCount/80*100) * 100) / 100);
                   jdGroupData.push(Math.round((jdGroupCount/80*100) * 100) / 100);
                   cgGroupData.push(Math.round((cgGroupCount/80*100) * 100) / 100);
+                  rbGroupData.push(Math.round((rbGroupCount/80*100) * 100) / 100);
                   clGroupData.push(Math.round((clGroupCount/80*100) * 100) / 100);
               }
 
@@ -423,6 +451,13 @@ var myChart = new Chart(ctx, {
                 backgroundColor: chrisColour,
               borderColor: 'black',
               borderWidth: 1
+              },
+              {
+                  label: 'Richard',
+                data: rbGroupData,
+                backgroundColor: brintColour,
+                borderColor: 'black',
+                borderWidth: 1
               },{
                 label: 'Collective',
                 data: clGroupData,
