@@ -119,6 +119,7 @@ function initGraphs(){
 
     var cgnValue = 0;
     var jdnValue = 0;
+    var rbnValue = 0;
     var whoNeed = "";
     var jbGot = jb[i];
 
@@ -191,6 +192,7 @@ function initGraphs(){
 
     var jbnValue = 0;
     var cgnValue = 0;
+    var rbnValue = 0;
     var whoNeed = "";
     var jdGot = jd[i];
 
