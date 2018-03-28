@@ -124,7 +124,7 @@ function initGraphs(){
 
             updateStats(jonny, jonathon, chris, collective, jonnyDupe, jdDupe, chrisDupe, collectiveDupe, jbSum, jdSum, cgSum, colSum, brint, brintDupe, rbSum);
             makeChart(jonny, jonathon, chris, brint);
-            makeRatioChart(jonny, jonathon, chris, jonnyDupe, jdDupe, chrisDupe, brint, brintDupe);
+            makeRatioChart(jonny, jonathon, chris, jbSum, jdSum, cgSum, brint, rbSum);
             makeGroupChart(dataObject);
             makeTeamChart(dataObject);
 
@@ -209,20 +209,25 @@ function initGraphs(){
     //jb jd cg jbd jdd cgd
   function makeRatioChart(v1, v2, v3, v4, v5, v6, v7, v8){
 
-    var jbTotal = v1 + v4;
-    var jdTotal = v2 + v5;
-    var cgTotal = v3 + v6;
-    var rbTotal = v7 + v8;
+    var jbTotal = v4;
+    var jdTotal = v5;
+    var cgTotal = v6;
+    var rbTotal = v8;
+
+    var jbsw = (v4 - v1);
+    var jdsw = v5 - v2;
+    var cgsw = v6 - v3;
+    var rbsw = v8 - v7;
 
     var jb1 = Math.round((v1/jbTotal*100) * 100) / 100;
     var jd1 = Math.round((v2/jdTotal*100) * 100) / 100;
     var cg1 = Math.round((v3/cgTotal*100) * 100) / 100;
     var rb1 = Math.round((v7/rbTotal*100) * 100) / 100;
 
-    var jb2 = Math.round((v4/jbTotal*100) * 100) / 100;
-    var jd2 = Math.round((v5/jdTotal*100) * 100) / 100;
-    var cg2 = Math.round((v6/cgTotal*100) * 100) / 100;
-    var rb2 = Math.round((v8/rbTotal*100) * 100) / 100;
+    var jb2 = Math.round((jbsw/jbTotal*100) * 100) / 100;
+    var jd2 = Math.round((jdsw/jdTotal*100) * 100) / 100;
+    var cg2 = Math.round((cgsw/cgTotal*100) * 100) / 100;
+    var rb2 = Math.round((rbsw/rbTotal*100) * 100) / 100;
 
     var ctx = document.getElementById("ratioChart").getContext('2d');
       var myChart = new Chart(ctx, {
