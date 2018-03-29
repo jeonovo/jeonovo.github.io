@@ -332,7 +332,7 @@ function initGraphs(){
     /***********************/
 
     /** Brint Need  **/
-      var rbContent ="<b>Richard Swaps:</b><br>";
+      var rbContent ="<b>Richard Needs:</b><br>";
       var rbjb = 0;
       var rbjd = 0;
       var rbcg = 0;
