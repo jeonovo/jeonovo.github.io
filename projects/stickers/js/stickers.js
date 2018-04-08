@@ -3,8 +3,12 @@ var stickerData, jonny, jonathon, chris, dataObject;
 var totalStickers = 682;
 var jonnyColour = "rgba(255, 99, 132, 0.5)";
 var jonathonColour = "rgba(255, 254, 0, 0.5)";
-var chrisColour = "rgba(31, 87, 220, 0.5)"
-var brintColour = "rgba(169, 69, 169, 0.5)"
+var chrisColour = "rgba(31, 87, 220, 0.5)";
+var brintColour = "rgba(169, 69, 169, 0.5)";
+var jonnyColour2 = "rgba(255, 99, 132, 1)";
+var jonathonColour2 = "rgba(245, 234, 0, 1)";
+var chrisColour2 = "rgba(31, 87, 220, 1)";
+var brintColour2 = "rgba(169, 69, 169, 1)";
 
 function initGraphs(){
 
@@ -117,7 +121,8 @@ function initGraphs(){
 
 
 
-                        dataObject.push({"name": the_name, "team":the_team, "group": the_group, "jb": jb_count, "jd": jd_count, "cg": cg_count,"rb":rb_count,"cl": col_count});
+            dataObject.push({"name": the_name, "team":the_team, "group": the_group, "jb": jb_count, "jd": jd_count, "cg": cg_count,"rb":rb_count,
+            "cl": col_count, "jbt": sheet[i].JB, "jdt": sheet[i].JD, "cgt": sheet[i].CG, "rbt":sheet[i].RB});
 
 
           }
@@ -127,13 +132,14 @@ function initGraphs(){
             makeRatioChart(jonny, jonathon, chris, jbSum, jdSum, cgSum, brint, rbSum);
             makeGroupChart(dataObject);
             makeTeamChart(dataObject);
+            setRadarChartValues(dataObject);
 
 				  },
                 simpleSheet: true,
             });
 
     }
-	// jonny, jonathon, chris, collective, jonnyDupe, jdDupe, chrisDupe, collectiveDupe
+	// jonny, jonathon, chris, collective, jonnyDupe, jdDupe, chrisDupe, collectiveDupe, jbSum, jdSum, cgSum, colSum, brint, brintDupe, rbSum
 	function updateStats(v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14,v15){
 
         // jonny
@@ -341,26 +347,26 @@ function initGraphs(){
           data: {
               labels: labels,
               datasets:  [{
-                label: 'Jonny',
+                label: 'JB',
                 data: jbTeamData,
                 backgroundColor: jonnyColour,
               borderColor: 'black',
               borderWidth: 0.1
               },{
-                label: 'Jonathon',
+                label: 'JD',
                 data: jdTeamData,
                 backgroundColor: jonathonColour,
               borderColor: 'black',
               borderWidth: 0.1
 
           },{
-            label: 'Chris',
+            label: 'CG',
             data: cgTeamData,
             backgroundColor: chrisColour,
           borderColor: 'black',
           borderWidth: 0.1
           },{
-            label: 'Richard',
+            label: 'RB',
             data: rbTeamData,
             backgroundColor: brintColour,
           borderColor: 'black',
@@ -444,26 +450,26 @@ function initGraphs(){
           data: {
               labels:labels,
               datasets:  [{
-                label: 'Jonny',
+                label: 'JB',
                 data: jbGroupData,
                 backgroundColor: jonnyColour,
               borderColor: 'black',
               borderWidth: 1
               },{
-                label: 'Jonathon',
+                label: 'JD',
                 data: jdGroupData,
                 backgroundColor: jonathonColour,
               borderColor: 'black',
               borderWidth: 1
           },{
-                label: 'Chris',
+                label: 'CG',
                 data: cgGroupData,
                 backgroundColor: chrisColour,
               borderColor: 'black',
               borderWidth: 1
               },
               {
-                  label: 'Richard',
+                  label: 'RB',
                 data: rbGroupData,
                 backgroundColor: brintColour,
                 borderColor: 'black',
@@ -499,5 +505,213 @@ function initGraphs(){
           }
 
 
+    function setRadarChartValues(object){
 
+      // % Complete
+      // swap ratio
+      // sum STICKERS
+    //  console.log(object);
+      /** get trips value */
+      var jbTrips = 0;
+      var jdTrips = 0;
+      var cgTrips = 0;
+      var rbTrips = 0;
+
+      var jbmax = 0;
+      var jdmax = 0;
+      var cgmax = 0;
+      var rbmax = 0;
+
+      var jbSums = 0;
+      var jdSums = 0;
+      var cgSums = 0;
+      var rbSums = 0;
+
+      var jbTotal = 0;
+      var jdTotal = 0;
+      var cgTotal = 0;
+      var rbTotal = 0;
+
+
+      // dupes over 3 / trips
+      for (i in object){
+
+        // JB
+        if (object[i].jbt > 0){
+          jbTotal += Number(object[i].jbt);
+          jbSums +=1;
+        }
+        if (object[i].jbt > 2){
+          jbTrips += 1;
+          if (object[i].jbt > jbmax){
+            jbmax = Number(object[i].jbt);
+          }
+        }
+
+        // JD
+        if (object[i].jdt > 0){
+          jdTotal += Number(object[i].jdt);
+          jdSums +=1;
+        }
+        if (object[i].jdt > 2){
+          jdTrips += 1;
+          if (object[i].jdt > jdmax){
+            jdmax = Number(object[i].jdt);
+          }
+
+         }
+
+         // CG
+         if (object[i].cgt > 0){
+           cgTotal += Number(object[i].cgt);
+           cgSums +=1;
+         }
+         if (object[i].cgt> 2){
+           cgTrips += 1;
+           if (object[i].cgt > cgmax){
+             cgmax = Number(object[i].cgt);
+           }
+
+         }
+
+         // RB
+         if (object[i].rbt > 0){
+           rbTotal += Number(object[i].rbt);
+           rbSums +=1;
+         }
+         if (object[i].rbt > 2){
+           rbTrips += 1;
+           if (object[i].rbt > rbmax){
+             rbmax = Number(object[i].rbt);
+           }
+         }
+      }
+
+
+      jbr = Math.round((jbSums/jbTotal*100) * 100) / 100;
+      jdr = Math.round((jdSums/jdTotal*100) * 100) / 100;
+      cgr = Math.round((cgSums/cgTotal*100) * 100) / 100;
+      rbr = Math.round((rbSums/rbTotal*100) * 100) / 100;
+
+      var swapratioData = [jbr, jdr, cgr, rbr];
+      swapratioData.sort(function(a, b){return b-a});
+      var jbsr = swapratioData.indexOf(jbr) + 1;
+      var jdsr = swapratioData.indexOf(jdr) + 1;
+      var cgsr = swapratioData.indexOf(cgr) + 1;
+      var rbsr = swapratioData.indexOf(rbr) + 1;
+
+      var sumsData = [jbSums, jdSums, cgSums, rbSums];
+      sumsData.sort(function(a, b){return b-a});
+      var jbs = sumsData.indexOf(jbSums) + 1;
+      var jds = sumsData.indexOf(jdSums) + 1;
+      var cgs = sumsData.indexOf(cgSums) + 1;
+      var rbs = sumsData.indexOf(rbSums) + 1;
+
+      var tripsData = [jbTrips, jdTrips, cgTrips, rbTrips];
+      tripsData.sort(function(a, b){return a-b});
+      var jbt = tripsData.indexOf(jbTrips) + 1;
+      var jdt = tripsData.indexOf(jdTrips) + 1;
+      var cgt = tripsData.indexOf(cgTrips) + 1;
+      var rbt = tripsData.indexOf(rbTrips) + 1;
+
+      var maxData = [jbmax, jdmax, cgmax, rbmax];
+      maxData.sort(function(a, b){return a-b});
+      var jbm = maxData.indexOf(jbmax) + 1;
+      var jdm = maxData.indexOf(jdmax) + 1;
+      var cgm = maxData.indexOf(cgmax) + 1;
+      var rbm = maxData.indexOf(rbmax) + 1;
+
+      var jbRadarData = [jbs,jbsr,jbt,jbm];
+      var jdRadarData = [jds,jdsr,jdt,jdm];
+      var cgRadarData = [cgs,cgsr,cgt,cgm];
+      var rbRadarData = [rbs,rbsr,rbt,rbm];
+
+      // total, swap ratio, trips, max dupe
+      data = [jbRadarData,jdRadarData,cgRadarData,rbRadarData];
+      makeRadarChart(data);
+    }
+
+    function sortData(){
+
+      // turn the above 4 into 1 function.
+
+    }
+
+    function makeRadarChart(the_data){
+
+      // % Complete
+      // swap ratio
+      // sum STICKERS
+      // dupes over 3 / trips
+
+      var ctx = document.getElementById("radarChart").getContext('2d');
+      var myRadarChart = new Chart(ctx, {
+    type: 'radar',
+        data: {
+            labels: ['Total', 'Swap Ratio', 'Trips', 'Max Dupe'],
+            datasets:[{
+                label: 'JB',
+                data: the_data[0],
+                borderColor: jonnyColour,
+                pointBackgroundColor: jonnyColour2,
+                pointRadius: 5,
+                pointBorderColor: 'black',
+                backgroundColor: "rgba(255,255,255,0)",
+                hidden: true
+              },{
+                label: 'JD',
+                data: the_data[1],
+                borderColor: jonathonColour,
+                pointBackgroundColor: jonathonColour2,
+                pointRadius: 5,
+                pointBorderColor: 'black',
+                backgroundColor: "rgba(255,255,255,0)",
+                hidden: true
+          },{
+                label: 'CG',
+                data: the_data[2],
+                borderColor: chrisColour,
+                pointBackgroundColor: chrisColour2,
+                pointRadius: 5,
+                pointBorderColor: 'black',
+                backgroundColor: "rgba(255,255,255,0)",
+                hidden: true
+              },
+              {
+                  label: 'RB',
+                data: the_data[3],
+                borderColor: brintColour,
+                pointBackgroundColor: brintColour2,
+                pointRadius: 5,
+                pointBorderColor: 'black',
+                backgroundColor: "rgba(255,255,255,0)",
+                hidden: true
+              }
+            ]},
+    options: {
+      title: {
+         display: true,
+         text: 'Rank Radar'
+     },
+        scale: {
+          pointLabels: {
+      fontSize: 11
+    },
+    angleLines:{
+      color: 'lightgrey'
+    },
+          gridLines:{
+            display: false,
+          },
+            ticks: {
+              display: false,
+                min: 1,
+                max: 5,
+                stepSize: 1,
+                reverse: true
+            }
+        }
+    }
+});
+  }
 }

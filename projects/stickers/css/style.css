@@ -5,7 +5,7 @@ html{
     padding-bottom: 100px;
 }
 body {
-    background: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)),url("bg.jpg");
+    background: linear-gradient(rgba(255,255,255,0.87), rgba(255,255,255,0.87)),url("bg.jpg");
 }
 
 #collectorArea, #participantArea{
@@ -14,9 +14,10 @@ body {
     float: left;
 
 }
-#chartArea, #ratioArea,
+#chartArea, #ratioArea, #radarArea,
 #groupArea,
-#teamArea{
+#teamArea,
+#theStatArea, #colStatArea{
     float: left;
     display: inline-block;
 }
@@ -29,7 +30,8 @@ body {
 #jbjb, #jbjd, #jbcg,#jbrb,
 #jdjb, #jdcg, #jdjd,#jdrb,
 #cgjb, #cgjd, #cgcg,#cgrb,
-#rbjb, #rbcg, #rbjd,#rbrb{
+#rbjb, #rbcg, #rbjd,#rbrb,
+#colStatArea{
   text-align: right;
 }
 
@@ -37,30 +39,33 @@ body {
   color: #8e8d8d
 }
 
-#jbArea, #jdArea, #cgArea,#rbArea,  #statsArea, #swapsArea{
+#jbArea, #jdArea, #cgArea,#rbArea,  #statsArea, #swapsArea, #colStatArea, #theStatArea{
     font-family: "Lucida Console", monospace;
     text-align: left;
 }
 
 /* If the screen size is 601px wide or more, set the font-size of <div> to 80px */
 @media screen and (min-width: 601px) {
-  #jbArea, #jdArea, #cgArea,#rbArea {
-    font-size: 0.9vw;
+  #jbArea, #jdArea, #cgArea,#rbArea{
+    font-size: 0.85vw;
   }
    #statsArea, #swapsArea{
        padding-top: 10px;
    }
   #ratioArea,
-  #teamArea,
+  #teamArea, #radarArea,
   #statsArea, #swapsArea, #chartArea,
-  #groupArea{
+  #groupArea,
+  #theStatArea, #colStatArea{
     padding-left: 20px;
+    padding-right: 20px;
   }
 }
 
 /* If the screen size is 600px wide or less, set the font-size of <div> to 30px */
 @media screen and (max-width: 600px) {
- #jbArea, #jdArea, #cgArea,#rbArea {
+ #jbArea, #jdArea, #cgArea,#rbArea,
+ #theStatArea, #colStatArea {
     font-size: 14px;
   }
 
