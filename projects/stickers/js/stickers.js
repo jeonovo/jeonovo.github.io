@@ -600,12 +600,12 @@ function initGraphs(){
       var cgsr = swapratioData.indexOf(cgr) + 1;
       var rbsr = swapratioData.indexOf(rbr) + 1;
 
-      var sumsData = [jbSums, jdSums, cgSums, rbSums];
+      var sumsData = [jbTotal, jdTotal, cgTotal, rbTotal];
       sumsData.sort(function(a, b){return b-a});
-      var jbs = sumsData.indexOf(jbSums) + 1;
-      var jds = sumsData.indexOf(jdSums) + 1;
-      var cgs = sumsData.indexOf(cgSums) + 1;
-      var rbs = sumsData.indexOf(rbSums) + 1;
+      var jbs = sumsData.indexOf(jbTotal) + 1;
+      var jds = sumsData.indexOf(jdTotal) + 1;
+      var cgs = sumsData.indexOf(cgTotal) + 1;
+      var rbs = sumsData.indexOf(rbTotal) + 1;
 
       var tripsData = [jbTrips, jdTrips, cgTrips, rbTrips];
       tripsData.sort(function(a, b){return a-b});
