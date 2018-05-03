@@ -169,7 +169,7 @@ function initGraphs(){
             whoGot = " - RB";
             jbContent += jbNeed + whoGot + "<br>";
       } else {
-            whoGot = "NEED"
+            whoGot = ""
 	    jbContent += jbNeed + whoGot + "<br>";
             jbjb +=1;
       }
@@ -244,7 +244,7 @@ function initGraphs(){
             whoGot = " - RB";
             jdContent += jdNeed + whoGot + "<br>";
       } else {
-            whoGot = "NEED"
+            whoGot = ""
 	    jdContent += jdNeed + whoGot + "<br>";
             jdjd +=1;
       }
@@ -316,7 +316,7 @@ function initGraphs(){
           whoGot = " - RB";
           cgContent += cgNeed + whoGot + "<br>";
       } else {
-        whoGot = "NEED"
+        whoGot = ""
 	cgContent += cgNeed + whoGot + "<br>";
         cgcg +=1;
       }
