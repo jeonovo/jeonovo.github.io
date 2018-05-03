@@ -399,7 +399,7 @@ function initGraphs(){
               rbContent += rbNeed + whoGot + "<br>";
           } else {
             whoGot = "NEED"
-          rbContent += rbGot + whoGot + "<br>";
+          //rbContent += rbNeed + whoGot + "<br>";
             rbrb +=1;
           }
         }
