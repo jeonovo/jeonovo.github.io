@@ -5,10 +5,12 @@ var jonnyColour = "rgba(255, 99, 132, 0.5)";
 var jonathonColour = "rgba(255, 254, 0, 0.5)";
 var chrisColour = "rgba(31, 87, 220, 0.5)";
 var brintColour = "rgba(169, 69, 169, 0.5)";
+var andyColour = "rgba(0, 250, 124, 0.5)";
 var jonnyColour2 = "rgba(255, 99, 132, 1)";
 var jonathonColour2 = "rgba(245, 234, 0, 1)";
 var chrisColour2 = "rgba(31, 87, 220, 1)";
 var brintColour2 = "rgba(169, 69, 169, 1)";
+var andyColour2 = "rgba(0, 250, 124, 1)";
 
 function initGraphs(){
 
@@ -26,22 +28,26 @@ function initGraphs(){
                   jonathon = 0;
                   chris = 0;
                   brint = 0;
+                  andy = 0;
                   collective = 0;
                   jonnyDupe = 0;
                   jdDupe=0;
                   chrisDupe =0;
                   brintDupe =0;
+                  andyDupe =0;
                   collectiveDupe =0;
                   jbSum = 0;
                   jdSum = 0;
                   cgSum = 0;
                   rbSum =0;
+                  adSum = 0;
                   colSum = 0;
                   for (var i in sheet){
                     var jb_count = 0;
                     var jd_count = 0;
                     var cg_count = 0;
                     var rb_count = 0;
+                    var ad_count = 0;
                     var col_count = 0;
 
       						if (Number(sheet[i].JB > 0)){
@@ -66,6 +72,11 @@ function initGraphs(){
                        rb_count =1;
                        rbSum = rbSum + Number(sheet[i].RB);
                    }
+                   if (Number(sheet[i].AD > 0)){
+                       andy +=1;
+                       ad_count =1;
+                       adSum = adSum + Number(sheet[i].AD);
+                   }
 
                    if (Number(sheet[i].Collective > 0)){
                           collective  +=1;
@@ -87,6 +98,10 @@ function initGraphs(){
                         }
                         if (Number(sheet[i].RB) > 1){
                           brintDupe +=1;
+                        //  cgSum = cgSum + Number(sheet[i].CG);
+                        }
+                        if (Number(sheet[i].AD) > 1){
+                          andyDupe +=1;
                         //  cgSum = cgSum + Number(sheet[i].CG);
                         }
             			if (Number(sheet[i].Collective) > 1){
@@ -121,15 +136,16 @@ function initGraphs(){
 
 
 
-            dataObject.push({"name": the_name, "team":the_team, "group": the_group, "jb": jb_count, "jd": jd_count, "cg": cg_count,"rb":rb_count,
-            "cl": col_count, "jbt": sheet[i].JB, "jdt": sheet[i].JD, "cgt": sheet[i].CG, "rbt":sheet[i].RB});
+            dataObject.push({"name": the_name, "team":the_team, "group": the_group, "jb": jb_count, "jd": jd_count, "cg": cg_count,
+            "rb":rb_count, "ad":ad_count,
+            "cl": col_count, "jbt": sheet[i].JB, "jdt": sheet[i].JD, "cgt": sheet[i].CG, "rbt":sheet[i].RB, "adt": sheet[i].AD});
 
 
           }
 
-            updateStats(jonny, jonathon, chris, collective, jonnyDupe, jdDupe, chrisDupe, collectiveDupe, jbSum, jdSum, cgSum, colSum, brint, brintDupe, rbSum);
-            makeChart(jonny, jonathon, chris, brint);
-            makeRatioChart(jonny, jonathon, chris, jbSum, jdSum, cgSum, brint, rbSum);
+            updateStats(jonny, jonathon, chris, collective, jonnyDupe, jdDupe, chrisDupe, collectiveDupe, jbSum, jdSum, cgSum, colSum, brint, brintDupe, rbSum,andy, andyDupe, adSum);
+            makeChart(jonny, jonathon, chris, brint, andy);
+            makeRatioChart(jonny, jonathon, chris, jbSum, jdSum, cgSum, brint, rbSum, andy, adSum);
             makeGroupChart(dataObject);
             makeTeamChart(dataObject);
             setRadarChartValues(dataObject);
@@ -140,7 +156,7 @@ function initGraphs(){
 
     }
 	// jonny, jonathon, chris, collective, jonnyDupe, jdDupe, chrisDupe, collectiveDupe, jbSum, jdSum, cgSum, colSum, brint, brintDupe, rbSum
-	function updateStats(v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14,v15){
+	function updateStats(v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14,v15,v16,v17,v18){
 
         // jonny
         document.getElementById('jbc').innerHTML = v1;
@@ -162,6 +178,11 @@ function initGraphs(){
         document.getElementById('rbd').innerHTML = v14;
         document.getElementById('rbs').innerHTML = v15;
 
+        // Andy
+        document.getElementById('adc').innerHTML = v16;
+        document.getElementById('add').innerHTML = v17;
+        document.getElementById('ads').innerHTML = v18;
+
         // Collective
     	document.getElementById('clc').innerHTML = v4;
     	document.getElementById('cld').innerHTML = v8;
@@ -169,23 +190,24 @@ function initGraphs(){
 
 	}
 
-	    function makeChart(v1,v2,v3,v4){
+	    function makeChart(v1,v2,v3,v4, v5){
 
 			var jb = Math.round((v1/totalStickers*100) * 100) / 100;
 			var jd = Math.round((v2/totalStickers*100) * 100) / 100;
 			var cg = Math.round((v3/totalStickers*100) * 100) / 100;
-            var rb = Math.round((v4/totalStickers*100) * 100) / 100;
+      var rb = Math.round((v4/totalStickers*100) * 100) / 100;
+      var ad = Math.round((v5/totalStickers*100) * 100) / 100;
 
         var ctx = document.getElementById("myChart").getContext('2d');
         var myChart = new Chart(ctx, {
     type: 'horizontalBar',
     data: {
-        labels: ["Jonny", "Jonathon", "Chris", "Richard"],
+        labels: ["Jonny", "Jonathon", "Chris", "Richard", "Andy"],
         datasets: [{
             label: '% Got Got Need',
-            data: [jb,jd,cg,rb],
+            data: [jb,jd,cg,rb,ad],
             backgroundColor:
-                [jonnyColour,jonathonColour,chrisColour, brintColour],
+                [jonnyColour,jonathonColour,chrisColour, brintColour, andyColour],
             borderColor: 'black',
             borderWidth: 1
         }]
@@ -213,43 +235,47 @@ function initGraphs(){
     }
 
     //jb jd cg jbd jdd cgd
-  function makeRatioChart(v1, v2, v3, v4, v5, v6, v7, v8){
+  function makeRatioChart(v1, v2, v3, v4, v5, v6, v7, v8, v9, v10){
 
     var jbTotal = v4;
     var jdTotal = v5;
     var cgTotal = v6;
     var rbTotal = v8;
+    var adTotal = v10;
 
     var jbsw = (v4 - v1);
     var jdsw = v5 - v2;
     var cgsw = v6 - v3;
     var rbsw = v8 - v7;
+    var adsw = v10 - v9;
 
     var jb1 = Math.round((v1/jbTotal*100) * 100) / 100;
     var jd1 = Math.round((v2/jdTotal*100) * 100) / 100;
     var cg1 = Math.round((v3/cgTotal*100) * 100) / 100;
     var rb1 = Math.round((v7/rbTotal*100) * 100) / 100;
+    var ad1 = Math.round((v9/adTotal*100) * 100) / 100;
 
     var jb2 = Math.round((jbsw/jbTotal*100) * 100) / 100;
     var jd2 = Math.round((jdsw/jdTotal*100) * 100) / 100;
     var cg2 = Math.round((cgsw/cgTotal*100) * 100) / 100;
     var rb2 = Math.round((rbsw/rbTotal*100) * 100) / 100;
+    var ad2 = Math.round((adsw/adTotal*100) * 100) / 100;
 
     var ctx = document.getElementById("ratioChart").getContext('2d');
       var myChart = new Chart(ctx, {
           type: 'horizontalBar',
           data: {
-              labels: ["Jonny", "Jonathon", "Chris", "Richard"],
+              labels: ["Jonny", "Jonathon", "Chris", "Richard", "Andy"],
               datasets: [{
                 label: 'Got',
-                data: [jb1, jd1, cg1, rb1],
+                data: [jb1, jd1, cg1, rb1, ad1],
                 backgroundColor: "#1a5fb2",
               borderColor: 'black',
               borderWidth: 1
 
               },{
                 label: 'Swap',
-                data: [jb2, jd2, cg2, rb2],
+                data: [jb2, jd2, cg2, rb2, ad2],
                 backgroundColor: "#f46b3d",
               borderColor: 'black',
               borderWidth: 1
@@ -300,7 +326,7 @@ function initGraphs(){
               jdTeamData = [];
               cgTeamData = [];
               rbTeamData = [];
-              clTeamData = [];
+              adTeamData = [];
 
 
 
@@ -310,7 +336,8 @@ function initGraphs(){
                   jdTeamCount = 0;
                   cgTeamCount = 0;
                   rbTeamCount = 0;
-                  clTeamCount = 0;
+                  adTeamCount = 0;
+
                   for (k in team_data){
                       if (team_data[k].team == currentTeam){
                           if (team_data[k].jb > 0){
@@ -325,8 +352,8 @@ function initGraphs(){
                           if (team_data[k].rb > 0){
                               rbTeamCount += 1;
                           }
-                          if (team_data[k].cl > 0){
-                              clTeamCount += 1;
+                          if (team_data[k].ad > 0){
+                              adTeamCount += 1;
                           }
 
                       }
@@ -337,7 +364,7 @@ function initGraphs(){
                   jdTeamData.push(Math.round((jdTeamCount/20*100) * 100) / 100);
                   cgTeamData.push(Math.round((cgTeamCount/20*100) * 100) / 100);
                   rbTeamData.push(Math.round((rbTeamCount/20*100) * 100) / 100);
-                  clTeamData.push(Math.round((clTeamCount/20*100) * 100) / 100);
+                  adTeamData.push(Math.round((adTeamCount/20*100) * 100) / 100);
               }
 
 
@@ -372,12 +399,11 @@ function initGraphs(){
           borderColor: 'black',
           borderWidth: 0.1
       }, {
-            label: 'Collective',
-            data: clTeamData,
-            backgroundColor: 'rgba(125,125,125,0.5)',
+            label: 'AD',
+            data: adTeamData,
+            backgroundColor: andyColour,
           borderColor: 'black',
-          borderWidth: 0.1,
-          hidden: true
+          borderWidth: 0.1
 
       }
       ]},
@@ -408,7 +434,7 @@ function initGraphs(){
               jdGroupData = [];
               cgGroupData = [];
               rbGroupData = [];
-              clGroupData = [];
+              adGroupData = [];
 
               labels = ["Group A", "Group B", "Group C", "Group D", "Group E", "Group F", "Group G", "Group H"];
               for (i in labels){
@@ -416,7 +442,7 @@ function initGraphs(){
                   jdGroupCount = 0;
                   cgGroupCount = 0;
                   rbGroupCount = 0;
-                  clGroupCount = 0;
+                  adGroupCount = 0;
                   for (k in dataObject){
                       if (dataObject[k].group == labels[i]){
                           if (dataObject[k].jb > 0){
@@ -431,8 +457,8 @@ function initGraphs(){
                           if (dataObject[k].rb > 0){
                                rbGroupCount += 1;
                            }
-                          if (dataObject[k].cl > 0){
-                              clGroupCount += 1;
+                          if (dataObject[k].ad > 0){
+                              adGroupCount += 1;
                           }
 
                       }
@@ -441,7 +467,7 @@ function initGraphs(){
                   jdGroupData.push(Math.round((jdGroupCount/80*100) * 100) / 100);
                   cgGroupData.push(Math.round((cgGroupCount/80*100) * 100) / 100);
                   rbGroupData.push(Math.round((rbGroupCount/80*100) * 100) / 100);
-                  clGroupData.push(Math.round((clGroupCount/80*100) * 100) / 100);
+                  adGroupData.push(Math.round((adGroupCount/80*100) * 100) / 100);
               }
 
     var ctx = document.getElementById("groupChart").getContext('2d');
@@ -475,12 +501,11 @@ function initGraphs(){
                 borderColor: 'black',
                 borderWidth: 1
               },{
-                label: 'Collective',
-                data: clGroupData,
-                backgroundColor: 'rgba(125,125,125,0.5)',
+                label: 'AD',
+                data: adGroupData,
+                backgroundColor: andyColour,
               borderColor: 'black',
-              borderWidth: 1,
-              hidden: true
+              borderWidth: 1
           }
       ]},
           options: {
@@ -516,21 +541,25 @@ function initGraphs(){
       var jdTrips = 0;
       var cgTrips = 0;
       var rbTrips = 0;
+      var adTrips = 0;
 
       var jbmax = 0;
       var jdmax = 0;
       var cgmax = 0;
       var rbmax = 0;
+      var admax = 0;
 
       var jbSums = 0;
       var jdSums = 0;
       var cgSums = 0;
       var rbSums = 0;
+      var adSums = 0;
 
       var jbTotal = 0;
       var jdTotal = 0;
       var cgTotal = 0;
       var rbTotal = 0;
+      var adTotal = 0;
 
 
       // dupes over 3 / trips
@@ -585,6 +614,18 @@ function initGraphs(){
              rbmax = Number(object[i].rbt);
            }
          }
+           // AD
+           if (object[i].adt > 0){
+             adTotal += Number(object[i].adt);
+             adSums +=1;
+           }
+           if (object[i].adt > 2){
+             adTrips += 1;
+             if (object[i].adt > admax){
+               admax = Number(object[i].adt);
+             }
+         }
+
       }
 
 
@@ -592,42 +633,48 @@ function initGraphs(){
       jdr = Math.round((jdSums/jdTotal*100) * 100) / 100;
       cgr = Math.round((cgSums/cgTotal*100) * 100) / 100;
       rbr = Math.round((rbSums/rbTotal*100) * 100) / 100;
+      adr = Math.round((adSums/adTotal*100) * 100) / 100;
 
-      var swapratioData = [jbr, jdr, cgr, rbr];
+      var swapratioData = [jbr, jdr, cgr, rbr, adr];
       swapratioData.sort(function(a, b){return b-a});
       var jbsr = swapratioData.indexOf(jbr) + 1;
       var jdsr = swapratioData.indexOf(jdr) + 1;
       var cgsr = swapratioData.indexOf(cgr) + 1;
       var rbsr = swapratioData.indexOf(rbr) + 1;
+      var adsr = swapratioData.indexOf(adr) + 1;
 
-      var sumsData = [jbTotal, jdTotal, cgTotal, rbTotal];
+      var sumsData = [jbTotal, jdTotal, cgTotal, rbTotal, adTotal];
       sumsData.sort(function(a, b){return b-a});
       var jbs = sumsData.indexOf(jbTotal) + 1;
       var jds = sumsData.indexOf(jdTotal) + 1;
       var cgs = sumsData.indexOf(cgTotal) + 1;
       var rbs = sumsData.indexOf(rbTotal) + 1;
+      var ads = sumsData.indexOf(adTotal) + 1;
 
-      var tripsData = [jbTrips, jdTrips, cgTrips, rbTrips];
+      var tripsData = [jbTrips, jdTrips, cgTrips, rbTrips, adTrips];
       tripsData.sort(function(a, b){return a-b});
       var jbt = tripsData.indexOf(jbTrips) + 1;
       var jdt = tripsData.indexOf(jdTrips) + 1;
       var cgt = tripsData.indexOf(cgTrips) + 1;
       var rbt = tripsData.indexOf(rbTrips) + 1;
+      var adt = tripsData.indexOf(adTrips) + 1;
 
-      var maxData = [jbmax, jdmax, cgmax, rbmax];
+      var maxData = [jbmax, jdmax, cgmax, rbmax, admax];
       maxData.sort(function(a, b){return a-b});
       var jbm = maxData.indexOf(jbmax) + 1;
       var jdm = maxData.indexOf(jdmax) + 1;
       var cgm = maxData.indexOf(cgmax) + 1;
       var rbm = maxData.indexOf(rbmax) + 1;
+      var adm = maxData.indexOf(admax) + 1;
 
       var jbRadarData = [jbs,jbsr,jbt,jbm];
       var jdRadarData = [jds,jdsr,jdt,jdm];
       var cgRadarData = [cgs,cgsr,cgt,cgm];
       var rbRadarData = [rbs,rbsr,rbt,rbm];
+      var adRadarData = [ads,adsr,adt,adm];
 
       // total, swap ratio, trips, max dupe
-      data = [jbRadarData,jdRadarData,cgRadarData,rbRadarData];
+      data = [jbRadarData,jdRadarData,cgRadarData,rbRadarData, adRadarData];
       makeRadarChart(data);
     }
 
@@ -686,6 +733,16 @@ function initGraphs(){
                 pointBorderColor: 'black',
                 backgroundColor: "rgba(255,255,255,0)",
                 hidden: true
+              },
+              {
+                label: 'AD',
+                data: the_data[4],
+                borderColor: andyColour,
+                pointBackgroundColor: andyColour2,
+                pointRadius: 5,
+                pointBorderColor: 'black',
+                backgroundColor: "rgba(255,255,255,0)",
+                hidden: true
               }
             ]},
     options: {
@@ -706,7 +763,7 @@ function initGraphs(){
             ticks: {
               display: false,
                 min: 1,
-                max: 5,
+                max: 6,
                 stepSize: 1,
                 reverse: true
             }

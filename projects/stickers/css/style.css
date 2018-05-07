@@ -27,27 +27,29 @@ body {
 #cgc,#cgd,#cgs,
 #clc,#cld,#cls,
 #rbc,#rbd,#rbs,
-#jbjb, #jbjd, #jbcg,#jbrb,
-#jdjb, #jdcg, #jdjd,#jdrb,
-#cgjb, #cgjd, #cgcg,#cgrb,
-#rbjb, #rbcg, #rbjd,#rbrb,
+#adc,#add,#ads,
+#jbjb, #jbjd, #jbcg,#jbrb,#jbad,
+#jdjb, #jdcg, #jdjd,#jdrb,#jdad,
+#cgjb, #cgjd, #cgcg,#cgrb,#cgad,
+#rbjb, #rbcg, #rbjd,#rbrb,#rbad,
+#adjb, #adcg, #adjd,#adrb,#adad,
 #colStatArea{
   text-align: right;
 }
 
-#jbjb, #jdjd, #cgcg, #rbrb{
+#jbjb, #jdjd, #cgcg, #rbrb, #adad{
   color: #8e8d8d
 }
 
-#jbArea, #jdArea, #cgArea,#rbArea,  #statsArea, #swapsArea, #colStatArea, #theStatArea{
+#jbArea, #jdArea, #cgArea,#rbArea,  #adArea, #statsArea, #swapsArea, #colStatArea, #theStatArea{
     font-family: "Lucida Console", monospace;
     text-align: left;
 }
 
 /* If the screen size is 601px wide or more, set the font-size of <div> to 80px */
 @media screen and (min-width: 601px) {
-  #jbArea, #jdArea, #cgArea,#rbArea{
-    font-size: 0.85vw;
+  #jbArea, #jdArea, #cgArea,#rbArea,#adArea{
+    font-size: 9px;
   }
    #statsArea, #swapsArea{
        padding-top: 10px;
@@ -64,7 +66,7 @@ body {
 
 /* If the screen size is 600px wide or less, set the font-size of <div> to 30px */
 @media screen and (max-width: 600px) {
- #jbArea, #jdArea, #cgArea,#rbArea,
+ #jbArea, #jdArea, #cgArea,#rbArea,#adArea,
  #theStatArea, #colStatArea {
     font-size: 14px;
   }
@@ -75,23 +77,29 @@ body {
   color:red;
   float: left;
   display: inline-block;
-  padding: 5px 5px 5px 5px;
+  margin: 5px;
 }
 #jdArea{
   color:#f6ab1d;
   float: left;
   display: inline-block;
- padding: 5px 5px 5px 5px;
+ margin: 5px;
 }
 #cgArea{
   color:blue;
   float: left;
   display: inline-block;
- padding: 5px 5px 5px 5px;
+ margin: 5px;
 }
 #rbArea{
   color:purple;
   float: left;
   display: inline-block;
-  padding: 5px 5px 5px 5px;
+  margin: 5px;
+}
+#adArea{
+  color:lightgreen;
+  float: left;
+  display: inline-block;
+  margin: 5px;
 }

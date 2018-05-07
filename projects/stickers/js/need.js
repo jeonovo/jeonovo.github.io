@@ -169,8 +169,8 @@ function initGraphs(){
             whoGot = " - RB";
             jbContent += jbNeed + whoGot + "<br>";
       } else {
-            whoGot = ""
-	    jbContent += jbNeed + whoGot + "<br>";
+
+	       jbContent += jbNeed + "<br>";
             jbjb +=1;
       }
 
@@ -244,8 +244,8 @@ function initGraphs(){
             whoGot = " - RB";
             jdContent += jdNeed + whoGot + "<br>";
       } else {
-            whoGot = ""
-	    jdContent += jdNeed + whoGot + "<br>";
+
+	      jdContent += jdNeed + "<br>";
             jdjd +=1;
       }
 
@@ -316,8 +316,8 @@ function initGraphs(){
           whoGot = " - RB";
           cgContent += cgNeed + whoGot + "<br>";
       } else {
-        whoGot = ""
-	cgContent += cgNeed + whoGot + "<br>";
+
+	       cgContent += cgNeed + "<br>";
         cgcg +=1;
       }
 
@@ -336,7 +336,7 @@ function initGraphs(){
       var rbjb = 0;
       var rbjd = 0;
       var rbcg = 0;
-      var rbrb =0;
+      var rbrb = 0;
       var swapsAvailable = 0;
 
       for (i in rbn){
@@ -398,8 +398,9 @@ function initGraphs(){
               swapsAvailable +=1;
               rbContent += rbNeed + whoGot + "<br>";
           } else {
-            whoGot = "NEED"
-          //rbContent += rbNeed + whoGot + "<br>";
+            if (rbn.length < 100){
+              rbContent += rbNeed + "<br>";
+            }
             rbrb +=1;
           }
         }
