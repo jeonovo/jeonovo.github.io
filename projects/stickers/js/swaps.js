@@ -128,6 +128,7 @@ function initGraphs(){
   var jbjb = 0;
   var jbrb = 0;
   var jbad = 0;
+  var jbjb = 0;
 
   // JB Swaps
   for (i in jb){
@@ -165,6 +166,9 @@ function initGraphs(){
         }
       }
 
+if (jdnValue + cgnValue + rbnValue + adnValue == 0){
+    jbjb +=1;
+}
       // All, jd cg rb, jd cg ad,
     if (jdnValue || cgnValue || rbnValue || adnValue == 1){
       jbContent += jbGot + " - ";
@@ -265,12 +269,15 @@ function initGraphs(){
         }
       }
       for (i in adn){
-        if (adn[i] == jbGot){
+        if (adn[i] == jdGot){
           adnValue = 1;
           jdad +=1;
         }
       }
 
+      if (jbnValue == 0 && cgnValue == 0 && rbnValue == 0  && adnValue == 0){
+        jdjd +=1;
+      }
       if (jbnValue || cgnValue || rbnValue || adnValue == 1){
         jdContent += jdGot + " - ";
         if (jbnValue == 1){
@@ -364,12 +371,15 @@ function initGraphs(){
         }
       }
       for (i in adn){
-        if (adn[i] == jbGot){
+        if (adn[i] == cgGot){
           adnValue = 1;
           cgad +=1;
         }
       }
 
+      if (jbnValue == 0  && jdnValue == 0  && rbnValue == 0  && adnValue == 0){
+        cgcg+=1;
+      }
       if (jbnValue || jdnValue || rbnValue || adnValue == 1){
         cgContent += cgGot + " - ";
         if (jbnValue == 1){
@@ -464,12 +474,15 @@ function initGraphs(){
             }
           }
           for (i in adn){
-            if (adn[i] == jbGot){
+            if (adn[i] == rbGot){
               adnValue = 1;
               rbad +=1;
             }
           }
 
+          if (jbnValue == 0 && jdnValue == 0 && cgnValue == 0 && adnValue == 0){
+            rbrb +=1;
+          }
           if (jbnValue || jdnValue || cgnValue || adnValue == 1){
             rbContent += rbGot + " - ";
             if (jbnValue == 1){
@@ -485,7 +498,6 @@ function initGraphs(){
               rbContent += " AD ";
             }
             rbContent += "<br>";
-
           }
 
         //   if (jbnValue && jdnValue && cgnValue == 1){
@@ -565,12 +577,16 @@ function initGraphs(){
               }
               for (i in rbn){
                 if (rbn[i] == adGot){
-                  adnValue = 1;
+                  rbnValue = 1;
                   adrb +=1;
                 }
               }
 
-              if (jbnValue || jdnValue || cgnValue || rbnValue == 1){
+              if (jbnValue == 0 && jdnValue == 0 && cgnValue == 0 && rbnValue == 0){
+                adad +=1;
+              }
+
+              if ((jbnValue || jdnValue || cgnValue || rbnValue) == 1){
                 adContent += adGot + " - ";
                 if (jbnValue == 1){
                   adContent += " JB ";
@@ -621,7 +637,7 @@ function initGraphs(){
             document.getElementById('adjb').innerHTML = adjb;
             document.getElementById('adjd').innerHTML = adjd;
             document.getElementById('adcg').innerHTML = adcg;
-            document.getElementById('adrb').innerHTML = rbrb;
+            document.getElementById('adrb').innerHTML = adrb;
             document.getElementById('adad').innerHTML = adad;
             document.getElementById('adArea').innerHTML = adContent;
             /***********************/
