@@ -140,7 +140,7 @@ function initGraphs(){
           jbjd+=1;
         }
       }
-      for (i in rbn){
+      for (i in rb){
         if (rb[i] == jbNeed){
           rbnValue = 1;
           jbrb +=1;
