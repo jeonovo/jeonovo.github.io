@@ -20,6 +20,7 @@ function initGraphs(){
                     jdMostDupe =[];
                     cgMostDupe = [];
                     rbMostDupe = [];
+                    adMostDupe = [];
 
                     collectiveNeeds = [];
                     collectiveDupes = [];
@@ -29,6 +30,7 @@ function initGraphs(){
                     var jdMax = 0;
                     var cgMax = 0;
                     var rbMax = 0;
+                    var adMax = 0;
 
                     // get max value
                     for (var i in sheet){
@@ -52,6 +54,9 @@ function initGraphs(){
                       if (Number(sheet[i].RB) > rbMax){
                         rbMax = Number(sheet[i].RB)
                       }
+                      if (Number(sheet[i].AD) > adMax){
+                        adMax = Number(sheet[i].AD)
+                      }
 
 
                     }
@@ -73,11 +78,14 @@ function initGraphs(){
                       if (sheet[i].RB == rbMax){
                         rbMostDupe.push(sheet[i].Name);
                       }
+                      if (sheet[i].AD == adMax){
+                        adMostDupe.push(sheet[i].Name);
+                      }
                     }
 
 
 
-          updateStats(dupeMax,collectiveDupes, jbMax, jbMostDupe, jdMax, jdMostDupe,cgMax, cgMostDupe,rbMax, rbMostDupe);
+          updateStats(dupeMax,collectiveDupes, jbMax, jbMostDupe, jdMax, jdMostDupe,cgMax, cgMostDupe,rbMax, rbMostDupe, adMax, adMostDupe);
           updateColNeeds(collectiveNeeds);
 
 				  },
@@ -96,7 +104,7 @@ function initGraphs(){
   }
 
   // jonny, jonathon, chris, collective, jonnyDupe, jdDupe, chrisDupe, collectiveDupe
-  function updateStats(mx,cd, jmx, jbd, jdx, jdd, cgx, cgd, rbx, rbd){
+  function updateStats(mx,cd, jmx, jbd, jdx, jdd, cgx, cgd, rbx, rbd, adx, add){
     var csContent ="<b>Most Dupe with " + mx +  ":</b><br>";
     for(i in cd){
       csContent += cd[i] + "<br>";
@@ -120,6 +128,10 @@ function initGraphs(){
     csContent +="<p><b>Richard Most Dupe with " + rbx +  ":</b><br>";
     for(i in rbd){
       csContent += rbd[i] + "<br>";
+    }
+    csContent +="<p><b>Andy Most Dupe with " + adx +  ":</b><br>";
+    for(i in add){
+      csContent += add[i] + "<br>";
     }
 
     document.getElementById('theStatArea').innerHTML = csContent;
