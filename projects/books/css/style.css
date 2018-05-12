@@ -20,14 +20,6 @@ body {
     margin: auto;
 }
 
-/* If the screen size is 600px wide or less */
-@media screen and (max-width: 650px) {
-.headline {
-    font-size: 15px;
-    height: 50px;
-    line-height: 25px;
-  }
-}
 
 #graphContainer{
     margin:25px;
@@ -36,7 +28,7 @@ body {
 .graph{
     height: 400px;
     width: 400px;
-    margin: auto;
+    margin: 10px;
     /*
     border-style: solid;
     border-width: 1px;
@@ -45,5 +37,53 @@ body {
     display: inline-block;
     vertical-align: top;
     text-align:center;
-    margin: 10px;
+}
+
+/* If the screen size is 600px wide or less */
+@media screen and (max-width: 600px) {
+.headline {
+
+    font-size: 12px;
+    height: 50px;
+    line-height: 25px;
+  }
+
+  #graphContainer{
+      margin-left: 0px;
+      margin-right: 0px;
+      margin-top: 10px;
+      text-align: center;
+  }
+  .graph{
+      height: 375px;
+      width: 375px;
+  }
+  .chart{
+      width: 375px;
+      height: 375px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+.headline {
+
+    font-size: 12px;
+    height: 50px;
+    line-height: 25px;
+  }
+
+  #graphContainer{
+      margin-left: 0px;
+      margin-right: 0px;
+      margin-top: 10px;
+      text-align: center;
+  }
+  .graph{
+      height: 325px;
+      width: 325px;
+  }
+  .chart{
+      width: 325px;
+      height: 325px;
+  }
 }
