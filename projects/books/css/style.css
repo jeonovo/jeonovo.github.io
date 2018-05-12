@@ -33,7 +33,7 @@ body {
     border-style: solid;
     border-width: 1px;
     */
-    background: rgba(255,255,255,0.7);
+    background: rgba(255,255,255,0.5);
     display: inline-block;
     vertical-align: top;
     text-align:center;
@@ -44,6 +44,7 @@ body {
 .headline {
 
     font-size: 12px;
+    font-weight: 500;
     height: 50px;
     line-height: 25px;
   }
@@ -68,6 +69,7 @@ body {
 .headline {
 
     font-size: 12px;
+    font-weight: 500;
     height: 50px;
     line-height: 25px;
   }

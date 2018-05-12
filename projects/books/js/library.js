@@ -1,5 +1,5 @@
 code = "1gFUU0H8yvV4gRC5Nqm3zf12vdhdYr_oDuJ2tbKR5hiY";
-
+// jonny bland
 
 function init(){
   Tabletop.init({
@@ -13,14 +13,22 @@ function init(){
         var three = 0;
         var four = 0;
         var five = 0;
+        var yearRead = [];
+        var nat = [];
+        var booktypes =[];
 
 
         for(var i in sheet){
+
             total +=1;
             if (sheet[i].BookRead == 'y'){
                 read +=1;
+                year = sheet[i].DateRead.substring(0,4);
+                yearRead.push(Number(year));
             }
 
+            nat.push(sheet[i].Nationality);
+            booktypes.push(sheet[i].BookType);
 
             switch (Number(sheet[i].Rating)) {
                 case 1:
@@ -39,8 +47,6 @@ function init(){
                     five +=1;
                     break;
                 default:
-
-
             }
 
         }
@@ -50,7 +56,10 @@ function init(){
         setTotal(total);
         setRead(total, read);
         setRating(ratings, read);
+        setNat(nat);
         makeChart1(ratings);
+        makeChart2(yearRead);
+        makeChart3(booktypes);
       },
               simpleSheet: true
       });
@@ -70,9 +79,21 @@ function init(){
             rating = Number(i)+1;
             rSum += (ratings[i] * (rating));
         }
-        console.log(rSum);
         rAverage =  Math.round(rSum/t*100)/100;
         document.getElementById('ratingAverage').innerHTML += rAverage;
+    }
+
+    function setNat(nats){
+
+      var data = [];
+      for (i in nats){
+                if (data.indexOf(nats[i]) < 0){
+                    data.push(nats[i])
+                }
+            }
+
+        document.getElementById('natTotal').innerHTML += data.length;
+
     }
 
 
@@ -87,7 +108,7 @@ function init(){
         datasets: [{
             label: 'Rating',
             data: ratings,
-            backgroundColor: 'blue',
+            backgroundColor: '#77dd77',
             borderColor: 'black',
             borderWidth: 1
         }]
@@ -115,11 +136,123 @@ function init(){
 
 }
 
+function makeChart2(years){
+
+  labels = [];
+  data = [];
+
+  for (i in years){
+            if (labels.indexOf(years[i]) < 0){
+                labels.push(years[i])
+            }
+        }
+  labels.sort(function(a, b){return a-b});
+
+  for (var i in labels){
+    currentYear = labels[i];
+    count = 0;
+    for (var j in years){
+      if (years[j] == currentYear){
+        count+=1;
+      }
+    }
+
+    data.push(count);
+
+  }
+
+
+  var ctx = document.getElementById("chart2").getContext('2d');
+  var myLineChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: labels,
+        datasets: [{
+            label: 'Read',
+            data: data,
+            pointBackgroundColor: '#92A8D1',
+            pointBorderColor: 'black',
+            pointBorderWidth: 2,
+            pointRadius: 5,
+            fill: false,
+            borderColor: '#92A8D1'
+        }]},
+        options: {
+        legend: {
+            display: false
+        },
+        scales: {
+            yAxes: [{
+                gridLines:{ display: false},
+                ticks: {
+                    beginAtZero:true,
+                    stepSize: 5
+                }
+            }],
+            xAxes: [{gridLines: {display: false}}]
+        }
+      //options: options
+  }});
 
 
 
+}
+function makeChart3(bt){
 
+  labels = [];
+  data = [];
+  for (i in bt){
+            if (labels.indexOf(bt[i]) < 0){
+                labels.push(bt[i])
+            }
+        }
 
+        for (var i in labels){
+          currentType = labels[i];
+          count = 0;
+          for (var j in bt){
+            if (bt[j] == currentType){
+              count+=1;
+            }
+          }
+          data.push(count);
+        }
+
+    var ctx = document.getElementById("chart3").getContext('2d');
+    var myChart = new Chart(ctx, {
+    type: 'horizontalBar',
+    data: {
+    labels: labels,
+    datasets: [{
+        label: 'Rating',
+        data: data,
+        backgroundColor: '#77dd77',
+        borderColor: 'black',
+        borderWidth: 1
+    }]
+    },
+    options: {
+    legend: {
+        display: false
+    },
+    title: {
+       display: true,
+       text: 'Book Types'
+    },
+    scales: {
+        yAxes: [{
+            gridLines:{ display: false},
+            ticks: {
+                beginAtZero:true,
+                stepSize: 5
+            }
+        }],
+        xAxes: [{gridLines: {display: false}}]
+    }
+    }
+    });
+
+}
 
 
 
