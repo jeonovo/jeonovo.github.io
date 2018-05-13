@@ -614,7 +614,7 @@ function initGraphs(){
               for (i in rb){
                 if (rb[i] == adNeed){
                   rbnValue = 1;
-                  adad +=1;
+                  adrb +=1;
                 }
               }
 
