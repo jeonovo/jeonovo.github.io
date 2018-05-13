@@ -1,5 +1,5 @@
 code = "1gFUU0H8yvV4gRC5Nqm3zf12vdhdYr_oDuJ2tbKR5hiY";
-// jonny bland
+
 
 function init(){
   Tabletop.init({
@@ -16,9 +16,21 @@ function init(){
         var yearRead = [];
         var nat = [];
         var booktypes =[];
+        var dqTotal = 0;
+        var dqGap = 0;
 
 
         for(var i in sheet){
+
+
+          for (var j in sheet[i]){
+            dqTotal +=1;
+
+            if (sheet[i][j] == "None" || sheet[i][j] == "uk"){
+              dqGap +=1;
+            }
+
+          }
 
             total +=1;
             if (sheet[i].BookRead == 'y'){
@@ -53,10 +65,12 @@ function init(){
 
         // Function calls go here
         var ratings = [one, two, three, four, five];
+
         setTotal(total);
         setRead(total, read);
         setRating(ratings, read);
         setNat(nat);
+        setDQ(dqGap, dqTotal);
         makeChart1(ratings);
         makeChart2(yearRead);
         makeChart3(booktypes);
@@ -94,6 +108,13 @@ function init(){
 
         document.getElementById('natTotal').innerHTML += data.length;
 
+    }
+
+    function setDQ(gap, total){
+
+      var numer = total - gap;
+      dq =  Math.round((numer/total*100)*100)/100;
+      document.getElementById('dqTotal').innerHTML += dq + "%";
     }
 
 
@@ -178,7 +199,7 @@ function makeChart2(years){
             borderColor: '#92A8D1'
         }]},
         options: {
-		    title: {
+        title: {
 		       display: true,
 		       text: 'Year Read'
 		    },
