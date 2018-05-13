@@ -199,7 +199,7 @@ function makeChart2(years){
             borderColor: '#92A8D1'
         }]},
         options: {
-        title: {
+          title: {
 		       display: true,
 		       text: 'Year Read'
 		    },
