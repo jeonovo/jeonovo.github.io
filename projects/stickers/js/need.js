@@ -581,7 +581,7 @@ function initGraphs(){
           var adad = 0;
           var swapsAvailable = 0;
 
-          for (i in rbn){
+          for (i in adn){
 
             var jbnValue = 0;
             var jdnValue = 0;
