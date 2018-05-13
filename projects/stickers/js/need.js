@@ -592,7 +592,7 @@ function initGraphs(){
             var adNeed = adn[i];
 
               for (i in jb){
-                  if (jb[i] == rbNeed){
+                  if (jb[i] == adNeed){
                     jbnValue = 1;
                     adjb +=1;
                   }
@@ -619,26 +619,26 @@ function initGraphs(){
               }
 
               if (jbnValue + jdnValue + cgnValue + rbnValue == 0){
-                  rbrb +=1;
+                  adad +=1;
               }
                     // All, jd cg rb, jd cg ad,
 
-                    if (rbNeed > 100){
+                    if (adNeed > 100){
 
-                    rbContent += rbNeed;
+                    adContent += adNeed;
                     if (jbnValue == 1){
-                      rbContent += " <b>JB</b> ";
+                      adContent += " <b>JB</b> ";
                     }
                     if (jdnValue == 1){
-                      rbContent += " <b>JD</b> ";
+                      adContent += " <b>JD</b> ";
                     }
                     if (cgnValue == 1){
-                      rbContent += " <b>CG</b> ";
+                      adContent += " <b>CG</b> ";
                     }
                     if (adnValue == 1){
-                      rbContent += " <b>AD</b> ";
+                      adContent += " <b>AD</b> ";
                     }
-                    rbContent += "<br>";
+                    adContent += "<br>";
 
                 } else {
 
