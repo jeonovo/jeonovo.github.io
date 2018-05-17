@@ -490,7 +490,7 @@ function initGraphs(){
           }
                 // All, jd cg rb, jd cg ad,
 
-                if (rbNeed > 100){
+                if (rbNeed < 100){
 
                 rbContent += rbNeed;
                 if (jbnValue == 1){
