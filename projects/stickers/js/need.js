@@ -635,8 +635,8 @@ function initGraphs(){
                     if (cgnValue == 1){
                       adContent += " <b>CG</b> ";
                     }
-                    if (adnValue == 1){
-                      adContent += " <b>AD</b> ";
+                    if (rbnValue == 1){
+                      adContent += " <b>RB</b> ";
                     }
                     adContent += "<br>";
 
