@@ -164,7 +164,7 @@ function initGraphs(){
         }
       }
 
-      for (i in adn){
+      for (i in ad){
         if (ad[i] == jbNeed){
           adnValue = 1;
           jbad +=1;
@@ -271,7 +271,7 @@ function initGraphs(){
         }
       }
 
-      for (i in adn){
+      for (i in ad){
         if (ad[i] == jdNeed){
           adnValue = 1;
           jdad +=1;
