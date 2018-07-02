@@ -103,6 +103,27 @@ function kickOff(){
 	goalLayer = new L.featureGroup();
 	heatMapLayer = new L.featureGroup();
 
+	var lPenInfo = "";
+	var rPenInfo = "";
+
+	var lPen = L.circleMarker([(33.875*0.7),(14*0.7)],{
+		radius: 7,
+		fillColor: "#E80000",
+		color: "#000",
+		weight: 1.5,
+		opacity: 1,
+		fillOpacity: 0.7,
+	});
+	var rPen = L.circleMarker([(33.875*0.7),(91*0.7)],{
+		radius: 7,
+		fillColor: "#E80000",
+		color: "#000",
+		weight: 1.5,
+		opacity: 1,
+		fillOpacity: 0.7,
+	});
+
+
 	for (id in goals){
 
 		if (goals[id].Y > 0){
@@ -114,19 +135,39 @@ function kickOff(){
 				radius: 7,
 				fillColor: "#E80000",
 				color: "#000",
-				weight: 2,
+				weight: 1.5,
 				opacity: 1,
 				fillOpacity: 0.7,
 			});
 
+			if (goals[id].Assist == "Pen" && goals[id].X == 14){
+
+				lPenInfo += goals[id].Player + ": " + goals[id].Opponent + ": " + goals[id].Minute +"<br>";
+
+			} else if (goals[id].Assist == "Pen" && goals[id].X == 91) {
+
+				rPenInfo += goals[id].Player + ": " + goals[id].Opponent + ": " + goals[id].Minute +"<br>";
+
+			}	else {
+
+				var info = goals[id].Player + ": " + goals[id].Opponent + ": " + goals[id].Minute;
+				scorer.bindPopup(info);
+				goalLayer.addLayer(scorer);
 
 
-			var info = goals[id].Player + ": " + goals[id].Opponent + ": " + goals[id].Minute;
-			scorer.bindPopup(info);
-			goalLayer.addLayer(scorer);
+			}
+
+
+
+
 			//scorer.addTo(map);
 		}
 	}
+
+	lPen.bindPopup(lPenInfo);
+	rPen.bindPopup(rPenInfo);
+	 goalLayer.addLayer(rPen);
+	 goalLayer.addLayer(lPen);
 	// 		var polyline;
 	// 		scorer.on('popupopen', function(e){
     //
@@ -211,10 +252,12 @@ function makeHeatMap(heatdata){
 					var y = (68.00 *  pitchModifier) - (heatdata[id].Y * pitchModifier);
 
 					var latlng = [y,x,0.75];
+
 					heatgoals.push(latlng);
+
 			} else {
 
-				var latlng = [(heatdata[id].Y * pitchModifier), (heatdata[id].X * pitchModifier),0.1];
+				var latlng = [(heatdata[id].Y * pitchModifier), (heatdata[id].X * pitchModifier),0.75];
 
 				heatgoals.push(latlng);
 			}
