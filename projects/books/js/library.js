@@ -18,9 +18,13 @@ function init(){
         var booktypes =[];
         var dqTotal = 0;
         var dqGap = 0;
-
+        var authors = [];
+        var readTarget = 30;
+        var booksReadTarget = [];
 
         for(var i in sheet){
+
+
 
 
           for (var j in sheet[i]){
@@ -31,15 +35,18 @@ function init(){
             }
 
           }
-
             total +=1;
             if (sheet[i].BookRead == 'y'){
                 read +=1;
                 year = sheet[i].DateRead.substring(0,4);
+                if (year == 2018){
+                    booksReadTarget.push(sheet[i].DateRead);
+                }
                 yearRead.push(Number(year));
             }
 
             nat.push(sheet[i].Nationality);
+            authors.push(sheet[i].FirstName + sheet[i].SecondName);
             booktypes.push(sheet[i].BookType);
 
             switch (Number(sheet[i].Rating)) {
@@ -69,11 +76,13 @@ function init(){
         setTotal(total);
         setRead(total, read);
         setRating(ratings, read);
+        setAuthors(authors);
         setNat(nat);
         setDQ(dqGap, dqTotal);
         makeChart1(ratings);
         makeChart2(yearRead);
         makeChart3(booktypes);
+        makeChart4(booksReadTarget);
       },
               simpleSheet: true
       });
@@ -97,17 +106,34 @@ function init(){
         document.getElementById('ratingAverage').innerHTML += rAverage;
     }
 
+    function setAuthors(auths){
+
+        var authorCount = getUniqueNames(auths);
+
+        document.getElementById('authTotal').innerHTML += authorCount;
+
+    }
+
     function setNat(nats){
 
-      var data = [];
-      for (i in nats){
-                if (data.indexOf(nats[i]) < 0){
-                    data.push(nats[i])
-                }
-            }
+        var nations = getUniqueNames(nats);
 
-        document.getElementById('natTotal').innerHTML += data.length;
+        document.getElementById('natTotal').innerHTML += nations;
 
+    }
+
+    function getUniqueNames(array){
+
+
+        var data = [];
+        for (i in array){
+                  if (data.indexOf(array[i]) < 0){
+                      data.push(array[i])
+                  }
+              }
+        var unique = data.length;
+
+        return unique
     }
 
     function setDQ(gap, total){
@@ -129,7 +155,7 @@ function init(){
         datasets: [{
             label: 'Rating',
             data: ratings,
-            backgroundColor: '#77dd77',
+            backgroundColor: '#f29be0',
             borderColor: 'black',
             borderWidth: 1
         }]
@@ -251,7 +277,7 @@ function makeChart3(bt){
     datasets: [{
         label: 'Rating',
         data: data,
-        backgroundColor: '#77dd77',
+        backgroundColor: '#f29be0',
         borderColor: 'black',
         borderWidth: 1
     }]
@@ -279,12 +305,105 @@ function makeChart3(bt){
 
 }
 
+function makeChart4(bt){
 
+    var xAx = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    var data = [0,0,0,0,0,0,0,0,0,0,0,0];
+    var target = [];
+    var readYTD = [];
+    var testData = [null, 10, null, null, null, null, null, null, null, null, null, null];
 
+    for (var i in xAx){
 
+      var t = 2.5;
+      target.push(t * (Number(i) + 1));
 
+    }
 
+    for (var i in xAx){
 
+      currentMonth = Number(i) + 1;
+    //  console.log(currentMonth);
+      count = 0;
+      for (var j  in bt){
 
+        readMonth = Number(bt[j].substring(5,7));
+        if (readMonth == currentMonth){
+          count +=1;
+        }
+      }
+      data[i] = count;
+    }
+
+    var runningTotal = 0;
+    for (var i in data){
+      runningTotal += data[i];
+      readYTD.push(runningTotal);
+
+    }
+
+    yes = [];
+    no = [];
+
+    for (var i in readYTD){
+
+      if (readYTD[i] >= target[i]){
+
+        yes.push(readYTD[i])
+        no.push(0);
+
+      } else {
+
+        yes.push(0);
+        no.push(readYTD[i]);
+
+      }
+
+    }
+
+    var ctx = document.getElementById("chart4").getContext('2d');
+    var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+    labels: xAx,
+    datasets: [{
+        label: 'On Target',
+        data: yes,
+        backgroundColor: '#5BCC55',
+        borderColor: 'black',
+        borderWidth: 1,
+        stack: 1
+    },{
+      label: 'Not On Target',
+      data: no,
+      backgroundColor: '#E35F66',
+      borderColor: 'black',
+      borderWidth: 1,
+      stack: 1
+    }]
+    },
+    options: {
+    legend: {
+        display: false
+    },
+    title: {
+       display: true,
+       text: 'Books Read - Target'
+    },
+    scales: {
+        yAxes: [{
+            gridLines:{ display: false},
+            ticks: {
+                beginAtZero:true
+            }
+        }],
+        xAxes: [{
+          stacked: true,
+          gridLines: {display: false}}]
+    }
+    }
+    });
+
+}
 
 }
