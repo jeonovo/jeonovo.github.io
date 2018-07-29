@@ -1,5 +1,9 @@
 code = "1gFUU0H8yvV4gRC5Nqm3zf12vdhdYr_oDuJ2tbKR5hiY";
 
+var barColour = '#ffbfbf';
+var lineColour = '';
+var readTarget = 30;
+var xAx = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
 function init(){
   Tabletop.init({
@@ -19,7 +23,8 @@ function init(){
         var dqTotal = 0;
         var dqGap = 0;
         var authors = [];
-        var readTarget = 30;
+        var pagesRead = [];
+
         var booksReadTarget = [];
 
         for(var i in sheet){
@@ -41,6 +46,7 @@ function init(){
                 year = sheet[i].DateRead.substring(0,4);
                 if (year == 2018){
                     booksReadTarget.push(sheet[i].DateRead);
+                    pagesRead.push([sheet[i].DateRead,Number(sheet[i].Pages)]);
                 }
                 yearRead.push(Number(year));
             }
@@ -82,7 +88,8 @@ function init(){
         makeChart1(ratings);
         makeChart2(yearRead);
         makeChart3(booktypes);
-        makeChart4(booksReadTarget);
+        makeChart4(pagesRead);
+        makeChart5(booksReadTarget);
       },
               simpleSheet: true
       });
@@ -155,7 +162,7 @@ function init(){
         datasets: [{
             label: 'Rating',
             data: ratings,
-            backgroundColor: '#f29be0',
+            backgroundColor: barColour,
             borderColor: 'black',
             borderWidth: 1
         }]
@@ -277,7 +284,7 @@ function makeChart3(bt){
     datasets: [{
         label: 'Rating',
         data: data,
-        backgroundColor: '#f29be0',
+        backgroundColor: barColour,
         borderColor: 'black',
         borderWidth: 1
     }]
@@ -305,18 +312,90 @@ function makeChart3(bt){
 
 }
 
-function makeChart4(bt){
+function makeChart4(br){
+    var data = [0,0,0,0,0,0,0,0,0,0,0,0];
+    var pagesYTD = [];
+    var runningPageTotal = 0;
 
-    var xAx = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    for (var i in xAx){
+
+      currentMonth = Number(i) + 1;
+    //  console.log(currentMonth);
+      var pageTotal = 0;
+      for (var j  in br){
+
+
+        readMonth = Number(br[j][0].substring(5,7));
+
+        if (readMonth == currentMonth){
+          pageTotal += br[j][1];
+        }
+
+      }
+      data[i] = pageTotal;
+    }
+
+    var runningTotal = 0;
+    for (var i in data){
+      runningPageTotal += data[i];
+      pagesYTD.push(runningPageTotal);
+
+    }
+
+    console.log(data);
+    console.log(pagesYTD);
+
+    var ctx = document.getElementById("chart4").getContext('2d');
+    var myLineChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: xAx,
+          datasets: [{
+              label: 'Read',
+              data: pagesYTD,
+              pointBackgroundColor: '#92A8D1',
+              pointBorderColor: 'black',
+              pointBorderWidth: 2,
+              pointRadius: 5,
+              fill: false,
+              borderColor: '#92A8D1'
+          }]},
+          options: {
+            title: {
+                 display: true,
+                 text: 'Pages Read'
+              },
+          legend: {
+              display: false
+          },
+          scales: {
+              yAxes: [{
+                  gridLines:{ display: false},
+                  ticks: {
+                      beginAtZero:true
+
+                  }
+              }],
+              xAxes: [{gridLines: {display: false}}]
+          }
+        //options: options
+    }});
+
+
+
+
+}
+
+function makeChart5(bt){
+
     var data = [0,0,0,0,0,0,0,0,0,0,0,0];
     var target = [];
     var readYTD = [];
-    var testData = [null, 10, null, null, null, null, null, null, null, null, null, null];
 
     for (var i in xAx){
 
       var t = 2.5;
-      target.push(t * (Number(i) + 1));
+      target.push(Math.floor(t * (Number(i) + 1)));
 
     }
 
@@ -361,7 +440,7 @@ function makeChart4(bt){
 
     }
 
-    var ctx = document.getElementById("chart4").getContext('2d');
+    var ctx = document.getElementById("chart5").getContext('2d');
     var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
@@ -369,14 +448,14 @@ function makeChart4(bt){
     datasets: [{
         label: 'On Target',
         data: yes,
-        backgroundColor: '#5BCC55',
+        backgroundColor: '#7ff275',
         borderColor: 'black',
         borderWidth: 1,
         stack: 1
     },{
       label: 'Not On Target',
       data: no,
-      backgroundColor: '#E35F66',
+      backgroundColor: '#F2757F',
       borderColor: 'black',
       borderWidth: 1,
       stack: 1
@@ -394,6 +473,7 @@ function makeChart4(bt){
         yAxes: [{
             gridLines:{ display: false},
             ticks: {
+                max: readTarget,
                 beginAtZero:true
             }
         }],
