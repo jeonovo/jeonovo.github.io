@@ -1,5 +1,5 @@
 body {
-    background: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)),url("wood.jpg");
+    background: linear-gradient(rgba(255,255,255,0.8), rgba(255,255,255,0.8)),url("wood.jpg");
 }
 #headlineContainer{
     text-align:center;
