@@ -4,6 +4,8 @@ var barColour = '#ffbfbf';
 var lineColour = '';
 var readTarget = 30;
 var xAx = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+var notOnTarget = '#F2757F';
+var onTarget = '#7ff275'
 
 function init(){
   Tabletop.init({
@@ -90,6 +92,7 @@ function init(){
         makeChart3(booktypes);
         makeChart4(pagesRead);
         makeChart5(booksReadTarget);
+        makeChart6(pagesRead);
       },
               simpleSheet: true
       });
@@ -313,37 +316,9 @@ function makeChart3(bt){
 }
 
 function makeChart4(br){
-    var data = [0,0,0,0,0,0,0,0,0,0,0,0];
-    var pagesYTD = [];
-    var runningPageTotal = 0;
 
-    for (var i in xAx){
+    pytd = getPagesYTD(br);
 
-      currentMonth = Number(i) + 1;
-    //  console.log(currentMonth);
-      var pageTotal = 0;
-      for (var j  in br){
-
-
-        readMonth = Number(br[j][0].substring(5,7));
-
-        if (readMonth == currentMonth){
-          pageTotal += br[j][1];
-        }
-
-      }
-      data[i] = pageTotal;
-    }
-
-    var runningTotal = 0;
-    for (var i in data){
-      runningPageTotal += data[i];
-      pagesYTD.push(runningPageTotal);
-
-    }
-
-    console.log(data);
-    console.log(pagesYTD);
 
     var ctx = document.getElementById("chart4").getContext('2d');
     var myLineChart = new Chart(ctx, {
@@ -352,7 +327,7 @@ function makeChart4(br){
           labels: xAx,
           datasets: [{
               label: 'Read',
-              data: pagesYTD,
+              data: pytd,
               pointBackgroundColor: '#92A8D1',
               pointBorderColor: 'black',
               pointBorderWidth: 2,
@@ -448,14 +423,14 @@ function makeChart5(bt){
     datasets: [{
         label: 'On Target',
         data: yes,
-        backgroundColor: '#7ff275',
+        backgroundColor: onTarget,
         borderColor: 'black',
         borderWidth: 1,
         stack: 1
     },{
       label: 'Not On Target',
       data: no,
-      backgroundColor: '#F2757F',
+      backgroundColor: notOnTarget,
       borderColor: 'black',
       borderWidth: 1,
       stack: 1
@@ -486,4 +461,147 @@ function makeChart5(bt){
 
 }
 
+function makeChart6(br){
+
+    var pytdt = getPagesYTD(br);
+
+    var dailyRead = (readTarget * 240)/365
+    var months = [31, 28, 31,30,31,30,31,31,30,31,30,31];
+    var targetMonthPage =[];
+    var endTarget = 0;
+
+    for (i in months){
+        var m = dailyRead * months[i];
+        endTarget += m;
+        targetMonthPage.push(Math.floor(endTarget));
+    }
+
+    var projectedPages = [];
+
+    var month = new Date().getMonth()+1;
+
+    var totalPages = pytdt[month-1];
+
+    var sumDays = 0;
+
+    for (i in months){
+        if (i <= month){
+            sumDays += months[i];
+        }
+    }
+
+    var projectedDailyRead = totalPages/sumDays;
+
+    var prt = totalPages;
+
+    for (var i in pytd){
+        if (i <= month -1){
+            totalPages += pytdt[i];
+            projectedPages.push(pytdt[i])
+        } else {
+
+            var ap = projectedDailyRead*months[i];
+            prt+=ap;
+            projectedPages.push(Math.floor(prt));
+
+        }
+    }
+
+
+
+      var ctx = document.getElementById("chart6").getContext('2d');
+      var myLineChart = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: xAx,
+            datasets: [{
+                label: 'Read',
+                data: projectedPages,
+                pointBackgroundColor: getPointColour(projectedPages, targetMonthPage),
+                pointBorderColor: getPointColour(projectedPages, targetMonthPage),
+                pointBorderWidth: 1,
+                pointRadius: 5,
+                fill: false,
+                borderColor: '#92A8D1'
+            },{
+              label: 'Target',
+              data: targetMonthPage,
+              pointBackgroundColor: 'lightgrey',
+              pointBorderColor: 'black',
+              pointBorderWidth: 0,
+              pointRadius: 0,
+              borderDash: [5,10],
+              fill: false,
+              borderColor: 'lightgrey'
+
+            }]},
+            options: {
+              title: {
+                   display: true,
+                   text: 'Projected Pages Read'
+                },
+            legend: {
+                display: false
+            },
+            scales: {
+                yAxes: [{
+                    gridLines:{ display: false},
+                    ticks: {
+                        beginAtZero:true
+
+                    }
+                }],
+                xAxes: [{gridLines: {display: false}}]
+            }
+          //options: options
+      }});
+
+
+
+}
+
+function getPointColour(array, target){
+var colours =[];
+    for (i in array){
+        if(array[i] >= target[i]){
+            colours.push(onTarget)
+        } else {
+            colours.push(notOnTarget)
+        }
+    }
+    return colours;
+}
+
+function getPagesYTD(br){
+    var data = [0,0,0,0,0,0,0,0,0,0,0,0];
+    var pagesYTD = [];
+    var runningPageTotal = 0;
+
+    for (var i in xAx){
+
+      currentMonth = Number(i) + 1;
+    //  console.log(currentMonth);
+      var pageTotal = 0;
+      for (var j  in br){
+
+
+        readMonth = Number(br[j][0].substring(5,7));
+
+        if (readMonth == currentMonth){
+          pageTotal += br[j][1];
+        }
+
+      }
+      data[i] = pageTotal;
+    }
+
+    var runningTotal = 0;
+    for (var i in data){
+      runningPageTotal += data[i];
+      pagesYTD.push(runningPageTotal);
+
+    }
+
+    return pagesYTD;
+}
 }
