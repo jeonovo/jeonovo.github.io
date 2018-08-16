@@ -1,5 +1,7 @@
 code = "1gFUU0H8yvV4gRC5Nqm3zf12vdhdYr_oDuJ2tbKR5hiY";
 
+code2 = "19Ma2034WrpjASMByNuB0fL8Fsa8uYgwRvwVg7QimJsE";
+
 var barColour = '#ffbfbf';
 var lineColour = '';
 var readTarget = 30;
@@ -8,6 +10,7 @@ var notOnTarget = '#F2757F';
 var onTarget = '#7ff275'
 
 function init(){
+
   Tabletop.init({
     key: code,
     callback: function(sheet, tabletop){
@@ -30,9 +33,6 @@ function init(){
         var booksReadTarget = [];
 
         for(var i in sheet){
-
-
-
 
           for (var j in sheet[i]){
             dqTotal +=1;
@@ -95,6 +95,34 @@ function init(){
         makeChart6(pagesRead);
       },
               simpleSheet: true
+      });
+
+      Tabletop.init({
+        key: code2,
+        callback: function(sheet_2, tabletop){
+
+          var current_reading = [];
+
+          for (var j in sheet_2){
+              var data = [];
+          console.log(j);
+
+            var b = sheet_2[j].book_name;
+            var p = sheet_2[j].current_page;
+            var lp = sheet_2[j].total_page;
+            //console.log(b);
+            data.push(b);
+            data.push(p);
+            data.push(lp);
+            current_reading.push(data);
+
+          }
+
+          makeChart7(current_reading);
+
+        },
+
+        simpleSheet: true
       });
 
     function setTotal(t){
@@ -559,6 +587,64 @@ function makeChart6(br){
 
 
 }
+
+function makeChart7(cr){
+
+  var booknameAxis = [];
+  var readingdone = [];
+  var readingtodo = [];
+
+  for (var i in cr){
+
+
+    booknameAxis.push(cr[i][0]);
+    readingdone.push(cr[i][1]);
+    readingtodo.push(cr[i][2]);
+  }
+
+    var ctx = document.getElementById("chart7").getContext('2d');
+    var myChart = new Chart(ctx, {
+    type: 'horizontalBar',
+    data: {
+    labels: booknameAxis,
+    datasets: [{
+        label: 'Pages Read',
+        data: readingdone,
+        backgroundColor: '#ffbec4',
+        borderColor: 'black',
+        borderWidth: 1
+    },{
+      label: 'Pages To Read',
+      data: readingtodo,
+      backgroundColor: '#f5f5f5',
+      borderColor: 'black',
+      borderWidth: 1
+    }]
+    },
+    options: {
+    legend: {
+        display: false
+    },
+    title: {
+       display: true,
+       text: 'Currently Reading'
+    },
+    scales: {
+        yAxes: [{
+          stacked: true,
+            gridLines:{ display: false},
+            ticks: {
+                beginAtZero:true,
+                stepSize: 5
+            }
+        }],
+        xAxes: [{gridLines: {display: false}}]
+    }
+    }
+    });
+
+}
+
 
 function getPointColour(array, target){
 var colours =[];
