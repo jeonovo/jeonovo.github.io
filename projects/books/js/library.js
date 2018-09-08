@@ -1,5 +1,4 @@
 code = "1gFUU0H8yvV4gRC5Nqm3zf12vdhdYr_oDuJ2tbKR5hiY";
-
 code2 = "19Ma2034WrpjASMByNuB0fL8Fsa8uYgwRvwVg7QimJsE";
 
 var barColour = '#ffbfbf';
@@ -8,6 +7,7 @@ var readTarget = 30;
 var xAx = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 var notOnTarget = '#F2757F';
 var onTarget = '#7ff275'
+var currentYear = 2018;
 
 function init(){
 
@@ -29,8 +29,16 @@ function init(){
         var dqGap = 0;
         var authors = [];
         var pagesRead = [];
-
+        var columns = [
+            { "name": "id", "title": "ID"},
+            { "name": "book", "title": "Book" },
+            { "name": "name", "title": "Name"},
+            { "name": "fin", "title": "Finished"},
+            { "name": "rating", "title": "Rating"},
+            { "name": "grating", "title": "Goodreads"}];
+        var rows = [];
         var booksReadTarget = [];
+        var booksRead = [];
 
         for(var i in sheet){
 
@@ -44,11 +52,15 @@ function init(){
           }
             total +=1;
             if (sheet[i].BookRead == 'y'){
+                booksRead.push(sheet[i].DateRead);
                 read +=1;
                 year = sheet[i].DateRead.substring(0,4);
-                if (year == 2018){
+                var obj ={ "id": sheet[i].BookID, "book": sheet[i].Book, "name":sheet[i].FirstName +" "+ sheet[i].SecondName , "fin": sheet[i].DateRead, "rating":Number(sheet[i].Rating) , "grating": Number(sheet[i].avgrating)}
+                rows.push(obj);
+                if (year == currentYear){
                     booksReadTarget.push(sheet[i].DateRead);
                     pagesRead.push([sheet[i].DateRead,Number(sheet[i].Pages)]);
+
                 }
                 yearRead.push(Number(year));
             }
@@ -93,6 +105,9 @@ function init(){
         makeChart4(pagesRead);
         makeChart5(booksReadTarget);
         makeChart6(pagesRead);
+        makeTable1(columns, rows);
+        makeChart8(booksRead);
+
       },
               simpleSheet: true
       });
@@ -105,7 +120,6 @@ function init(){
 
           for (var j in sheet_2){
               var data = [];
-          console.log(j);
 
             var b = sheet_2[j].book_name;
             var p = sheet_2[j].current_page;
@@ -147,7 +161,6 @@ function init(){
     function setAuthors(auths){
 
         var authorCount = getUniqueNames(auths);
-
         document.getElementById('authTotal').innerHTML += authorCount;
 
     }
@@ -155,7 +168,6 @@ function init(){
     function setNat(nats){
 
         var nations = getUniqueNames(nats);
-
         document.getElementById('natTotal').innerHTML += nations;
 
     }
@@ -383,10 +395,6 @@ function makeChart4(br){
           }
         //options: options
     }});
-
-
-
-
 }
 
 function makeChart5(bt){
@@ -584,8 +592,6 @@ function makeChart6(br){
           //options: options
       }});
 
-
-
 }
 
 function makeChart7(cr){
@@ -595,7 +601,6 @@ function makeChart7(cr){
   var readingtodo = [];
 
   for (var i in cr){
-
 
     booknameAxis.push(cr[i][0]);
     readingdone.push(cr[i][1]);
@@ -642,6 +647,133 @@ function makeChart7(cr){
     }
     }
     });
+}
+
+function makeTable1(c,r){
+
+    // columns = [{ "name": "id", "title": "ID"}]
+   // rows = [ { "id": 1, "firstName": "Dennise", "lastName": "Fuhrman", "jobTitle": "High School History Teacher", "started": "November 8th 2011", "dob": "July 25th 1960" }]
+    jQuery(function($){
+	$('.table').footable({
+        "paging": {
+        "enabled": true,
+        "size": 5
+    },"sorting": {
+			"enabled": true
+		},
+		"columns": c,
+		"rows": r
+	});
+});
+}
+
+function makeChart8(br){
+
+    years = [currentYear, currentYear -1, currentYear -2];
+
+    y1 = [];
+    y2 = [];
+    y3 = [];
+
+    // loop through the 3 year variables want to count for
+    for (var i in years){
+
+        cy = years[i];
+
+        var cT = 0;
+
+
+    for (var j in xAx){
+
+        cm = Number(j)+1
+
+        for (var k in br){
+
+            var mT = 0;
+                var year = Number(br[k].substring(0,4));
+                var month = Number(br[k].substring(5,7));
+
+                if (year == cy && month == cm){
+
+                    mT+=1;
+                } else {
+                    mT += 0;
+                }
+
+                cT += mT;
+
+                }
+
+                // this is where the month counting happens and the push to array
+                if (cy == years[0]){
+                    y1.push(cT)
+                } else if (cy == years[1]) {
+
+                    y2.push(cT)
+
+                } else if (cy == years[2]){
+
+                    y3.push(cT);
+                }
+            }
+
+        }
+
+  var ctx = document.getElementById("chart8").getContext('2d');
+  var myChart = new Chart(ctx, {
+  type: 'line',
+  data: {
+  labels: xAx,
+  datasets: [{
+      label: '2018',
+      data: y1,
+      pointBackgroundColor: 'red',
+      pointBorderColor: 'red',
+      borderColor: 'pink',
+      pointBorderWidth: 1,
+      pointRadius: 5,
+      fill: false
+  },{
+    label: '2017',
+    data: y2,
+    pointBackgroundColor: 'blue',
+    pointBorderColor: 'blue',
+    borderColor: 'lightblue',
+    pointBorderWidth: 1,
+    pointRadius: 5,
+    fill: false
+  },{
+    label: '2016',
+    data: y3,
+    pointBackgroundColor: 'green',
+    pointBorderColor: 'green',
+    borderColor: 'lightgreen',
+    pointBorderWidth: 1,
+    pointRadius: 5,
+    fill: false
+  }]
+  },
+  options: {
+  legend: {
+      display: true
+  },
+  title: {
+     display: true,
+     text: 'Books Reads - Year'
+  },
+  scales: {
+      yAxes: [{
+          gridLines:{ display: false},
+          ticks: {
+              max: readTarget,
+              beginAtZero:true
+          }
+      }],
+      xAxes: [{
+        gridLines: {display: false}}]
+  }
+  }
+  });
 
 }
 

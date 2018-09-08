@@ -23,7 +23,6 @@ body {
     margin: auto;
 }
 
-
 #graphContainer{
     margin:25px;
     text-align:center;
@@ -41,6 +40,25 @@ body {
     vertical-align: top;
     text-align:center;
 }
+
+.table{
+
+    font-family: 'Cabin', sans-serif;
+    font-size: 10px;
+    line-height: 10px;
+    height: 400px;
+    width: 400px;
+    margin: 10px;
+    /*
+    border-style: solid;
+    border-width: 1px;
+    */
+    background: rgba(255,255,255,0.5);
+    display: inline-block;
+    vertical-align: top;
+    text-align:center;
+}
+
 
 /* If the screen size is 600px wide or less */
 @media screen and (max-width: 600px) {
