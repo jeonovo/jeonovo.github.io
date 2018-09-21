@@ -473,6 +473,15 @@ function makeChart5(bt){
     }]
     },
     options: {
+      tooltips: {
+      callbacks: {
+        label: function(tooltipItem) {
+        //  console.log(tooltipItem)
+          return  "Read: " + readYTD[tooltipItem.index] + " - "
+          + "Target: " + target[tooltipItem.index];
+      }
+    }
+  },
     legend: {
         display: false
     },
@@ -572,6 +581,15 @@ function makeChart6(br){
 
             }]},
             options: {
+              tooltips: {
+              callbacks: {
+                label: function(tooltipItem) {
+                //  console.log(tooltipItem)
+                  return  "Read: " + projectedPages[tooltipItem.index] + " - "
+                  + "Target: " + targetMonthPage[tooltipItem.index];
+              }
+            }
+          },
               title: {
                    display: true,
                    text: 'Projected Pages Read'
