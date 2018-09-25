@@ -99,13 +99,13 @@ function init(){
         setAuthors(authors);
         setNat(nat);
         setDQ(dqGap, dqTotal);
-        makeChart1(ratings);
-        makeChart2(yearRead);
+        makeChart5(ratings);
+        makeChart6(yearRead);
         makeChart3(booktypes);
         makeChart4(pagesRead);
-        makeChart5(booksReadTarget);
-        makeChart6(pagesRead);
-        makeTable1(columns, rows);
+        makeChart1(booksReadTarget);
+        makeChart2(pagesRead);
+      //  makeTable1(columns, rows);
         makeChart8(booksRead);
 
       },
@@ -197,9 +197,9 @@ function init(){
 
 
 
-    function makeChart1(ratings){
+    function makeChart5(ratings){
 
-        var ctx = document.getElementById("chart1").getContext('2d');
+        var ctx = document.getElementById("chart5").getContext('2d');
         var myChart = new Chart(ctx, {
         type: 'bar',
         data: {
@@ -235,7 +235,7 @@ function init(){
 
 }
 
-function makeChart2(years){
+function makeChart6(years){
 
   labels = [];
   data = [];
@@ -261,7 +261,7 @@ function makeChart2(years){
   }
 
 
-  var ctx = document.getElementById("chart2").getContext('2d');
+  var ctx = document.getElementById("chart6").getContext('2d');
   var myLineChart = new Chart(ctx, {
       type: 'line',
       data: {
@@ -399,7 +399,7 @@ function makeChart4(br){
     }});
 }
 
-function makeChart5(bt){
+function makeChart1(bt){
 
     var data = [0,0,0,0,0,0,0,0,0,0,0,0];
     var target = [];
@@ -453,7 +453,7 @@ function makeChart5(bt){
 
     }
 
-    var ctx = document.getElementById("chart5").getContext('2d');
+    var ctx = document.getElementById("chart1").getContext('2d');
     var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
@@ -508,7 +508,7 @@ function makeChart5(bt){
 
 }
 
-function makeChart6(br){
+function makeChart2(br){
 
     var pytdt = getPagesYTD(br);
 
@@ -556,7 +556,7 @@ function makeChart6(br){
 
 
 
-      var ctx = document.getElementById("chart6").getContext('2d');
+      var ctx = document.getElementById("chart2").getContext('2d');
       var myLineChart = new Chart(ctx, {
           type: 'line',
           data: {
