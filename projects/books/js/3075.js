@@ -127,6 +127,7 @@ function init(){
 
             makeTable1(columns, progress);
             makeGraph1(progress);
+            makeGraph2(progress);
 
 
 
@@ -243,8 +244,78 @@ function makeGraph1(data){
 
 }
 
+function  makeGraph2(data){
+
+  xData = [];
+  xcData = [];
+  dates = [];
+
+  for (i in data){
+      xData.push( data[i]['c_read']);
+      xcData.push( data[i]['c_target']);
+      dates.push(data[i]['date']);
+  }
 
 
+
+  var ctx = document.getElementById("chart2").getContext('2d');
+  var myChart = new Chart(ctx, {
+  type: 'line',
+  data: {
+  labels: dates,
+  datasets: [{
+      label: 'Read',
+      data: xData,
+      pointBackgroundColor: 'red',
+      pointBorderColor: 'red',
+      borderColor: 'pink',
+      pointBorderWidth: 1,
+      pointRadius: 2,
+      fill: false
+  },
+  {
+      label: 'Target',
+      data: xcData,
+      pointBackgroundColor: 'lightgrey',
+      pointBorderColor: 'lightgrey',
+      borderColor: 'lighgrey',
+      pointBorderWidth: 0,
+      pointRadius: 0,
+      fill: false
+  }]
+  },
+  options: {
+    tooltips: {
+    callbacks: {
+      label: function(tooltipItem) {
+      //  console.log(tooltipItem)
+        return  "Read: " + xData[tooltipItem.index] + " - "
+        + "Target: " + xcData[tooltipItem.index];
+    }
+  }
+},
+  legend: {
+      display: false
+  },
+  title: {
+     display: true,
+     text: '30 75'
+  },
+  scales: {
+      yAxes: [{
+          gridLines:{ display: false},
+          ticks: {
+              beginAtZero:true
+          }
+      }],
+      xAxes: [{
+        gridLines: {display: false}}]
+  }
+  }
+  });
+
+
+}
 
 function makeTable1(c,r){
 
