@@ -4,7 +4,7 @@ code3 = "162w7Vmo_YqgkpwyhEk2lpE5I60k3r37iP2A62amW4jY";
 
 var barColour = '#ffbfbf';
 var lineColour = '';
-var readTarget = 30;
+var readTarget = 40;
 var xAx = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 var notOnTarget = '#F2757F';
 var onTarget = '#7ff275'
@@ -227,7 +227,7 @@ function makeGraph1(data){
     },
     title: {
        display: true,
-       text: '30 75'
+       text: '40 75'
     },
     scales: {
         yAxes: [{
