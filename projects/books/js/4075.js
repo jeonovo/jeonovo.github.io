@@ -8,7 +8,13 @@ var readTarget = 40;
 var xAx = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 var notOnTarget = '#F2757F';
 var onTarget = '#7ff275'
-var currentYear = 2018;
+var date = new Date();
+var month = date.getMonth()+1;
+var yesterday = function() {day = date.getDate()-1;if (day < 10){day = '0' + day;}return day;}
+var currentYear = date.getFullYear();
+
+var strYesterday = currentYear + "-" + month + "-" + yesterday()
+
 
 function init(){
 
@@ -94,12 +100,10 @@ function init(){
         // Function calls go here
         var ratings = [one, two, three, four, five];
 
-        setTotal(total);
-        setRead(total, read);
-        setRating(ratings, read);
-        setAuthors(authors);
-        setNat(nat);
-        setDQ(dqGap, dqTotal);
+        //setTotal(total);
+        //setAuthors(authors);
+        //setNat(nat);
+        //setDQ(dqGap, dqTotal);
 
 
       },
@@ -125,6 +129,12 @@ function init(){
 
           }
 
+            setDay(progress);
+            setRead(progress);
+            setReadingAverage(progress);
+            setTarget(progress);
+            setToRead(progress);
+            setMostPages(progress);
             makeTable1(columns, progress);
             makeGraph1(progress);
             makeGraph2(progress);
@@ -136,36 +146,77 @@ function init(){
         simpleSheet: true
       });
 
-    function setTotal(t){
-        document.getElementById('headTotal').innerHTML += t;
-    }
+    function setDay(obj){
 
-    function setRead(t,r){
-        readPerc = Math.round((r/t*100)*100)/100;
-        document.getElementById('readTotal').innerHTML += readPerc + "%";
-    }
+      for (i in obj){
 
-    function setRating(ratings, t){
-        var rSum = 0;
-        for (var i in ratings){
-            rating = Number(i)+1;
-            rSum += (ratings[i] * (rating));
+        if (obj[i]['date'] == strYesterday){
+
+          d = obj[i]['day'];
+
         }
-        rAverage =  Math.round(rSum/t*100)/100;
-        document.getElementById('ratingAverage').innerHTML += rAverage;
+      }
+        document.getElementById('day').innerHTML += d;
     }
 
-    function setAuthors(auths){
+    function setRead(obj){
 
-        var authorCount = getUniqueNames(auths);
-        document.getElementById('authTotal').innerHTML += authorCount;
+        for (i in obj){
+
+          if (obj[i]['date'] == strYesterday){
+
+            currentRead = obj[i]['c_read'];
+
+          }
+        }
+
+        document.getElementById('readTotal').innerHTML += currentRead;
+    }
+
+    function setReadingAverage(obj){
+
+        for (i in obj){
+
+          console.log(obj[i]['date']);
+
+          if (obj[i]['date'] == strYesterday){
+
+            currentReading = obj[i]['c_read']/obj[i]['day'];
+            cr = Math.round(currentReading*100)/100;
+
+          }
+        }
+
+        document.getElementById('readingAverage').innerHTML += cr;
+    }
+
+    function setTarget(obj){
+
+      for (i in obj){
+
+        if (obj[i]['date'] == strYesterday){
+
+          currentT = obj[i]['c_target'];
+
+        }
+      }
+        document.getElementById('targetTotal').innerHTML += currentT;
 
     }
 
-    function setNat(nats){
+    function setToRead(obj){
 
-        var nations = getUniqueNames(nats);
-        document.getElementById('natTotal').innerHTML += nations;
+      for (i in obj){
+
+        if (obj[i]['date'] == strYesterday){
+
+          toread = Math.round((3000 - obj[i]['c_read'])/(75 - obj[i]['day'])*100/100);
+
+        }
+      }
+
+
+        document.getElementById('toRead').innerHTML += toread;
 
     }
 
@@ -185,11 +236,20 @@ function init(){
         return unique
     }
 
-    function setDQ(gap, total){
+    function setMostPages(obj){
 
-      var numer = total - gap;
-      dq =  Math.round((numer/total*100)*100)/100;
-      document.getElementById('dqTotal').innerHTML += dq + "%";
+      mpr = 0;
+
+      for (i in obj){
+
+        if (obj[i]['read'] > mpr){
+          mpr = obj[i]['read'] ;
+        }
+
+        }
+
+
+      document.getElementById('mostPages').innerHTML += mpr;
     }
 
 
@@ -316,6 +376,8 @@ function  makeGraph2(data){
 
 
 }
+
+
 
 function makeTable1(c,r){
 
