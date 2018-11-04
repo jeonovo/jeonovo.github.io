@@ -299,7 +299,7 @@ function  makeGraph2(data){
   },
   title: {
      display: true,
-     text: '30 75'
+     text: '40 75'
   },
   scales: {
       yAxes: [{
