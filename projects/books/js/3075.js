@@ -211,7 +211,7 @@ function makeGraph1(data){
     data: {
     labels: dates,
     datasets: [{
-        label: '30 75',
+        label: '40 75',
         data: xData,
         pointBackgroundColor: 'red',
         pointBorderColor: 'red',
