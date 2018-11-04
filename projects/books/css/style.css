@@ -39,6 +39,7 @@ a {
     /*
     border-style: solid;
     border-width: 1px;
+
     */
     background: rgba(255,255,255,0.5);
     display: inline-block;
@@ -47,7 +48,7 @@ a {
 }
 .largegraph{
     height: 400px;
-    width: 600px;
+    width: 800px;
     margin: 10px;
     /*
     border-style: solid;
@@ -79,6 +80,22 @@ a {
 
 
 /* If the screen size is 600px wide or less */
+@media screen and (min-width: 1000px) {
+    .largegraph{
+        height: 600px;
+        width: 1000px;
+        margin: 10px;
+        /*
+        border-style: solid;
+        border-width: 1px;
+        */
+        background: rgba(255,255,255,0.5);
+        display: inline-block;
+        vertical-align: top;
+        text-align:center;
+    }
+}
+
 @media screen and (max-width: 600px) {
 .headline {
 

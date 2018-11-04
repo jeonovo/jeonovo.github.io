@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Library</title>
+	<title>40 75</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 	<script
@@ -14,7 +14,7 @@
 	<link rel="stylesheet" href="books/css/style.css" />
 	<link rel="stylesheet" href="books/js/footable-standalone.latest/css/footable.standalone.css" />
 	<script src='https://cdnjs.cloudflare.com/ajax/libs/tabletop.js/1.5.1/tabletop.min.js'></script>
-	<script type='text/javascript' src='books/js/read.js'></script>
+	<script type='text/javascript' src='books/js/4075.js'></script>
 	<script type='text/javascript' src='books/js/footable-standalone.latest/js/footable.js'></script>
 	<link href="https://fonts.googleapis.com/css?family=Cabin" rel="stylesheet">
 
@@ -23,17 +23,23 @@
 </head>
 <body onload='init()'>
 <div id='headlineContainer'>
-	<div class="headline" id="headTotal"><a href="books.html">Books</a><br></div>
-	<div class="headline" id="readTotal">Read<br></div>
-	<div class="headline" id="ratingAverage">Rating<br></div>
-	<div class="headline" id="authTotal">Authors<br></div>
-	<div class="headline" id="natTotal"><a href="authormap.html">Nations</a><br></div>
-	<div class="headline" id="dqTotal">DQ<br></div>
+	<div class="headline" id="day"><a href="books.html">Day</a><br></div>
+	<div class="headline" id="readTotal">Pages<br></div>
+	<div class="headline" id="readingAverage">Average<br></div>
+	<div class="headline" id="targetTotal">Target<br></div>
+	<div class="headline" id="toRead">To Read</a><br></div>
+	<div class="headline" id="mostPages">Most Read<br></div>
 </div>
 <div id='graphContainer'>
 
-	<center><div class="table" id="table">
-		<table class="table" id="table1" width="600px" height="400px" data-paging="true"></table></div></center>
+	<center>
+		<div class="largegraph" id="graph1">
+		<canvas class = 'chart' id="chart1" width="800px" height="400px"></canvas></div>
+		<div class="largegraph" id="graph2">
+		<canvas class = 'chart' id="chart2" width=800px" height="400px"></canvas></div>
+		<div class="table" id="table">
+		<table class="table" id="table1" width="600px" height="400px" data-paging="true"></table></div>
+		</center>
 
 	</div>
 </div>
