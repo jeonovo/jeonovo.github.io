@@ -7,7 +7,7 @@ var readTarget = 30;
 var xAx = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 var notOnTarget = '#F2757F';
 var onTarget = '#7ff275'
-var currentYear = 2018;
+var currentYear = 2019;
 
 function init(){
 
@@ -248,10 +248,10 @@ function makeChart6(years){
   labels.sort(function(a, b){return a-b});
 
   for (var i in labels){
-    currentYear = labels[i];
+    cy = labels[i];
     count = 0;
     for (var j in years){
-      if (years[j] == currentYear){
+      if (years[j] == cy){
         count+=1;
       }
     }
@@ -690,6 +690,7 @@ function makeTable1(c,r){
 function makeChart8(br){
 
     years = [currentYear, currentYear -1, currentYear -2];
+    console.log(years);
 
     y1 = [];
     y2 = [];
