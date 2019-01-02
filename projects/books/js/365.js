@@ -9,7 +9,9 @@ var xAx = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct",
 var notOnTarget = '#F2757F';
 var onTarget = '#7ff275'
 var date = new Date();
-var month = date.getMonth()+1;
+//var month = date.getMonth()+1;
+var mnth = function() {m = date.getMonth()+1;if (m < 10){m = '0' + m;}return m;}
+var month = mnth()
 var yesterday = function() {day = date.getDate()-1;if (day < 10){day = '0' + day;}return day;}
 var currentYear = date.getFullYear();
 
@@ -206,7 +208,7 @@ function init(){
 
         if (obj[i]['date'] == strYesterday){
           // NEED TO CHANGE THIS
-         var toread = Math.round((7200 - obj[i]['c_read'])/(20 - obj[i]['day'])*100/100);
+         var toread = Math.round((7300 - obj[i]['c_read'])/(365 - obj[i]['day'])*100/100);
 
         }
       }
@@ -327,7 +329,7 @@ function  makeGraph2(data){
       pointBorderColor: 'red',
       borderColor: 'pink',
       pointBorderWidth: 0.5,
-      pointRadius: 1,
+      pointRadius: 0,
       fill: false
   },
   {
