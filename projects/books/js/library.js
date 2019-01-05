@@ -746,7 +746,7 @@ function makeChart8(br){
   data: {
   labels: xAx,
   datasets: [{
-      label: '2018',
+      label: currentYear,
       data: y1,
       pointBackgroundColor: 'red',
       pointBorderColor: 'red',
@@ -755,7 +755,7 @@ function makeChart8(br){
       pointRadius: 5,
       fill: false
   },{
-    label: '2017',
+    label: currentYear-1,
     data: y2,
     pointBackgroundColor: 'blue',
     pointBorderColor: 'blue',
@@ -764,7 +764,7 @@ function makeChart8(br){
     pointRadius: 5,
     fill: false
   },{
-    label: '2016',
+    label: currentYear-2,
     data: y3,
     pointBackgroundColor: 'green',
     pointBorderColor: 'green',

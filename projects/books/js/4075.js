@@ -4,14 +4,12 @@ code3 = "162w7Vmo_YqgkpwyhEk2lpE5I60k3r37iP2A62amW4jY";
 
 var barColour = '#ffbfbf';
 var lineColour = '';
-var readTarget = 20;
+var readTarget = 40;
 var xAx = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 var notOnTarget = '#F2757F';
 var onTarget = '#7ff275'
 var date = new Date();
-//var month = date.getMonth()+1;
-var mnth = function() {m = date.getMonth()+1;if (m < 10){m = '0' + m;}return m;}
-var month = mnth()
+var month = date.getMonth()+1;
 var yesterday = function() {day = date.getDate()-1;if (day < 10){day = '0' + day;}return day;}
 var currentYear = date.getFullYear();
 
@@ -141,6 +139,8 @@ function init(){
             makeGraph1(progress);
             makeGraph2(progress);
 
+
+
         },
 
         simpleSheet: true
@@ -152,7 +152,7 @@ function init(){
 
         if (obj[i]['date'] == strYesterday){
 
-          var d = obj[i]['day'];
+          d = obj[i]['day'];
 
         }
       }
@@ -165,7 +165,7 @@ function init(){
 
           if (obj[i]['date'] == strYesterday){
 
-            var currentRead = obj[i]['c_read'];
+            currentRead = obj[i]['c_read'];
 
           }
         }
@@ -177,10 +177,12 @@ function init(){
 
         for (i in obj){
 
+          console.log(obj[i]['date']);
+
           if (obj[i]['date'] == strYesterday){
 
             currentReading = obj[i]['c_read']/obj[i]['day'];
-            var cr = Math.round(currentReading*100)/100;
+            cr = Math.round(currentReading*100)/100;
 
           }
         }
@@ -194,7 +196,7 @@ function init(){
 
         if (obj[i]['date'] == strYesterday){
 
-         var currentT = obj[i]['c_target'];
+          currentT = obj[i]['c_target'];
 
         }
       }
@@ -207,8 +209,8 @@ function init(){
       for (i in obj){
 
         if (obj[i]['date'] == strYesterday){
-          // NEED TO CHANGE THIS
-         var toread = Math.round((7300 - obj[i]['c_read'])/(365 - obj[i]['day'])*100/100);
+
+          toread = Math.round((3000 - obj[i]['c_read'])/(75 - obj[i]['day'])*100/100);
 
         }
       }
@@ -269,14 +271,13 @@ function makeGraph1(data){
     data: {
     labels: dates,
     datasets: [{
-        label: '365',
+        label: '40 75',
         data: xData,
         pointBackgroundColor: 'red',
         pointBorderColor: 'red',
         borderColor: 'pink',
-        pointBorderWidth: 0.5,
-        borderWidth: 1,
-        pointRadius: 0.8,
+        pointBorderWidth: 1,
+        pointRadius: 2,
         fill: false
     }]
     },
@@ -286,7 +287,7 @@ function makeGraph1(data){
     },
     title: {
        display: true,
-       text: '365'
+       text: '40 75'
     },
     scales: {
         yAxes: [{
@@ -296,8 +297,7 @@ function makeGraph1(data){
             }
         }],
         xAxes: [{
-          gridLines: {display: false},
-      display: false}]
+          gridLines: {display: false}}]
     }
     }
     });
@@ -329,9 +329,8 @@ function  makeGraph2(data){
       pointBackgroundColor: 'red',
       pointBorderColor: 'red',
       borderColor: 'pink',
-      pointBorderWidth: 0,
-      borderWidth: 1,
-      pointRadius: 0,
+      pointBorderWidth: 1,
+      pointRadius: 2,
       fill: false
   },
   {
@@ -341,7 +340,6 @@ function  makeGraph2(data){
       pointBorderColor: 'lightgrey',
       borderColor: 'lighgrey',
       pointBorderWidth: 0,
-      borderWidth: 1,
       pointRadius: 0,
       fill: false
   }]
@@ -361,7 +359,7 @@ function  makeGraph2(data){
   },
   title: {
      display: true,
-     text: '365'
+     text: '40 75'
   },
   scales: {
       yAxes: [{
@@ -371,7 +369,6 @@ function  makeGraph2(data){
           }
       }],
       xAxes: [{
-          display: false,
         gridLines: {display: false}}]
   }
   }
