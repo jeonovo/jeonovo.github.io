@@ -88,6 +88,8 @@ function init(){
     }
 
     function setTotalDistance(obj){
+    
+    obj = Math.round(obj * 100)/100
 
         document.getElementById('readTotal').innerHTML += obj;
     }
