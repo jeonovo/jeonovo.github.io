@@ -16,13 +16,13 @@
 	</div>
 	<br>
 	<div class='text' id='result'>
-		
-	</div>   
+
+	</div>
 	<div class="image">
 		<center><a href="https://en.wikipedia.org/wiki/The_Curious_Incident_of_the_Dog_in_the_Night-Time"><img id = "dog" src = 'dog.png'></img></a></center>
-	</div>   
+	</div>
       <script language="javascript">
-		
+
 		function get_name(){
 
 			letters = {"a": 1, "b": 2, "c": 3, "d": 4, "e": 5, "f": 6,
@@ -33,23 +33,23 @@
 
 	      	var bla = document.getElementById('usersname').value;
 
-	      	get_value(bla); 
-	      	
+	      	get_value(bla);
+
 
 	    }
 
 	    function get_value(userName){
 
-	    	var word = userName.toLowerCase(); 
-	    	word = word.replace(/ /g,''); 
+	    	var word = userName.toLowerCase();
+	    	word = word.replace(/ /g,'');
 
-	    	value = 0; 
+	    	value = 0;
 	    	for (var i = 0, len = word.length; i < len; i++) {
-	    		value += letters[word.charAt(i)]; 
+	    		value += letters[word.charAt(i)];
 			}
 
-			var info = "The result is "; 
-			var result; 
+			var info = "The result is ";
+			var result;
 
 			if (isNaN(value)){
 
@@ -65,24 +65,24 @@
 
 			} else {
 
-				result = is_it_prime(value); 
+				result = is_it_prime(value);
 			}
-			
-			document.getElementById('result').innerHTML = info + value + "<br>" + result; 
+
+			document.getElementById('result').innerHTML = info + value + "<br>" + result;
 		}
-	    
+
 
 	    function is_it_prime(value){
 
-	    	var prime = ''; 
+	    	var prime = '';
 
-	    	var root = Math.floor(Math.sqrt(value)); 
+	    	var root = Math.floor(Math.sqrt(value));
 
 	    	if (isNaN(value)){
 	    		return "Please enter a different name!"
 	    	}
 
-	    	if (value < 2) return "Your name is not prime"; 
+	    	if (value < 2) return "Your name is not prime";
 
 	    	for (i = 2; i <= root; i++){
 
@@ -93,9 +93,9 @@
 
 				}
 			}
-				
-			return "Your name is prime, huzzah!"
-	  
+
+			return "Your name is prime!"
+
 		}
 
       </script>
