@@ -1,5 +1,6 @@
 var code = "1sJnDALGCVLJf1ghSKBlJ_7cMmhvDjh7z47_d9me2qbo";
 var code2 = "16NwJpO_O_ZP_pX0kge06I3Kj6c5ahBnmaXv3M7V3s3k";
+var code3 = "15VDtKdl_jwGm8gyBU45OEzfVwpDSoen8KuOkslxWaj4"
 var map;
 var points = [];
 var runLayer = L.featureGroup();
@@ -9,6 +10,7 @@ function init(){
       Tabletop.init({
         key: code,
         callback: function(sheet_3, tabletop){
+           var max = 0;
            var runcount = 0;
            var totaldistance = 0;
            var totalseconds = 0;
@@ -33,6 +35,13 @@ function init(){
             ];
 
           for (var j in sheet_3){
+
+
+            if (Number(sheet_3[j].Distance) > max){
+
+              max = Number(sheet_3[j].Distance);
+              //console.log(max);
+            }
 
             runcount+=1;
 
@@ -60,30 +69,23 @@ function init(){
 
           }
 
+            getSplitData();
             setRuns(runcount);
             setTotalDistance(totaldistance);
-            setFive(fivecount);
-            setTen(tencount);
-            set5kpace(fivekseconds,fivekdistance);
-            set10kpace(tenkseconds,tenkdistance);
-            makeTable1(columns, progress);
-            makeChart1(fivekscatter);
+            setFive(fivecount, fivekseconds,fivekdistance);
+            setTen(tencount,tenkseconds,tenkdistance);
+            makeChart1(max);
             makeChart2(tenkscatter);
-            runChoice(progress);
-            setUpMap();
-
-
+            makeTable1(columns, progress);
         },
 
         simpleSheet: true
       });
 
 
-
-
     function setRuns(obj){
 
-        document.getElementById('day').innerHTML += obj;
+        document.getElementById('day').innerHTML += "5:40";
           //getRunPoints(1);
     }
 
@@ -91,33 +93,20 @@ function init(){
 
       obj = Math.round(obj * 100)/100
 
-        document.getElementById('readTotal').innerHTML += obj;
+        document.getElementById('runTotal').innerHTML += obj;
     }
 
-    function setFive(obj){
-
-        document.getElementById('readingAverage').innerHTML += obj;
+    function setFive(obj, t, d){
+        kpm = getPace(t,d);
+        document.getElementById('fivek').innerHTML += obj + " | " + kpm;
     }
 
-    function setTen(obj){
-
-        document.getElementById('targetTotal').innerHTML += obj;
-
-    }
-
-    function set5kpace(t,d){
+    function setTen(obj, t, d){
 
       kpm = getPace(t,d);
 
-        document.getElementById('toRead').innerHTML += kpm;
+        document.getElementById('tenk').innerHTML += obj + " | " + kpm;
 
-    }
-
-    function set10kpace(t,d){
-
-      kpm = getPace(t,d);
-
-      document.getElementById('mostPages').innerHTML += kpm;
     }
 
     function getPace(time, distance){
@@ -135,44 +124,86 @@ function init(){
 
     }
 
+    function getSplitData(){
+
+      Tabletop.init({
+        key: code3,
+        callback: function(sheet_r, tabletop){
+
+          var runningdataset = [];
+
+          for (var s in sheet_r){
+              var runid = sheet_r[s].run;
+              //console.log(String(sheet_r[s].one).replace(":","."))
+              var pace = [
+                Number(String(sheet_r[s].one).replace(":",".")),
+                Number(String(sheet_r[s].two).replace(":",".")),
+                Number(String(sheet_r[s].three).replace(":",".")),
+                Number(String(sheet_r[s].four).replace(":",".")),
+                Number(String(sheet_r[s].five).replace(":",".")),
+                Number(String(sheet_r[s].six).replace(":",".")),
+                Number(String(sheet_r[s].seven).replace(":",".")),
+                Number(String(sheet_r[s].eight).replace(":",".")),
+                Number(String(sheet_r[s].nine).replace(":",".")),
+                Number(String(sheet_r[s].ten).replace(":",".")), ];
+
+                if (runid == "avg"){
+                  var obj = { label: runid, data: pace, fill: false, backgroundColor: 'orange', borderColor: 'orange', borderWidth: 3};
+                } else {
+
+                  var obj = { label: runid, data: pace, fill: false, borderWidth: 2, borderColor: 'lightgrey', pointHoverBackgroundColor: 'pink', pointRadius: 0 };
+                }
+
+              runningdataset.push(obj);
+            //  console.log(pace);
+
+          }
+
+          makeChart3(runningdataset);
+        },
+
+        simpleSheet: true
+      });
 
 
-    function makeChart1(dataset){
+    }
 
-       var ctx = document.getElementById("chart1").getContext('2d');
-      var scatterChart = new Chart(ctx, {
-    type: 'scatter',
-    data: {
-        datasets: [{
-            label: 'Scatter Dataset',
-            data: dataset,
-            pointBackgroundColor: 'red',
-                pointBorderColor:'red',
-                pointBorderWidth: 1,
-                pointRadius: 5
-        }]
-    },
+    function makeChart1(c,t){
+
+    var currentMax = c
+    var  targetM = 21 - c;
+
+
+var ctx = document.getElementById("chart1").getContext('2d');
+      var myDoughnutChart = new Chart(ctx, {
+    type: 'doughnut',
+    data : {
+    datasets: [{
+        data: [currentMax, targetM],
+        backgroundColor : ['#ffd1dc','lightgrey'],
+        borderColor: ['white', 'white']
+    }],
+    // These labels appear in the legend and in the tooltips when hovering different arcs
+    labels: [
+        'Furthest Ran',
+        'Left To Run'
+    ]},
     options: {
       title: {
-                   display: true,
-                   text: '5km Run Pace'
-                },
-            legend: {
-                display: false
-            },
-        scales: {
-            xAxes: [{
-                type: 'linear',
-                position: 'bottom',
-                ticks: {
-                  beginAtZero: true
-                }
-            }]
-        }
+              display: true,
+              text: 'Half Marathon Target'
+          },
+    legend: {
+            display: false
+          },
+    rotation: -1 * Math.PI ,
+    circumference:  Math.PI
     }
 });
 
     }
+
+
 
     function makeChart2(dataset){
 
@@ -209,6 +240,32 @@ function init(){
 
     }
 
+    function makeChart3(d){
+
+
+
+       var ctx = document.getElementById("chart3").getContext('2d');
+
+       var data = {
+        labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+        datasets: d
+    };
+
+    // data { label: run id, data [array]}
+
+    var options = {
+      title: {
+                   display: true,
+                   text: '10km Split Pace'
+                },
+            legend: {
+                display: false
+            }
+
+     };
+    var lineChart = new Chart(ctx, {type: 'line', data: data, options: options});
+
+    }
 
 
 
@@ -267,7 +324,7 @@ function runChoice(data) {
 
 function dropdownChange(){
 
-  console.log("hello");
+  //console.log("hello");
 
         // Get the option that is selected in the HTML dropdown.
     var dropDown = document.getElementById("select");
@@ -310,7 +367,7 @@ function getMapData(rid){
       //  runLayer.addLayer(points);
         map.addLayer(runLayer);
         map.fitBounds(runLayer.getBounds());
-        console.log("hello again");
+        //console.log("hello again");
 
     },
 

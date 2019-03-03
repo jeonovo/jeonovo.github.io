@@ -45,6 +45,30 @@ a {
     margin:25px;
     text-align:center;
 }
+.chart {
+
+  height: 400px;
+  width: 400px;
+
+}
+.largechart{
+  height: 400px;
+  width: 800px;
+
+}
+#graph3{
+    height: 400px;
+    width: 800px;
+    margin: 10px;
+    /*
+    border-style: solid;
+    border-width: 1px;
+    */
+    background: rgba(255,255,255,0.5);
+    display: inline-block;
+    vertical-align: top;
+    text-align:center;
+}
 .graph{
     height: 400px;
     width: 400px;
@@ -59,19 +83,8 @@ a {
     vertical-align: top;
     text-align:center;
 }
-.largegraph{
-    height: 400px;
-    width: 400px;
-    margin: 10px;
-    /*
-    border-style: solid;
-    border-width: 1px;
-    */
-    background: rgba(255,255,255,0.5);
-    display: inline-block;
-    vertical-align: top;
-    text-align:center;
-}
+
+
 
 .table{
 
