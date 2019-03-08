@@ -56,7 +56,7 @@ a {
   width: 800px;
 
 }
-#graph3{
+#graph3, #graph4 {
     height: 400px;
     width: 800px;
     margin: 10px;
@@ -144,30 +144,5 @@ a {
   .chart{
       width: 375px;
       height: 375px;
-  }
-}
-
-@media screen and (max-width: 400px) {
-.headline {
-
-    font-size: 12px;
-    font-weight: 500;
-    height: 50px;
-    line-height: 25px;
-  }
-
-  #graphContainer{
-      margin-left: 0px;
-      margin-right: 0px;
-      margin-top: 10px;
-      text-align: center;
-  }
-  .graph{
-      height: 325px;
-      width: 325px;
-  }
-  .chart{
-      width: 325px;
-      height: 325px;
   }
 }

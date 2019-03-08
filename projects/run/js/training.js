@@ -1,6 +1,7 @@
 var code = "1sJnDALGCVLJf1ghSKBlJ_7cMmhvDjh7z47_d9me2qbo";
 var code2 = "16NwJpO_O_ZP_pX0kge06I3Kj6c5ahBnmaXv3M7V3s3k";
-var code3 = "15VDtKdl_jwGm8gyBU45OEzfVwpDSoen8KuOkslxWaj4"
+var code3 = "15VDtKdl_jwGm8gyBU45OEzfVwpDSoen8KuOkslxWaj4";
+var code4 = "1AZWrWbR07dp5Qqr0HPspndVBfT_vRhNTCk-8pLBlS8s";
 var map;
 var points = [];
 var runLayer = L.featureGroup();
@@ -14,12 +15,15 @@ function init(){
            var runcount = 0;
            var totaldistance = 0;
            var totalseconds = 0;
+           var fteendistance = 0;
            var tenkdistance = 0;
            var fivekdistance = 0;
+           var fteenseconds = 0;
            var tenkseconds = 0;
            var fivekseconds = 0;
            var fivecount = 0;
            var tencount = 0;
+           var fteencount = 0;
            var progress = [];
            var fivekscatter = [];
            var tenkscatter = [];
@@ -47,7 +51,16 @@ function init(){
 
             totaldistance += Number(sheet_3[j].Distance)
 
-            if (Number(sheet_3[j].Distance) > 10){
+            if (Number(sheet_3[j].Distance) > 15){
+
+              fteencount +=1;
+              fteenseconds += Number(sheet_3[j].Seconds)
+              fteendistance += Number(sheet_3[j].Metres)
+              var fteenobj = {x: fteencount, y: Number(sheet_3[j].KPM)}
+
+
+
+            } else if (Number(sheet_3[j].Distance) > 10){
 
               tencount +=1;
               tenkseconds += Number(sheet_3[j].Seconds)
@@ -70,10 +83,12 @@ function init(){
           }
 
             getSplitData();
+            getFTSplitData();
             setRuns(runcount);
             setTotalDistance(totaldistance);
             setFive(fivecount, fivekseconds,fivekdistance);
             setTen(tencount,tenkseconds,tenkdistance);
+            setFteen(fteencount, fteenseconds, fteendistance);
             makeChart1(max);
             makeChart2(tenkscatter);
             makeTable1(columns, progress);
@@ -96,16 +111,24 @@ function init(){
         document.getElementById('runTotal').innerHTML += obj;
     }
 
-    function setFive(obj, t, d){
+    function setFive(c, t, d){
         kpm = getPace(t,d);
-        document.getElementById('fivek').innerHTML += obj + " | " + kpm;
+        document.getElementById('fivek').innerHTML += c + " | " + kpm;
     }
 
-    function setTen(obj, t, d){
+    function setTen(c, t, d){
 
       kpm = getPace(t,d);
 
-        document.getElementById('tenk').innerHTML += obj + " | " + kpm;
+        document.getElementById('tenk').innerHTML += c + " | " + kpm;
+
+    }
+
+    function setFteen(c, t,d){
+
+      kpm = getPace(t,d);
+
+        document.getElementById('fifteenk').innerHTML += c + " | " + kpm;
 
     }
 
@@ -168,6 +191,55 @@ function init(){
 
     }
 
+    function getFTSplitData(){
+
+      Tabletop.init({
+        key: code4,
+        callback: function(sheet_r, tabletop){
+
+          var runningdataset = [];
+
+          for (var s in sheet_r){
+              var runid = sheet_r[s].run;
+              //console.log(String(sheet_r[s].one).replace(":","."))
+              var pace = [
+                Number(String(sheet_r[s].one).replace(":",".")),
+                Number(String(sheet_r[s].two).replace(":",".")),
+                Number(String(sheet_r[s].three).replace(":",".")),
+                Number(String(sheet_r[s].four).replace(":",".")),
+                Number(String(sheet_r[s].five).replace(":",".")),
+                Number(String(sheet_r[s].six).replace(":",".")),
+                Number(String(sheet_r[s].seven).replace(":",".")),
+                Number(String(sheet_r[s].eight).replace(":",".")),
+                Number(String(sheet_r[s].nine).replace(":",".")),
+                Number(String(sheet_r[s].ten).replace(":",".")),
+                Number(String(sheet_r[s].eleven).replace(":",".")),
+                Number(String(sheet_r[s].twelve).replace(":",".")),
+                Number(String(sheet_r[s].thirteen).replace(":",".")),
+                Number(String(sheet_r[s].fourteen).replace(":",".")),
+                Number(String(sheet_r[s].fifteen).replace(":","."))];
+
+                if (runid == "avg"){
+                  var obj = { label: runid, data: pace, fill: false, backgroundColor: 'red', borderColor: 'red', borderWidth: 3};
+                } else {
+
+                  var obj = { label: runid, data: pace, fill: false, borderWidth: 2, borderColor: 'lightgrey', pointHoverBackgroundColor: 'pink', pointRadius: 0 };
+                }
+
+              runningdataset.push(obj);
+            //  console.log(pace);
+
+          }
+
+          makeChart4(runningdataset);
+        },
+
+        simpleSheet: true
+      });
+
+
+    }
+
     function makeChart1(c,t){
 
     var currentMax = c
@@ -207,17 +279,34 @@ var ctx = document.getElementById("chart1").getContext('2d');
 
     function makeChart2(dataset){
 
+      avgdataset = getRunningAverageTime(dataset);
+
        var ctx = document.getElementById("chart2").getContext('2d');
       var scatterChart = new Chart(ctx, {
     type: 'scatter',
     data: {
+      labels: [0,1,2,3,4,5,6,7,8,9],
         datasets: [{
-            label: 'Scatter Dataset',
+            label: 'Run Pace',
             data: dataset,
             pointBackgroundColor: 'red',
-                pointBorderColor:'red',
-                pointBorderWidth: 1,
-                pointRadius: 5
+            pointBorderColor:'red',
+            pointBorderWidth: 1,
+            pointRadius: 5
+        },{
+          label: 'Avg Pace',
+          data: avgdataset,
+          pointBackgroundColor: 'blue',
+          pointBorderColor:'blue',
+          pointBorderWidth: 0,
+          pointRadius: 0,
+          fill: false,
+          borderWidth: 3,
+          borderColor: 'blue',
+          showLine: true
+
+
+
         }]
     },
     options: {
@@ -230,15 +319,65 @@ var ctx = document.getElementById("chart1").getContext('2d');
             },
         scales: {
             xAxes: [{
+              display: false,
                 type: 'linear',
                 position: 'bottom',
-                ticks: {beginAtZero: true}
-              }]
+                ticks: {beginAtZero: true,
+                max: dataset.length + 1}
+              }],
+              yAxes: [{
+            gridLines: {
+                display:false
+            }
+        }]
         }
     }
 });
 
     }
+
+
+    function getRunningAverageTime(data){
+
+      var timedata = [];
+      var ctimedata = [];
+      var avgtimedata = [];
+      var returnData = [];
+
+
+      for (var f in data){
+
+        timedata.push(data[f].y);
+
+      }
+
+      cTime = 0;
+
+      for (var i in timedata){
+
+        cTime += timedata[i];
+        ctimedata.push(cTime);
+      }
+
+      for (var j in ctimedata){
+
+        var index = Number(j) + 1;
+
+        var t = ctimedata[j]/index;
+
+        var obj = {x: index, y:t }
+
+        returnData.push(obj);
+
+      }
+
+
+
+      return returnData;
+
+
+    }
+
 
     function makeChart3(d){
 
@@ -260,12 +399,65 @@ var ctx = document.getElementById("chart1").getContext('2d');
                 },
             legend: {
                 display: false
-            }
+            },
+            scales: {
+       xAxes: [{
+           gridLines: {
+               display:false
+           }
+       }],
+       yAxes: [{
+           gridLines: {
+               display:false
+           }
+       }]
+   }
 
      };
     var lineChart = new Chart(ctx, {type: 'line', data: data, options: options});
 
     }
+
+
+
+        function makeChart4(d){
+
+
+
+           var ctx = document.getElementById("chart4").getContext('2d');
+
+           var data = {
+            labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+            datasets: d
+        };
+
+        // data { label: run id, data [array]}
+
+        var options = {
+          title: {
+                       display: true,
+                       text: '15km Split Pace'
+                    },
+                legend: {
+                    display: false
+                },
+                scales: {
+       xAxes: [{
+           gridLines: {
+               display:false
+           }
+       }],
+       yAxes: [{
+           gridLines: {
+               display:false
+           }
+       }]
+   }
+
+         };
+        var lineChart = new Chart(ctx, {type: 'line', data: data, options: options});
+
+        }
 
 
 

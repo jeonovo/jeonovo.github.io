@@ -1,0 +1,31 @@
+body {
+    padding: 0;
+    margin: 0;
+}
+
+.legend {
+    line-height: 20px;
+    color: white;
+    background: black;
+    border-radius: 25px;
+    padding: 20px;
+    opacity: 0.9;
+}
+.legend i {
+    width: 15px;
+    height: 15px;
+    float: left;
+    opacity: 0.9;
+}
+
+#map {
+	height: 500px;
+	width: 60%;
+	padding-bottom: 5px;
+    display: inline-block;
+	border-color: #eee #ddd #bbb;
+	border-radius: 5px;
+	border-style: solid;
+	border-width: 1px;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
