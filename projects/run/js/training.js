@@ -155,26 +155,53 @@ function init(){
 
           var runningdataset = [];
 
+          var max = 0;
+
+
+          for (var s in sheet_r){
+              var runid = Number(sheet_r[s].run);
+              if (runid > max){
+                max = runid;
+              }
+          }
+
+          var last3 = max - 3;
+
           for (var s in sheet_r){
               var runid = sheet_r[s].run;
               //console.log(String(sheet_r[s].one).replace(":","."))
               var pace = [
-                Number(String(sheet_r[s].one).replace(":",".")),
-                Number(String(sheet_r[s].two).replace(":",".")),
-                Number(String(sheet_r[s].three).replace(":",".")),
-                Number(String(sheet_r[s].four).replace(":",".")),
-                Number(String(sheet_r[s].five).replace(":",".")),
-                Number(String(sheet_r[s].six).replace(":",".")),
-                Number(String(sheet_r[s].seven).replace(":",".")),
-                Number(String(sheet_r[s].eight).replace(":",".")),
-                Number(String(sheet_r[s].nine).replace(":",".")),
-                Number(String(sheet_r[s].ten).replace(":",".")), ];
+                // Number(String(sheet_r[s].one).replace(":",".")),
+                // Number(String(sheet_r[s].two).replace(":",".")),
+                // Number(String(sheet_r[s].three).replace(":",".")),
+                // Number(String(sheet_r[s].four).replace(":",".")),
+                // Number(String(sheet_r[s].five).replace(":",".")),
+                // Number(String(sheet_r[s].six).replace(":",".")),
+                // Number(String(sheet_r[s].seven).replace(":",".")),
+                // Number(String(sheet_r[s].eight).replace(":",".")),
+                // Number(String(sheet_r[s].nine).replace(":",".")),
+                // Number(String(sheet_r[s].ten).replace(":",".")), ];
+
+                convertToSeconds(Number(String(sheet_r[s].one).replace(":","."))),
+                convertToSeconds(Number(String(sheet_r[s].two).replace(":","."))),
+                convertToSeconds(Number(String(sheet_r[s].three).replace(":","."))),
+                convertToSeconds(Number(String(sheet_r[s].four).replace(":","."))),
+                convertToSeconds(Number(String(sheet_r[s].five).replace(":","."))),
+                convertToSeconds(Number(String(sheet_r[s].six).replace(":","."))),
+                convertToSeconds(Number(String(sheet_r[s].seven).replace(":","."))),
+                convertToSeconds(Number(String(sheet_r[s].eight).replace(":","."))),
+                convertToSeconds(Number(String(sheet_r[s].nine).replace(":","."))),
+                convertToSeconds(Number(String(sheet_r[s].ten).replace(":","."))), ];
 
                 if (runid == "avg"){
-                  var obj = { label: runid, data: pace, fill: false, backgroundColor: 'orange', borderColor: 'orange', borderWidth: 3};
-                } else {
+                  var obj = { label: runid, data: pace, fill: false, backgroundColor: 'orange', borderColor: 'orange', borderWidth: 4, pointBorderColor: 'orange', pointBorderWidth: 4, pointRadius: 4};
+                // } else if (runid > last3) {
+                //
+                //   var obj = { label: runid, data: pace, fill: false, borderWidth: 3, borderColor: 'lightgrey', pointHoverBackgroundColor: 'pink', pointRadius: 0};
 
-                  var obj = { label: runid, data: pace, fill: false, borderWidth: 2, borderColor: 'lightgrey', pointHoverBackgroundColor: 'pink', pointRadius: 0 };
+              } else {
+
+                  var obj = { label: runid, data: pace, fill: false, borderWidth: 1.5, borderColor: 'lightgrey', pointHoverBackgroundColor: 'pink', pointRadius: 0 };
                 }
 
               runningdataset.push(obj);
@@ -203,27 +230,30 @@ function init(){
               var runid = sheet_r[s].run;
               //console.log(String(sheet_r[s].one).replace(":","."))
               var pace = [
-                Number(String(sheet_r[s].one).replace(":",".")),
-                Number(String(sheet_r[s].two).replace(":",".")),
-                Number(String(sheet_r[s].three).replace(":",".")),
-                Number(String(sheet_r[s].four).replace(":",".")),
-                Number(String(sheet_r[s].five).replace(":",".")),
-                Number(String(sheet_r[s].six).replace(":",".")),
-                Number(String(sheet_r[s].seven).replace(":",".")),
-                Number(String(sheet_r[s].eight).replace(":",".")),
-                Number(String(sheet_r[s].nine).replace(":",".")),
-                Number(String(sheet_r[s].ten).replace(":",".")),
-                Number(String(sheet_r[s].eleven).replace(":",".")),
-                Number(String(sheet_r[s].twelve).replace(":",".")),
-                Number(String(sheet_r[s].thirteen).replace(":",".")),
-                Number(String(sheet_r[s].fourteen).replace(":",".")),
-                Number(String(sheet_r[s].fifteen).replace(":","."))];
+
+                // when converting number here, doesnt convert 5:20 to 5.20 but to 5.2 which is then converted to 2 seconds later on rather than 20
+
+                convertToSeconds(Number(String(sheet_r[s].one).replace(":","."))),
+                convertToSeconds(Number(String(sheet_r[s].two).replace(":","."))),
+                convertToSeconds(Number(String(sheet_r[s].three).replace(":","."))),
+                convertToSeconds(Number(String(sheet_r[s].four).replace(":","."))),
+                convertToSeconds(Number(String(sheet_r[s].five).replace(":","."))),
+                convertToSeconds(Number(String(sheet_r[s].six).replace(":","."))),
+                convertToSeconds(Number(String(sheet_r[s].seven).replace(":","."))),
+                convertToSeconds(Number(String(sheet_r[s].eight).replace(":","."))),
+                convertToSeconds(Number(String(sheet_r[s].nine).replace(":","."))),
+                convertToSeconds(Number(String(sheet_r[s].ten).replace(":","."))),
+                convertToSeconds(Number(String(sheet_r[s].eleven).replace(":","."))),
+                convertToSeconds(Number(String(sheet_r[s].twelve).replace(":","."))),
+                convertToSeconds(Number(String(sheet_r[s].thirteen).replace(":","."))),
+                convertToSeconds(Number(String(sheet_r[s].fourteen).replace(":","."))),
+                convertToSeconds(Number(String(sheet_r[s].fifteen).replace(":",".")))];
 
                 if (runid == "avg"){
                   var obj = { label: runid, data: pace, fill: false, backgroundColor: 'red', borderColor: 'red', borderWidth: 3};
                 } else {
 
-                  var obj = { label: runid, data: pace, fill: false, borderWidth: 2, borderColor: 'lightgrey', pointHoverBackgroundColor: 'pink', pointRadius: 0 };
+                    var obj = { label: runid, data: pace, fill: false, borderWidth: 2, borderColor: 'lightgrey', pointHoverBackgroundColor: 'pink', pointRadius: 0};
                 }
 
               runningdataset.push(obj);
@@ -279,21 +309,32 @@ var ctx = document.getElementById("chart1").getContext('2d');
 
     function makeChart2(dataset){
 
-      avgdataset = getRunningAverageTime(dataset);
+      var tdata = [];
+
+      for (js in dataset){
+
+        var tobj = {x: dataset[js].x, y: convertToSeconds(dataset[js].y)};
+        tdata.push(tobj);
+
+      }
+
+      avgdataset = getRunningAverageTime(tdata);
 
        var ctx = document.getElementById("chart2").getContext('2d');
       var scatterChart = new Chart(ctx, {
     type: 'scatter',
     data: {
-      labels: [0,1,2,3,4,5,6,7,8,9],
         datasets: [{
             label: 'Run Pace',
-            data: dataset,
+            //data: dataset,
+            data: tdata,
             pointBackgroundColor: 'red',
             pointBorderColor:'red',
             pointBorderWidth: 1,
             pointRadius: 5
-        },{
+        }
+
+        ,{
           label: 'Avg Pace',
           data: avgdataset,
           pointBackgroundColor: 'blue',
@@ -304,10 +345,8 @@ var ctx = document.getElementById("chart1").getContext('2d');
           borderWidth: 3,
           borderColor: 'blue',
           showLine: true
-
-
-
-        }]
+        }
+      ]
     },
     options: {
       title: {
@@ -326,15 +365,28 @@ var ctx = document.getElementById("chart1").getContext('2d');
                 max: dataset.length + 1}
               }],
               yAxes: [{
+                ticks: {
+            userCallback: function(v) { return epoch_to_hh_mm_ss(v) }
+            //,stepSize: 60
+          },
             gridLines: {
                 display:false
             }
         }]
-        }
+      },
+      tooltips: {
+  callbacks: {
+    label: function(tooltipItem, data) {
+      return data.datasets[tooltipItem.datasetIndex].label + ': ' + epoch_to_hh_mm_ss(tooltipItem.yLabel)
+    }
+  }
+}
     }
 });
 
     }
+
+
 
 
     function getRunningAverageTime(data){
@@ -343,7 +395,6 @@ var ctx = document.getElementById("chart1").getContext('2d');
       var ctimedata = [];
       var avgtimedata = [];
       var returnData = [];
-
 
       for (var f in data){
 
@@ -362,27 +413,16 @@ var ctx = document.getElementById("chart1").getContext('2d');
       for (var j in ctimedata){
 
         var index = Number(j) + 1;
-
         var t = ctimedata[j]/index;
-
         var obj = {x: index, y:t }
-
         returnData.push(obj);
 
       }
-
-
-
       return returnData;
-
-
     }
 
 
     function makeChart3(d){
-
-
-
        var ctx = document.getElementById("chart3").getContext('2d');
 
        var data = {
@@ -407,11 +447,22 @@ var ctx = document.getElementById("chart1").getContext('2d');
            }
        }],
        yAxes: [{
+         ticks: {
+     userCallback: function(v) { return epoch_to_hh_mm_ss(v) }
+     //,stepSize: 60
+   },
            gridLines: {
                display:false
            }
        }]
-   }
+   },
+   tooltips: {
+callbacks: {
+ label: function(tooltipItem, data) {
+   return data.datasets[tooltipItem.datasetIndex].label + ': ' + epoch_to_hh_mm_ss(tooltipItem.yLabel)
+ }
+}
+}
 
      };
     var lineChart = new Chart(ctx, {type: 'line', data: data, options: options});
@@ -420,9 +471,8 @@ var ctx = document.getElementById("chart1").getContext('2d');
 
 
 
+
         function makeChart4(d){
-
-
 
            var ctx = document.getElementById("chart4").getContext('2d');
 
@@ -448,11 +498,22 @@ var ctx = document.getElementById("chart1").getContext('2d');
            }
        }],
        yAxes: [{
+         ticks: {
+     userCallback: function(v) { return epoch_to_hh_mm_ss(v) }
+     //,stepSize: 60
+   },
            gridLines: {
                display:false
            }
        }]
-   }
+   },
+   tooltips: {
+callbacks: {
+ label: function(tooltipItem, data) {
+   return data.datasets[tooltipItem.datasetIndex].label + ': ' + epoch_to_hh_mm_ss(tooltipItem.yLabel)
+ }
+}
+}
 
          };
         var lineChart = new Chart(ctx, {type: 'line', data: data, options: options});
@@ -460,6 +521,29 @@ var ctx = document.getElementById("chart1").getContext('2d');
         }
 
 
+function convertToSeconds(t){
+
+  t = String(t);
+
+  m = Number(t.substring(0,1));
+
+  // This doesnt handle multiples of 10 - i.e 5:50 -> 50 -> 5
+  s = Number(t.substring(2,t.length));
+
+  console.log(t.substring(2,t.length) + ": " + s);
+
+  ms = m * 60
+
+  rt = ms + s
+
+  return rt;
+
+
+}
+
+function epoch_to_hh_mm_ss(epoch) {
+return new Date(epoch*1000).toISOString().substr(14, 5);
+}
 
 
 function makeTable1(c,r){
