@@ -15,18 +15,22 @@ function init(){
            var runcount = 0;
            var totaldistance = 0;
            var totalseconds = 0;
+           var halfmdistance = 0;
            var fteendistance = 0;
            var tenkdistance = 0;
            var fivekdistance = 0;
+           var halfmseconds = 0;
            var fteenseconds = 0;
            var tenkseconds = 0;
            var fivekseconds = 0;
+           var halfmcount = 0;
            var fivecount = 0;
            var tencount = 0;
            var fteencount = 0;
            var progress = [];
            var fivekscatter = [];
            var tenkscatter = [];
+           var fteenkscatter = [];
            var columns = [
               { "name": "Run", "title": "Run"},
               { "name": "RunDate", "title": "RunDate" },
@@ -51,14 +55,20 @@ function init(){
 
             totaldistance += Number(sheet_3[j].Distance)
 
-            if (Number(sheet_3[j].Distance) > 15){
+            if (Number(sheet_3[j].Distance) > 21){
+
+              halfmcount +=1;
+              halfmseconds += Number(sheet_3[j].Seconds)
+              halfmdistance += Number(sheet_3[j].Metres)
+              var halfmobj = {x: halfmcount, y: Number(sheet_3[j].KPM)}
+
+            } else if (Number(sheet_3[j].Distance) > 15){
 
               fteencount +=1;
               fteenseconds += Number(sheet_3[j].Seconds)
               fteendistance += Number(sheet_3[j].Metres)
               var fteenobj = {x: fteencount, y: Number(sheet_3[j].KPM)}
-
-
+              fteenkscatter.push(fteenobj);
 
             } else if (Number(sheet_3[j].Distance) > 10){
 
@@ -89,8 +99,12 @@ function init(){
             setFive(fivecount, fivekseconds,fivekdistance);
             setTen(tencount,tenkseconds,tenkdistance);
             setFteen(fteencount, fteenseconds, fteendistance);
-            makeChart1(max);
+            setHalfM(halfmcount, halfmseconds, halfmdistance);
+            //makeChart1(max);
+            makeMonthGraph(progress);
             makeChart2(tenkscatter);
+            makeChart5(fivekscatter);
+            makeChart6(fteenkscatter);
             makeTable1(columns, progress);
         },
 
@@ -100,8 +114,8 @@ function init(){
 
     function setRuns(obj){
 
-        document.getElementById('day').innerHTML += "5:40";
-          //getRunPoints(1);
+        document.getElementById('rcount').innerHTML += obj;
+
     }
 
     function setTotalDistance(obj){
@@ -129,6 +143,14 @@ function init(){
       kpm = getPace(t,d);
 
         document.getElementById('fifteenk').innerHTML += c + " | " + kpm;
+
+    }
+
+    function setHalfM(c, t,d){
+
+      kpm = getPace(t,d);
+
+        document.getElementById('halfm').innerHTML += c + " | " + kpm;
 
     }
 
@@ -201,7 +223,7 @@ function init(){
 
               } else {
 
-                  var obj = { label: runid, data: pace, fill: false, borderWidth: 1.5, borderColor: 'lightgrey', pointHoverBackgroundColor: 'pink', pointRadius: 0 };
+                  var obj = { label: runid, data: pace, fill: false, borderWidth: 1.5, borderColor: 'lightgrey', pointRadius: 0, pointHoverRadius: 0 };
                 }
 
               runningdataset.push(obj);
@@ -253,7 +275,7 @@ function init(){
                   var obj = { label: runid, data: pace, fill: false, backgroundColor: 'red', borderColor: 'red', borderWidth: 3};
                 } else {
 
-                    var obj = { label: runid, data: pace, fill: false, borderWidth: 2, borderColor: 'lightgrey', pointHoverBackgroundColor: 'pink', pointRadius: 0};
+                    var obj = { label: runid, data: pace, fill: false, borderWidth: 2, borderColor: 'lightgrey', pointRadius: 0, pointHoverRadius: 0};
                 }
 
               runningdataset.push(obj);
@@ -270,38 +292,95 @@ function init(){
 
     }
 
-    function makeChart1(c,t){
+//     function makeChart1(c,t){
+//
+//     var currentMax = c
+//     var  targetM = 21 - c;
+//
+//
+// var ctx = document.getElementById("chart1").getContext('2d');
+//       var myDoughnutChart = new Chart(ctx, {
+//     type: 'doughnut',
+//     data : {
+//     datasets: [{
+//         data: [currentMax, targetM],
+//         backgroundColor : ['#ffd1dc','lightgrey'],
+//         borderColor: ['white', 'white']
+//     }],
+//     // These labels appear in the legend and in the tooltips when hovering different arcs
+//     labels: [
+//         'Furthest Ran',
+//         'Left To Run'
+//     ]},
+//     options: {
+//       title: {
+//               display: true,
+//               text: 'Half Marathon Target'
+//           },
+//     legend: {
+//             display: false
+//           },
+//     rotation: -1 * Math.PI ,
+//     circumference:  Math.PI
+//     }
+// });
+//
+//     }
 
-    var currentMax = c
-    var  targetM = 21 - c;
+    function makeMonthGraph(obj){
+
+      monthsarray = [1,2,3,4,5,6,7,8,9,10,11,12];
+      discount = [];
+
+        for (m in monthsarray){
+          cMonth = monthsarray[m];
+          dis = 0;
+          for (run in obj){
+            date = obj[run].RunDate;
+            datemonth = Number(date.substring(3,5));
+            if (datemonth == cMonth){
+              console.log(datemonth);
+              dis += obj[run].Distance;
+            }
+
+          }
+          discount.push(Math.round((dis)*100)/100);
+        }
 
 
-var ctx = document.getElementById("chart1").getContext('2d');
-      var myDoughnutChart = new Chart(ctx, {
-    type: 'doughnut',
-    data : {
-    datasets: [{
-        data: [currentMax, targetM],
-        backgroundColor : ['#ffd1dc','lightgrey'],
-        borderColor: ['white', 'white']
-    }],
-    // These labels appear in the legend and in the tooltips when hovering different arcs
-    labels: [
-        'Furthest Ran',
-        'Left To Run'
-    ]},
-    options: {
-      title: {
-              display: true,
-              text: 'Half Marathon Target'
-          },
-    legend: {
-            display: false
-          },
-    rotation: -1 * Math.PI ,
-    circumference:  Math.PI
-    }
-});
+  var ctx = document.getElementById("chart1").getContext('2d');
+   var myChart = new Chart(ctx, {
+   type: 'bar',
+   data: {
+   labels: monthsarray,
+   datasets: [{
+       label: 'distance',
+       data: discount,
+       backgroundColor: 'pink',
+       borderColor: 'black',
+       borderWidth: 1
+   }]
+   },
+   options: {
+   legend: {
+       display: false
+   },
+   title: {
+      display: true,
+      text: 'Distance per Month'
+   },
+   scales: {
+       yAxes: [{
+           gridLines:{ display: false},
+           ticks: {
+               beginAtZero:true
+           }
+       }],
+       xAxes: [{gridLines: {display: false}}]
+   }
+   }
+   });
+
 
     }
 
@@ -386,7 +465,163 @@ var ctx = document.getElementById("chart1").getContext('2d');
 
     }
 
+    function makeChart6(dataset){
 
+      var tdata = [];
+
+      for (js in dataset){
+
+        var tobj = {x: dataset[js].x, y: convertToSeconds(dataset[js].y)};
+        tdata.push(tobj);
+
+      }
+
+      avgdataset = getRunningAverageTime(tdata);
+
+       var ctx = document.getElementById("chart6").getContext('2d');
+      var scatterChart = new Chart(ctx, {
+    type: 'scatter',
+    data: {
+        datasets: [{
+            label: 'Run Pace',
+            //data: dataset,
+            data: tdata,
+            pointBackgroundColor: 'red',
+            pointBorderColor:'red',
+            pointBorderWidth: 1,
+            pointRadius: 5
+        }
+
+        ,{
+          label: 'Avg Pace',
+          data: avgdataset,
+          pointBackgroundColor: 'blue',
+          pointBorderColor:'blue',
+          pointBorderWidth: 0,
+          pointRadius: 0,
+          fill: false,
+          borderWidth: 3,
+          borderColor: 'blue',
+          showLine: true
+        }
+      ]
+    },
+    options: {
+      title: {
+                   display: true,
+                   text: '15km Run Pace'
+                },
+            legend: {
+                display: false
+            },
+        scales: {
+            xAxes: [{
+              display: false,
+                type: 'linear',
+                position: 'bottom',
+                ticks: {beginAtZero: true,
+                max: dataset.length + 1}
+              }],
+              yAxes: [{
+                ticks: {
+            userCallback: function(v) { return epoch_to_hh_mm_ss(v) }
+            //,stepSize: 60
+          },
+            gridLines: {
+                display:false
+            }
+        }]
+      },
+      tooltips: {
+  callbacks: {
+    label: function(tooltipItem, data) {
+      return data.datasets[tooltipItem.datasetIndex].label + ': ' + epoch_to_hh_mm_ss(tooltipItem.yLabel)
+    }
+  }
+}
+    }
+});
+
+    }
+
+    function makeChart5(dataset){
+
+      var tdata = [];
+
+      for (js in dataset){
+
+        var tobj = {x: dataset[js].x, y: convertToSeconds(dataset[js].y)};
+        tdata.push(tobj);
+
+      }
+
+      avgdataset = getRunningAverageTime(tdata);
+
+       var ctx = document.getElementById("chart5").getContext('2d');
+      var scatterChart = new Chart(ctx, {
+    type: 'scatter',
+    data: {
+        datasets: [{
+            label: 'Run Pace',
+            //data: dataset,
+            data: tdata,
+            pointBackgroundColor: 'red',
+            pointBorderColor:'red',
+            pointBorderWidth: 1,
+            pointRadius: 5
+        }
+
+        ,{
+          label: 'Avg Pace',
+          data: avgdataset,
+          pointBackgroundColor: 'blue',
+          pointBorderColor:'blue',
+          pointBorderWidth: 0,
+          pointRadius: 0,
+          fill: false,
+          borderWidth: 3,
+          borderColor: 'blue',
+          showLine: true
+        }
+      ]
+    },
+    options: {
+      title: {
+                   display: true,
+                   text: '5km Run Pace'
+                },
+            legend: {
+                display: false
+            },
+        scales: {
+            xAxes: [{
+              display: false,
+                type: 'linear',
+                position: 'bottom',
+                ticks: {beginAtZero: true,
+                max: dataset.length + 1}
+              }],
+              yAxes: [{
+                ticks: {
+            userCallback: function(v) { return epoch_to_hh_mm_ss(v) }
+            //,stepSize: 60
+          },
+            gridLines: {
+                display:false
+            }
+        }]
+      },
+      tooltips: {
+  callbacks: {
+    label: function(tooltipItem, data) {
+      return data.datasets[tooltipItem.datasetIndex].label + ': ' + epoch_to_hh_mm_ss(tooltipItem.yLabel)
+    }
+  }
+}
+    }
+});
+
+    }
 
 
     function getRunningAverageTime(data){
@@ -530,7 +765,7 @@ function convertToSeconds(t){
   // This doesnt handle multiples of 10 - i.e 5:50 -> 50 -> 5
   s = Number(t.substring(2,t.length));
 
-  console.log(t.substring(2,t.length) + ": " + s);
+  //console.log(t.substring(2,t.length) + ": " + s);
 
   ms = m * 60
 
