@@ -55,14 +55,14 @@ function init(){
 
             totaldistance += Number(sheet_3[j].Distance)
 
-            if (Number(sheet_3[j].Distance) > 21){
+            if (Number(sheet_3[j].Distance) >= 21){
 
               halfmcount +=1;
               halfmseconds += Number(sheet_3[j].Seconds)
               halfmdistance += Number(sheet_3[j].Metres)
               var halfmobj = {x: halfmcount, y: Number(sheet_3[j].KPM)}
 
-            } else if (Number(sheet_3[j].Distance) > 15){
+            } else if (Number(sheet_3[j].Distance) >= 15){
 
               fteencount +=1;
               fteenseconds += Number(sheet_3[j].Seconds)
@@ -70,7 +70,7 @@ function init(){
               var fteenobj = {x: fteencount, y: Number(sheet_3[j].KPM)}
               fteenkscatter.push(fteenobj);
 
-            } else if (Number(sheet_3[j].Distance) > 10){
+            } else if (Number(sheet_3[j].Distance) >= 10){
 
               tencount +=1;
               tenkseconds += Number(sheet_3[j].Seconds)
