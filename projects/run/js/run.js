@@ -38,7 +38,7 @@ function init(){
 
             totaldistance += Number(sheet_3[j].Distance)
 
-            if (Number(sheet_3[j].Distance) > 10){
+            if (Number(sheet_3[j].Distance) >= 10){
 
               tencount +=1;
               tenkseconds += Number(sheet_3[j].Seconds)
