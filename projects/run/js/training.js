@@ -5,6 +5,7 @@ var code4 = "1AZWrWbR07dp5Qqr0HPspndVBfT_vRhNTCk-8pLBlS8s";
 var map;
 var points = [];
 var runLayer = L.featureGroup();
+var yearTarget = 1000;
 
 function init(){
 
@@ -62,7 +63,7 @@ function init(){
               halfmdistance += Number(sheet_3[j].Metres)
               var halfmobj = {x: halfmcount, y: Number(sheet_3[j].KPM)}
 
-            } else if (Number(sheet_3[j].Distance) >= 15){
+          } else if (Number(sheet_3[j].Distance) >= 15){
 
               fteencount +=1;
               fteenseconds += Number(sheet_3[j].Seconds)
@@ -70,7 +71,7 @@ function init(){
               var fteenobj = {x: fteencount, y: Number(sheet_3[j].KPM)}
               fteenkscatter.push(fteenobj);
 
-            } else if (Number(sheet_3[j].Distance) >= 10){
+          } else if (Number(sheet_3[j].Distance) >= 10){
 
               tencount +=1;
               tenkseconds += Number(sheet_3[j].Seconds)
@@ -102,9 +103,11 @@ function init(){
             setHalfM(halfmcount, halfmseconds, halfmdistance);
             //makeChart1(max);
             makeMonthGraph(progress);
-            makeChart2(tenkscatter);
+            makeTargetGraph(progress);
             makeChart5(fivekscatter);
-            makeChart6(fteenkscatter);
+            makeChart2(tenkscatter);
+
+            //makeChart6(fteenkscatter);
             makeTable1(columns, progress);
         },
 
@@ -368,6 +371,101 @@ function init(){
    title: {
       display: true,
       text: 'Distance per Month'
+   },
+   scales: {
+       yAxes: [{
+           gridLines:{ display: false},
+           ticks: {
+               beginAtZero:true
+           }
+       }],
+       xAxes: [{gridLines: {display: false}}]
+   }
+   }
+   });
+
+
+    }
+
+
+    function makeTargetGraph(obj){
+
+      monthsarray = [1,2,3,4,5,6,7,8,9,10,11,12];
+      targetArray = [];
+      dissum = [];
+      sum =0;
+
+      tdis = 0;
+
+      for (j in monthsarray){
+
+        tmd = yearTarget / 12;
+
+        tdis += tmd;
+
+        targetArray.push(tdis);
+
+      }
+
+        for (m in monthsarray){
+          cMonth = monthsarray[m];
+          dis = 0;
+          for (run in obj){
+            date = obj[run].RunDate;
+            datemonth = Number(date.substring(3,5));
+            if (datemonth == cMonth){
+              console.log(datemonth);
+              dis += obj[run].Distance;
+
+            }
+
+          }
+          sum += dis;
+          dissum.push(Math.round((sum)*100)/100);
+        }
+
+
+  var ctx = document.getElementById("targetchart").getContext('2d');
+   var myChart = new Chart(ctx, {
+   type: 'line',
+   data: {
+   labels: monthsarray,
+   datasets: [{
+       label: 'distance',
+       data: dissum,
+       backgroundColor: 'pink',
+       borderColor: 'pink',
+       pointBorderColor: 'black',
+       pointRadius: 5,
+       pointBorderWidth: 2,
+       borderWidth: 3,
+       fill: false
+   },{
+       label: 'distance',
+       data: targetArray,
+       backgroundColor: 'pink',
+       borderColor: 'lightgrey',
+       pointRadius: 0,
+       borderWidth: 2,
+       fill: false
+   }]
+   },
+   options: {
+     tooltips: {
+              callbacks: {
+                label: function(tooltipItem) {
+                //  console.log(tooltipItem)
+                  return  "Ran: " + dissum[tooltipItem.index] + " - "
+                  + "Target: " + targetArray[tooltipItem.index];
+              }
+            }
+          },
+   legend: {
+       display: false
+   },
+   title: {
+      display: true,
+      text: 'Total Distance'
    },
    scales: {
        yAxes: [{
