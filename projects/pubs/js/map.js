@@ -111,7 +111,7 @@ function initMap(){
         info.update();
 
         var geoStyle = {
-            radius: 8,
+            radius: 6,
             fillColor: "#ec1022",
             color: "#000",
             weight: 1,
