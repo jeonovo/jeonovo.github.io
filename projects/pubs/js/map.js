@@ -34,8 +34,8 @@ function initMap(){
 
 
   map = L.map('map', {
-		zoom: 10,
-        center: [53.8016861, -1.5610127],
+		zoom: 8,
+                center: [53.428674, -2.804564],
 		layers: toner
 	});
 
