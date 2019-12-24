@@ -72,7 +72,6 @@ function initMap(){
 
     function getData(value){
         data = [];
-        console.log("get data");
         // loop through spreadsheet with Tabletop
             Tabletop.init({
                 key: code,
