@@ -73,9 +73,18 @@ function initMap(){
     function getData(value){
         data = [];
         // loop through spreadsheet with Tabletop
-            Tabletop.init({
-                key: code,
-                callback: function(sheet, tabletop){
+           // Tabletop.init({
+	    Papa.parse('https://docs.google.com/spreadsheets/d/e/2PACX-1vQtlacn_Wo3gKG7wgmqHdvqo-wvJ65aCMXSK6I8rD5BnXtfxM1D2wAiLQodXyHxyepRxW3OgzB0yGYR/pub?output=csv',{
+              //  key: code,
+		   download:true,
+		    header: true,
+		    complete: function(results){
+			    var data = results.data
+			    console.log(data)
+			    
+		    }})
+                //callback: function(sheet, tabletop){
+	    window.addEventListener('DOMContentLoaded', init)
                 data = [];
                 if (typeof gj != "undefined"){
                     map.removeLayer(gj);
