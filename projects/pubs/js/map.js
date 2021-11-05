@@ -219,6 +219,5 @@ function getAverageRating(){
 function setSliderValue(value){
     sliderValue = value;
 
-}
 
 }
