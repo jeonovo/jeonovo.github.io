@@ -117,7 +117,7 @@ function initMap(){
             layer.bindTooltip(feature.properties.title + ": " + feature.properties.rating)
         }
 
-        //info.update();
+        info.update();
 
         var geoStyle = {
             radius: 6,
