@@ -76,16 +76,12 @@ function initMap(){
         data = [];
         
 	    Papa.parse('https://docs.google.com/spreadsheets/d/e/2PACX-1vQtlacn_Wo3gKG7wgmqHdvqo-wvJ65aCMXSK6I8rD5BnXtfxM1D2wAiLQodXyHxyepRxW3OgzB0yGYR/pub?output=csv',{
-            
-		   download:true,
+            download:true,
 		    header: true,
 		    complete: function(results){
 			    sheet = results.data
-			    console.log(sheet)
-			    
+			    console.log(sheet)    
 		    }})
-       
-	    
                 data = [];
                 if (typeof gj != "undefined"){
                     map.removeLayer(gj);
@@ -102,10 +98,10 @@ function initMap(){
                     //make them all a turf point
                   //data.addLayer(L.marker([sheet[i].lat, sheet[i].lng]).bindPopup(sheet[i].pubName))
                     }
-                }
-                setData(data);
-    		}
-	
+			
+			setData(data);
+                
+    	}
     }
 
     function setData(dataArray){
@@ -116,7 +112,7 @@ function initMap(){
             layer.bindTooltip(feature.properties.title + ": " + feature.properties.rating)
         }
 
-        info.update();
+        //info.update();
 
         var geoStyle = {
             radius: 6,
