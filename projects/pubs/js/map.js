@@ -3,6 +3,8 @@ var code = "1iu4HALT16VaYxQp200oDE8mA6yal_Yf4GsMN9bW7-Z8"
 
 function initMap(){
 	
+	sheet = [];
+	
 	//window.addEventListener('DOMContentLoaded', getData)
 
 
