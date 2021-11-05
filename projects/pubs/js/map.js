@@ -2,6 +2,8 @@ var map, data, gj, info, sliderValue;
 var code = "1iu4HALT16VaYxQp200oDE8mA6yal_Yf4GsMN9bW7-Z8"
 
 function initMap(){
+	
+	window.addEventListener('DOMContentLoaded', init)
 
 
   var toner = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.{ext}', {
@@ -72,10 +74,9 @@ function initMap(){
 
     function getData(value){
         data = [];
-        // loop through spreadsheet with Tabletop
-           // Tabletop.init({
+        
 	    Papa.parse('https://docs.google.com/spreadsheets/d/e/2PACX-1vQtlacn_Wo3gKG7wgmqHdvqo-wvJ65aCMXSK6I8rD5BnXtfxM1D2wAiLQodXyHxyepRxW3OgzB0yGYR/pub?output=csv',{
-              //  key: code,
+            
 		   download:true,
 		    header: true,
 		    complete: function(results){
@@ -83,8 +84,8 @@ function initMap(){
 			    console.log(data)
 			    
 		    }})
-                //callback: function(sheet, tabletop){
-	    window.addEventListener('DOMContentLoaded', init)
+       
+	    
                 data = [];
                 if (typeof gj != "undefined"){
                     map.removeLayer(gj);
@@ -103,9 +104,8 @@ function initMap(){
                     }
                 }
                 setData(data);
-               }
-               // ,simpleSheet: true
-            });
+    		}
+	}
     }
 
     function setData(dataArray){
