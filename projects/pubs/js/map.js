@@ -103,8 +103,8 @@ function initMap(){
                     }
                 }
                 setData(data);
-                },
-                simpleSheet: true
+               }
+               // ,simpleSheet: true
             });
     }
 
