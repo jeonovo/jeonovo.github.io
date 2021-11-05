@@ -83,7 +83,7 @@ function initMap(){
 		    complete: function(results){
 			    sheet = results.data
 			    //console.log(sheet)    
-		    }})
+		    }
                 data = [];
                 if (typeof gj != "undefined"){
                     map.removeLayer(gj);
@@ -105,7 +105,7 @@ function initMap(){
 		console.log(data); 
 			setData(data);
                 
-    	}
+    	});
 	
 	
 	
