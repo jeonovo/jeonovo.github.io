@@ -100,12 +100,12 @@ function initMap(){
                     }
 			
 		}
-		
+		console.log(data); 
+			setData(data);
                 
     	}
 	
-	console.log(data); 
-			setData(data);
+	
 	
     }
 
