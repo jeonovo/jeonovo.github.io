@@ -108,7 +108,7 @@ function initMap(){
     	});
 	
 	
-	
+}
     }
 
     function setData(dataArray){
