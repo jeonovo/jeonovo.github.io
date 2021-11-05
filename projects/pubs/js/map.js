@@ -73,7 +73,7 @@ function initMap(){
 
     info.addTo(map);
 
-
+}
     function getData(value){
         data = [];
         
@@ -106,10 +106,8 @@ function initMap(){
 			setData(data);
                 
     	});
-	
-	
+		
 }
-    }
 
     function setData(dataArray){
         // create a geojson from the features
