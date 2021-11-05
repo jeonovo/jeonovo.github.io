@@ -101,9 +101,11 @@ function initMap(){
 			console.log(data); 
 			setData(data);
 		}
-			
+			console.log("1");
                 
     	}
+	
+	console.log("2");
 	
     }
 
