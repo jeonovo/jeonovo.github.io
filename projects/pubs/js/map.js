@@ -98,14 +98,14 @@ function initMap(){
                     //make them all a turf point
                   //data.addLayer(L.marker([sheet[i].lat, sheet[i].lng]).bindPopup(sheet[i].pubName))
                     }
-			console.log(data); 
-			setData(data);
+			
 		}
-			console.log("1");
+		
                 
     	}
 	
-	console.log("2");
+	console.log(data); 
+			setData(data);
 	
     }
 
