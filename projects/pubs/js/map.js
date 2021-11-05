@@ -80,7 +80,7 @@ function initMap(){
 		    header: true,
 		    complete: function(results){
 			    sheet = results.data
-			    console.log(sheet)    
+			    //console.log(sheet)    
 		    }})
                 data = [];
                 if (typeof gj != "undefined"){
