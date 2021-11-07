@@ -1,11 +1,8 @@
 var sheet, map, data, gj, info, sliderValue, noloc;
-//var code = "1iu4HALT16VaYxQp200oDE8mA6yal_Yf4GsMN9bW7-Z8"
 
 function initMap(){
-	
+	data = [];
 	sheet = []; 
-	
-	//window.addEventListener('DOMContentLoaded', getData)
 
 
   var toner = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.{ext}', {
