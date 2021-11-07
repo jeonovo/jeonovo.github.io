@@ -1,5 +1,5 @@
 var sheet, map, data, gj, info, sliderValue, noloc;
-var code = "1iu4HALT16VaYxQp200oDE8mA6yal_Yf4GsMN9bW7-Z8"
+//var code = "1iu4HALT16VaYxQp200oDE8mA6yal_Yf4GsMN9bW7-Z8"
 
 function initMap(){
 	
@@ -93,7 +93,7 @@ function initMap(){
                     var rating = Number(sheet[i].pubRating);
                     if (rating >= value){
                         var lng = Number(sheet[i].lng);
-			    if (lng = 0){noloc = noloc + 1;}
+			    if (lng == 0){noloc = noloc + 1;}
                         var lat = Number(sheet[i].lat);
                         var pub = sheet[i].pubName;
                         var note = sheet[i].notes
