@@ -1,9 +1,9 @@
-var sheet, map, data, gj, info, sliderValue;
+var sheet, map, data, gj, info, sliderValue, noloc;
 var code = "1iu4HALT16VaYxQp200oDE8mA6yal_Yf4GsMN9bW7-Z8"
 
 function initMap(){
 	
-	sheet = [];
+	sheet = []; 
 	
 	//window.addEventListener('DOMContentLoaded', getData)
 
@@ -75,7 +75,8 @@ function initMap(){
 
 }
     function getData(value){
-        data = [];
+	    
+	   noloc = 0; 
         
 	    Papa.parse('https://docs.google.com/spreadsheets/d/e/2PACX-1vQtlacn_Wo3gKG7wgmqHdvqo-wvJ65aCMXSK6I8rD5BnXtfxM1D2wAiLQodXyHxyepRxW3OgzB0yGYR/pub?output=csv',{
             download:true,
@@ -92,17 +93,20 @@ function initMap(){
                     var rating = Number(sheet[i].pubRating);
                     if (rating >= value){
                         var lng = Number(sheet[i].lng);
+			    if (lng = 0){noloc = noloc + 1;}
                         var lat = Number(sheet[i].lat);
                         var pub = sheet[i].pubName;
                         var note = sheet[i].notes
                         var marker = turf.point([lng,lat], {"title": pub, "rating":rating, "notes": note});
                         data.push(marker);
+			
                     //make them all a turf point
                   //data.addLayer(L.marker([sheet[i].lat, sheet[i].lng]).bindPopup(sheet[i].pubName))
                     }
 			
 		}
 		console.log(data); 
+			    console.log(noloc); 
 			setData(data);
 		    }   
     	});
