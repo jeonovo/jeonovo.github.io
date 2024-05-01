@@ -5,30 +5,17 @@ function initMap(){
 	sheet = []; 
 
 
-  var toner = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.{ext}', {
-	     attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">'+
-        'CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-	   subdomains: 'abcd',
-	   minZoom: 0,
-	   maxZoom: 20,
-	   ext: 'png'
-    });
+
 
     var colour = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 	maxZoom: 19,
 	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 });
 
-    var Thunderforest_Pioneer = L.tileLayer('https://{s}.tile.thunderforest.com/pioneer/{z}/{x}/{y}.png?apikey={apikey}', {
-	       attribution: '&copy; <a href="http://www.thunderforest.com/">Thunderforest</a>, &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-	   apikey: 'a18b589d244e4b968a05cd7c141c190b',
-	   maxZoom: 22
-    });
+    
 
     var baseMaps = {
-    "Toner": toner,
-    "Colour": colour,
-    "Pioneer": Thunderforest_Pioneer
+    "Colour": colour
     };
 
 
@@ -37,7 +24,7 @@ function initMap(){
   map = L.map('map', {
 		zoom: 6,
                 center: [53.8016914,-1.5586626],
-		layers: toner
+		layers: colour
 	});
 
     LayerControl = L.control.layers(baseMaps,null,{position: 'topleft'});
